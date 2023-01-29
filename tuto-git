@@ -7,20 +7,19 @@ Etapes pour créer notre GIT :
 
 Commandes principales :
 
-git init //transforme notre dossier en dépôt git
+1.git init //transforme notre dossier en dépôt git
 
-touch readme.md //crée le fichier readme.md
+2.touch readme.md //crée le fichier readme.md
 
-git add readme.md //ajoute ce fichier à notre git (--all pour ajouter tous les fichiers)
+3.git add readme.md //ajoute ce fichier à notre git (--all pour ajouter tous les fichiers)
 
 git status  //renvoie l’état de notre dossier
 
-git commit //permet d’enregistrer un historique de l’état actuel et	l’affiche, on utilisera principalement l'option -m (-m "message" pour afficher un message)( pour quitter la commande il faut faire :wq)
+4.git commit //permet d’enregistrer un historique de l’état actuel et	l’affiche, on utilisera principalement l'option -m (-m "message" pour afficher un message)( pour quitter la commande il faut faire :wq)
 
-git pull //
+5.git pull //récupère les commits et les fusionne dans notre dépôt
 
-git push //
-
+6.git push //permet de publier les chagements effectués vers notre dépôt
 
 
 Autres commandes moins utilisées :
