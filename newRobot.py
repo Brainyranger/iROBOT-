@@ -10,26 +10,21 @@ class Robot:
             self.h = orientation
             self.vitesse_max = speed
 
-    def vitesse(x,y,dt):
-        vx=(x+1-x)/dt
-        vy=(y+1-y)/dt
-        vitesse=sqrt((vx**2)+(vy**2)) 
-
-    def movement_avancer_x(self,temps):
+    def movement_avancer_x(self):
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
-        self.x = self.x+vitesse(self.x,self.y,temps)*temps
+        self.x += (self.x * math.cos(self.h)) - (self.y * math.sin(self.h))
 
-    def movement_arriere_x(self,temps):
+    def movement_arriere_x(self):
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
-        self.x = self.x-vitesse(self.x,self.y,temps)*temps
+        self.x -= (self.x * math.cos(self.h)) - (self.y * math.sin(self.h))
 
-    def movement_descend_y(self,temps):
+    def movement_descend_y(self):
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
-        self.y = self.y+vitesse(self.x,self.y,temps)*temps
+        self.y -= (self.x * math.sin(self.h)) + (self.y * math.cos(self.h))
 
-    def movement_monte_y(self,temps):
+    def movement_monte_y(self):
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
-        self.y = (self.y)-vitesse(self.x,self.y,temps)*temps
+        self.y += (self.x * math.sin(self.h)) + (self.y * math.cos(self.h))
 
     def tourner_droite(self):
         self.h = -90
