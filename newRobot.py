@@ -26,3 +26,7 @@ class Robot:
     def movement_descend_y(self,temps):
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
         self.y = self.y+vitesse(self.x,self.y,temps)*temps
+
+    def movement_monte_y(self,temps):
+        #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
+        self.y = (self.y)-vitesse(self.x,self.y,temps)*temps
