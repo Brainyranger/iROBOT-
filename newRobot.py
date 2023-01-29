@@ -14,3 +14,7 @@ class Robot:
         vx=(x+1-x)/dt
         vy=(y+1-y)/dt
         vitesse=sqrt((vx**2)+(vy**2)) 
+
+    def movement_avancer_x(self,temps):
+        #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
+        self.x = self.x+vitesse(self.x,self.y,temps)*temps
