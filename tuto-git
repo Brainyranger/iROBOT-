@@ -1,0 +1,35 @@
+Création de notre GIT:
+
+Chaque utilisateur va avoir un historique du projet, on va pouvoir modifier un fichier sur notre historique et l’envoyer à un serveur central qui regroupe ses modifications. 
+Ainsi, on sauvegarde chaque étape de notre projet.
+
+Etapes pour créer notre GIT :
+
+git init //transforme notre dossier en dépôt git
+
+git config --global user.email "gregtoudon@gmail.com" //ajoute un mail
+git config --global user.name "Grégoire"  //initialise le nom
+
+touch readme.md //crée le fichier readme.md
+
+git add readme.md //ajoute ce fichier à notre git (--all pour ajouter tous)
+
+git status  //renvoie l’état de notre dossier
+
+git commit //permet d’enregistrer un historique de l’état actuel et							l’affiche ( pour quitter la commande il faut faire :wq) (-m "message" pour afficher un message)
+
+git branch "message" //crée la branche message
+
+git branch -v //affiche les branches
+
+git checkout branche1 //sélectionne la branche1
+
+git log //historique des commit
+
+git rm fichier //supprime le fichier
+
+git log -p readme.md //historique des différentes modifications
+
+git diff //historique des modifications entre fichiers
+
+Lien vers le tuto des commandes complet : https://github.com/baskiotisn/2IN013robot2022/blob/main/docs/tutoriel_git.pdf
