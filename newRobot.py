@@ -18,3 +18,7 @@ class Robot:
     def movement_avancer_x(self,temps):
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
         self.x = self.x+vitesse(self.x,self.y,temps)*temps
+
+    def movement_arriere_x(self,temps):
+        #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
+        self.x = self.x-vitesse(self.x,self.y,temps)*temps
