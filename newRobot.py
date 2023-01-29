@@ -33,3 +33,6 @@ class Robot:
 
     def tourner_droite(self):
         self.h = -90
+
+    def tourner_gauche(self):
+        self.h = 90
