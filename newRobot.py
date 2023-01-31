@@ -34,7 +34,7 @@ class Robot:
         self.Vx = vx
         self.Vy = vy
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
-        self.y -= (Vx * math.sin(self.h)) + (self.y * math.cos(self.h))
+        self.y -= (Vx * math.sin(self.h)) + (self.Vy * math.cos(self.h))
 
     def tourner_droite(self):
         self.h = -90
@@ -42,11 +42,11 @@ class Robot:
     def tourner_gauche(self):
         self.h = 90
 
-    def move(self, vx, vy):
-        a = vx
-        b = vy
-        if (sqrt(a**2+b**2)>0):
-            a = vx * self.vitesse_max 
-            b = vy * self.vitesse_max 
-        robot.Vx = a
-        robot.Vy = b
+    #def move(self, vx, vy):
+    #    a = vx
+    #    b = vy
+    #    if (sqrt(a**2+b**2)>0):
+    #        a = vx * self.vitesse_max 
+    #        b = vy * self.vitesse_max 
+    #    robot.Vx = a
+    #    robot.Vy = b
