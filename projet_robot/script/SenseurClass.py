@@ -6,7 +6,7 @@ class Senseur:
 
     def __init__(self, sensor_range, map):
         self.sensor_range = sensor_range
-        self.map_width, self.map_height= pygamr.display.get_surface().get_size()
+        self.map_width, self.map_height= pygame.display.get_surface().get_size()
         self.map = map
     
     def sense_obstacles(self, x, y, heading):
@@ -26,7 +26,7 @@ class Senseur:
                 if 0 < x < self.map_width and 0 < y < self.map_height:
                     color = self.map.get_at((x,y))
                     self.map.set_at((x,y), (0, 208, 255))
-                    if (colour[0], colour[1], colour[2]) == (0,0,0):
-                        obstacale.append([x,y])
+                    if (color[0], color[1], color[2]) == (0,0,0):
+                        obstacles.append([x,y])
                         break
         return obstacles

@@ -1,7 +1,7 @@
 import pygame
 import math
     
-class Robot:
+class newRobot:
     
     def __init__(self,x,y,orientation,speed) -> None:
             
@@ -34,7 +34,7 @@ class Robot:
         self.Vx = vx
         self.Vy = vy
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
-        self.y -= (Vx * math.sin(self.h)) + (self.Vy * math.cos(self.h))
+        self.y -= (vx * math.sin(self.h)) + (self.Vy * math.cos(self.h))
 
     def tourner_droite(self):
         self.h = -90

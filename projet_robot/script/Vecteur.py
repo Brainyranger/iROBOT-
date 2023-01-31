@@ -1,20 +1,20 @@
-from math import *
+import math
 import numpy as np
 class Vecteur:
     def __init__(self, x, y):
         self.x = x
         self.y = y
     def norm(self):
-        return sqrt(self.x**2 + self.y**2)
+        return math.sqrt(self.x**2 + self.y**2)
     def rotation_vecteur(self,angle):
         Vx = (self.x * math.cos(angle)) - (self.y * math.sin(angle))
         vy = (self.x * math.sin(angle)) + (self.y * math.cos(angle))
         self.x = Vx
-        self.y = Vy
+        self.y = vy
     def produit_scalaire(self,other):
         return ((self.x * other.x) +(self.y * other.y))
     def produit_vectoriel(self,other):
-       pX = (self.x * other.x)+(self.x * other.y)
+        pX = (self.x * other.x)+(self.x * other.y)
         pY = (self.y * other.x)+(self.y * other.y)
         print(pX,pY)
         return Vecteur(pX,pY)
