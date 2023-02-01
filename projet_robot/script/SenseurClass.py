@@ -10,6 +10,7 @@ class Senseur:
         self.map = map
     
     def sense_obstacles(self, x, y, heading):
+        """ permet au senseur de detecter les obstacle """
         obstacles = []
         x1, y1 = x, y
         # on définit l'angle du senseur:
