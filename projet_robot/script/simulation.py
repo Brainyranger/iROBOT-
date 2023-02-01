@@ -1,5 +1,6 @@
 import pygame
-from projet_robot.script.Graphic import Graphic
+from Graphic import *
+from newRobot import *
         
 class Simulation:
     
@@ -7,7 +8,8 @@ class Simulation:
         self.surface_map = surface_map
         self.running = True
         self.clock = pygame.time.Clock()
-        self.robot = Graphic(0,0)
+        self.robot = Graphics(0,0)
+        self.robot2 = Graphics(50,300)
     
             
     def event_gestion(self):
@@ -38,9 +40,18 @@ class Simulation:
     def display(self):
         self.surface_map.fill("White")
         self.robot.draw_robot(self.surface_map)
+        self.robot2.draw_robot(self.surface_map)
         #draw obstacle
         self.robot.draw_obstacle(self.surface_map,200,200)
         self.robot.draw_obstacle(self.surface_map,100,80)
         self.robot.draw_obstacle(self.surface_map,400,200)
         pygame.display.flip()
         
+    def run(self):
+        while self.running:
+            self.event_gestion()
+            self.event_update()
+            self.display()
+            self.clock.tick(10)
+            
+            
