@@ -13,33 +13,39 @@ class newRobot:
             self.vitesse_max = speed
 
     def movement_avancer_x(self,vx,vy):
+        """ fait avancer le robot """
         self.Vx = vx
         self.Vy = vy
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
         self.x += (self.Vx * math.cos(self.h)) - (self.Vy * math.sin(self.h))
 
     def movement_arriere_x(self,vx,vy):
+        """ fait reculer le robot """
         self.Vx = vx
         self.Vy = vy
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
         self.x -= (self.Vx * math.cos(self.h)) - (self.Vy * math.sin(self.h))
 
     def movement_descend_y(self,vx,vy):
+        """ fait decendre le robot """
         self.Vx = vx
         self.Vy = vy
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
         self.y += (self.Vx * math.sin(self.h)) + (self.Vy * math.cos(self.h))
 
     def movement_monte_y(self,vx,vy):
+        """ fait monter le robot """
         self.Vx = vx
         self.Vy = vy
         #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
         self.y -= (vx * math.sin(self.h)) + (self.Vy * math.cos(self.h))
 
     def tourner_droite(self):
+        """ tourne le robot vers la droite """
         self.h = -90
 
     def tourner_gauche(self):
+        """ tourne le robot vers la gauche """
         self.h = 90
 
     #def move(self, vx, vy):
