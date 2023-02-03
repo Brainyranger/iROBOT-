@@ -1,8 +1,8 @@
 import pygame
 from simulation import Simulation
-from Graphic import Graphics
+from Obstacle import *
 from newRobot import newRobot
-from SenseurClass import Senseur
+from Senseur import Senseur
 
 # création de l'environnemnt :
 pygame.init()

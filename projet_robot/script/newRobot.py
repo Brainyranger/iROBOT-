@@ -1,6 +1,6 @@
 import pygame
 import math
-from Graphic import *
+
     
 class newRobot:
     
@@ -13,7 +13,13 @@ class newRobot:
             self.vitesse_max = speed
             self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/script/images.jpg")
             self.rect = self.robot.get_rect(x=x,y=y)
-            
+            self.speed = 5
+            self.velocity = [0,0]
+    
+    def move(self): 
+        """ deplacer le robot"""        
+        self.rect.move_ip(self.velocity[0]*self.speed,self.velocity[1]*self.speed) 
+        
     def movement_avancer_x(self,vx,vy):
         """ fait avancer le robot """
         self.Vx = vx
