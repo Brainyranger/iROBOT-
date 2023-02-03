@@ -4,15 +4,16 @@ from Graphic import *
     
 class newRobot:
     
-    def __init__(self,x,y,orientation,speed) -> None:
-            self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/script/images.jpg") 
+    def __init__(self,x,y,orientation,speed) -> None: 
             self.x = x
             self.y = y
             self.h = orientation
             self.Vx = 0
             self.Vy = 0
             self.vitesse_max = speed
+            self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/script/images.jpg")
             self.rect = self.robot.get_rect(x=x,y=y)
+            
     def movement_avancer_x(self,vx,vy):
         """ fait avancer le robot """
         self.Vx = vx
@@ -57,9 +58,7 @@ class newRobot:
     #        b = vy * self.vitesse_max 
     #    robot.Vx = a
     #    robot.Vy = b
-<<<<<<< HEAD
     
     def draw_robot(self,screen):
+        """affiche le robot"""
         screen.blit(self.robot,self.rect)
-=======
->>>>>>> 1dee9f6ed146efd1eb070689f70da4638e8a7b65

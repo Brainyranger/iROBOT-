@@ -1,15 +1,14 @@
 import pygame
 import math
 
-        
+
+global list_obs
+       
 class Graphics:
+
     def __init__(self,x,y)-> None:
-<<<<<<< HEAD
-        self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/script/images.jpg") 
-=======
-        """inissialise le robot"""
-        self.robot = pygame.image.load("images.jpg") 
->>>>>>> 1dee9f6ed146efd1eb070689f70da4638e8a7b65
+        self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/script/images.jpg")
+ 
         self.rect = self.robot.get_rect(x=x,y=y)
         self.speed = 5
         self.velocity = [0,0]
@@ -24,12 +23,11 @@ class Graphics:
         screen.blit(self.robot,self.rect)
     
     def draw_obstacle(self,screen,x,y):
-<<<<<<< HEAD
+        
         self.rect_obs = self.obstacle.get_rect(x=x,y=y)
-=======
-        """affiche les obstacles"""        
-        self.rect_obs = self.obstacle.get_rect((x,y))
->>>>>>> 1dee9f6ed146efd1eb070689f70da4638e8a7b65
+        
+        #self.rect_obs = self.obstacle.get_rect((x,y))
+
         screen.blit(self.obstacle,self.rect_obs)
         
 
