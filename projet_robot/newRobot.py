@@ -1,5 +1,6 @@
 import pygame
 import math
+from Senseur import *
 
     
 class newRobot:
@@ -11,7 +12,7 @@ class newRobot:
             self.Vx = 0
             self.Vy = 0
             self.vitesse_max = speed
-            self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/script/images.jpg")
+            self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/images.jpg")
             self.rect = self.robot.get_rect(x=x,y=y)
             self.speed = 5
             self.velocity = [0,0]

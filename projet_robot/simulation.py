@@ -1,6 +1,8 @@
 import pygame
+import sys
 from Obstacle import *
 from newRobot import *
+from Senseur import *
         
 class Simulation:
     
@@ -13,12 +15,14 @@ class Simulation:
         self.obstacle1 = Obstacle(200,300)
         self.obstacle2 = Obstacle(100,80)
         self.obstacle3 = Obstacle(400,200)
+        self.list_obs = [[200,300],[100,80],[400,200]]
     
             
     def event_gestion(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+    
         
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
@@ -35,9 +39,9 @@ class Simulation:
         else:
             self.robot.velocity[1] = 0
                    
-
     def event_update(self):
         self.robot.move()
+        Senseur.sense_obstacles(Senseur,self.robot,self.list_obs)
             
     
     def display(self):
@@ -50,11 +54,11 @@ class Simulation:
         self.obstacle3.draw_obstacle(self.surface_map,400,200)
         pygame.display.flip()
         
-    def run(self):
-        while self.running:
-            self.event_gestion()
-            self.event_update()
-            self.display()
-            self.clock.tick(10)
+    #def run(self):
+        #while self.running:
+            #self.event_gestion()
+            #self.event_update()
+            #self.display()
+            #self.clock.tick(10)
             
             

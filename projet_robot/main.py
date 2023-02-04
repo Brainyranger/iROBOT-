@@ -1,4 +1,5 @@
 import pygame
+import sys
 from simulation import Simulation
 from Obstacle import *
 from newRobot import newRobot
@@ -12,12 +13,14 @@ simul = Simulation(screen)
 simul.robot2 = newRobot(100,300,0,5)
 
 
-def run(self):
-     while self.running:
-            self.event_gestion()
-            self.event_update()
-            self.display()
-            self.clock.tick(10)
-simul.run()
+while simul.running:
+          simul.event_gestion()
+          simul.event_update()
+          simul.display()
+          simul.clock.tick(20)
+            
+#Senseur.sense_obstacles(Senseur,newRobot=simul.robot,list_obs=simul.list_obs)
+
 
 pygame.QUIT()
+sys.exit()
