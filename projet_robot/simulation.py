@@ -7,6 +7,7 @@ from Senseur import *
 class Simulation:
     
     def __init__(self,surface_map)-> None:
+        """ initialise les éléments de notre simulation"""
         self.surface_map = surface_map
         self.running = True
         self.clock = pygame.time.Clock()
@@ -16,9 +17,12 @@ class Simulation:
         self.obstacle2 = Obstacle(100,80)
         self.obstacle3 = Obstacle(400,200)
         self.list_obs = [[200,300],[100,80],[400,200]]
+        self.senseur = Senseur([200,math.radians(40)],self.surface_map)
+        self.senseur_obs = self.senseur.sense_obstacles(self.robot,self.list_obs,self.robot.h)
     
             
     def event_gestion(self):
+        """ gère les divers événements de notre simulation"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -39,12 +43,16 @@ class Simulation:
         else:
             self.robot.velocity[1] = 0
                    
+        
+            
     def event_update(self):
+        """ fais la mise à jour de notre simulation """
         self.robot.move()
-        Senseur.sense_obstacles(Senseur,self.robot,self.list_obs)
+        self.senseur.sense_obstacles(self.robot,self.list_obs,self.robot.h)
             
     
     def display(self):
+        """ affiche notre simulation """
         self.surface_map.fill("White")
         self.robot.draw_robot(self.surface_map)
         self.robot2.draw_robot(self.surface_map)
@@ -52,13 +60,9 @@ class Simulation:
         self.obstacle1.draw_obstacle(self.surface_map,200,200)
         self.obstacle2.draw_obstacle(self.surface_map,100,80)
         self.obstacle3.draw_obstacle(self.surface_map,400,200)
+        
         pygame.display.flip()
         
-    #def run(self):
-        #while self.running:
-            #self.event_gestion()
-            #self.event_update()
-            #self.display()
-            #self.clock.tick(10)
+
             
             
