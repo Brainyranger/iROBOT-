@@ -57,9 +57,9 @@ class Simulation:
         self.robot.draw_robot(self.surface_map)
         self.robot2.draw_robot(self.surface_map)
         #draw obstacle
-        self.obstacle1.draw_obstacle(self.surface_map,200,200)
-        self.obstacle2.draw_obstacle(self.surface_map,100,80)
-        self.obstacle3.draw_obstacle(self.surface_map,400,200)
+        self.obstacle1.draw_obstacle(self.surface_map)
+        self.obstacle2.draw_obstacle(self.surface_map)
+        self.obstacle3.draw_obstacle(self.surface_map)
         
         pygame.display.flip()
         

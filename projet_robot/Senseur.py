@@ -24,7 +24,6 @@ class Senseur:
         """ permet au senseur de detecter les obstacle et les collisions"""
         dist_min= 5 
  
-        obs = []
         x1 = newRobot.x
         y1 = newRobot.y
         start_angle = heading - self.sensor_range[1]
