@@ -40,10 +40,14 @@ class Senseur:
                     x=list_obs[i][0]
                     y=list_obs[i][1]
                     dist = math.sqrt(((x-newRobot.x)**2)+((y-newRobot.y)**2))
-                    if self.get_distance(dist) < dist_min:
+                    
+                    if (int)(self.get_distance(dist)) == 0:
+                        print("collision")
+                        
+                    if 0 < (int)(self.get_distance(dist)) < dist_min:
                         print("Obstacle à "+str((int)(self.get_distance(dist)))+" cm")
             
-                 
+                    
               
         
         
