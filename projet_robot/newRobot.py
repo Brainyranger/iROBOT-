@@ -11,15 +11,14 @@ class newRobot:
             self.y = y
             self.h = orientation
             self.l=largeur #largeur du robot
-            self.vl=0.01*self.conversion  #roue gauche
-            self.vr=0.01*self.conversion  #roue droite
+            self.vl=0.05*self.conversion  #roue gauche
+            self.vr=0.05*self.conversion  #roue droite
             self.vitesse_max = speed
-            self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/images.jpg") #modifier le chemin
+            self.robot = pygame.image.load("images.jpg") #modifier le chemin
             self.rect = self.robot.get_rect(x=x,y=y)
             self.speed = 5
             self.velocity = [0,0]
             self.map_width, self.map_height= pygame.display.get_surface().get_size()
-            
     
     def move(self): 
         """ deplacer le robot"""        
@@ -29,15 +28,23 @@ class newRobot:
         self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt
         self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
         self.h += (self.vr-self.vl)/self.l*dt
-        if self.y>=self.map_width :
-            self.h = -90
-        if self.y<=self.map_width :
-            self.h = 90
-        if self.x>=self.map_height :
-            self.h = 180
-        if self.x<=self.map_height :
-            self.h = 0
-
+        if self.x>=self.map_width :
+            self.vl=-self.vl
+            self.vr=-self.vr
+            self.h += 180
+        if self.x<=0 :
+            self.vl=-self.vl
+            self.vr=-self.vr
+            self.h += 0
+        if self.y>=self.map_height :
+            self.vl=-self.vl
+            self.vr=-self.vr
+            self.h += 180
+        if self.y<=0 :
+            self.vl=-self.vl
+            self.vr=-self.vr
+            
+            
     def movement_avancer_x(self,dt):
         """ fait avancer le robot """
         self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt

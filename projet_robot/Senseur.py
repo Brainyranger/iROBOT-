@@ -7,47 +7,51 @@ from newRobot import *
 
 class Senseur:
 
-    def __init__(self,sensor_range,map):
+    def __init__(self,map):
         """ initialise notre capteur"""
-        self.sensor_range = sensor_range
         self.map_width, self.map_height= pygame.display.get_surface().get_size()
         self.map = map
         self.distance = 0
         self.red = (255,0,0)
+        self.green = (0,255,0)
         
     def get_distance(self,distance)->float:
-        """ coverti pixel en cm"""
+        """ converti pixel en cm"""
         self.distance = distance*0.026
         return self.distance
     
-    def sense_obstacles(self,newRobot,list_obs,heading):
+    def sense_obstacles(self,newRobot,list_obs):
         """ permet au senseur de detecter les obstacle et les collisions"""
-        dist_min= 5 
- 
-        x1 = newRobot.x
-        y1 = newRobot.y
-        start_angle = heading - self.sensor_range[1]
-        finish_angle = heading + self.sensor_range[1]
-        for angle in np.linspace(start_angle,finish_angle,10,False):
-            x2 = x1 + self.sensor_range[0]*math.cos(angle)
-            y2 = y1 + self.sensor_range[0]*math.sin(angle)
-            for i in range(0,100):
-                u = 1/100
-                newRobot.x = int(x2*u+x1*(1-u))
-                newRobot.y = int(y2*u+y1*(1-u))
-                for i in range(0,len(list_obs)):
+        dist_min= 10 
+        
+        
+        for i in range(0,len(list_obs)):
                     
-                    x=list_obs[i][0]
-                    y=list_obs[i][1]
-                    dist = math.sqrt(((x-newRobot.x)**2)+((y-newRobot.y)**2))
-                    
-                    if (int)(self.get_distance(dist)) == 0:
-                        print("collision")
+            x=list_obs[i][0]
+            y=list_obs[i][1]
+            dist = math.sqrt(((x-newRobot.x)**2)+((y-newRobot.y)**2))
+                   
+            if (int)(self.get_distance(dist)) == 0:
+                print("collision")
+                
                         
-                    if 0 < (int)(self.get_distance(dist)) < dist_min:
-                        print("Obstacle à "+str((int)(self.get_distance(dist)))+" cm")
-            
+            if 0 < (int)(self.get_distance(dist)) < dist_min:
+                if i == 0:
+                    print("Obstacle 1 à "+str((int)(self.get_distance(dist)))+" cm")
                     
-              
+                if i == 1:
+                    print("Obstacle 2 à "+str((int)(self.get_distance(dist)))+" cm")
+                    
+                if i == 2:
+                    print("Obstacle 3 à "+str((int)(self.get_distance(dist)))+" cm")
+                    
+                    
+                
+                    
+    
+    
+    def draw_sensor(self,NewRobot,list_obs):
+        for p in list_obs:
+            pygame.draw.line(self.map,self.green,p,(NewRobot.x,NewRobot.y))  
         
-        
+ 
