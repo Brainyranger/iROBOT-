@@ -5,7 +5,7 @@ from Senseur import *
     
 class newRobot:
     
-    def __init__(self,x,y,orientation,speed,senseur,largeur) -> None: 
+    def __init__(self,x,y,orientation,speed,largeur) -> None: 
             self.conversion=3800 #metre en pixel
             self.x = x
             self.y = y
