@@ -5,10 +5,10 @@ from Senseur import *
     
 class newRobot:
     
-    def __init__(self,startpos,orientation,speed,senseur,largeur) -> None: 
+    def __init__(self,x,y,orientation,speed,senseur,largeur) -> None: 
             self.conversion=3800 #metre en pixel
-            self.x = startpos[0]
-            self.y = startpos[1]
+            self.x = x
+            self.y = y
             self.h = orientation
             self.l=largeur #largeur du robot
             self.vl=0.01*self.conversion  #roue gauche
