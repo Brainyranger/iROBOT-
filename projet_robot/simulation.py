@@ -54,7 +54,7 @@ class Simulation:
         self.robot.move()
         self.robot2.move_2(self.dt)
         self.senseur.sense_obstacles(self.robot,self.list_obs,self.robot.h)
-        self.senseur.sense_obstacles(self.robot2,self.list_obs,self.robot.h)
+        self.senseur.sense_obstacles(self.robot2,self.list_obs,self.robot2.h)
             
     
     def display(self):
