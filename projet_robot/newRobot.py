@@ -13,8 +13,6 @@ class newRobot:
             self.l=largeur #largeur du robot
             self.vl=0.01*self.conversion  #roue gauche
             self.vr=0.01*self.conversion  #roue droite
-            self.Vx = 0 # en cm/s
-            self.Vy = 0 # en cm/s
             self.vitesse_max = speed
             self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/images.jpg") #modifier le chemin
             self.rect = self.robot.get_rect(x=x,y=y)
@@ -31,41 +29,29 @@ class newRobot:
         self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
         self.h += (self.vr-self.vl)/self.l*dt
 
-    def movement_avancer_x(self,vx,vy):
+    def movement_avancer_x(self,dt):
         """ fait avancer le robot """
-        self.Vx = vx
-        self.Vy = vy
-        #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
-        self.x += (self.Vx * math.cos(self.h)) - (self.Vy * math.sin(self.h))
+        self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt
 
-    def movement_arriere_x(self,vx,vy):
+    def movement_arriere_x(self,dt):
         """ fait reculer le robot """
-        self.Vx = vx
-        self.Vy = vy
-        #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
-        self.x -= (self.Vx * math.cos(self.h)) - (self.Vy * math.sin(self.h))
+        self.x -= ((self.vl+self.vr)/2)*math.cos(self.h)*dt
 
-    def movement_descend_y(self,vx,vy):
+    def movement_descend_y(self,dt):
         """ fait decendre le robot """
-        self.Vx = vx
-        self.Vy = vy
-        #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
-        self.y += (self.Vx * math.sin(self.h)) + (self.Vy * math.cos(self.h))
+        self.y += ((self.vl+self.vr)/2)*math.sin(self.h)*dt
 
-    def movement_monte_y(self,vx,vy):
+    def movement_monte_y(self,dt):
         """ fait monter le robot """
-        self.Vx = vx
-        self.Vy = vy
-        #Tester avec une exception si la vitesse ne dépasse pas la vitesse max du robot
-        self.y -= (vx * math.sin(self.h)) + (self.Vy * math.cos(self.h))
+        self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
 
     def tourner_droite(self):
         """ tourne le robot vers la droite """
-        self.h = -90
+        self.h -= 90
 
     def tourner_gauche(self):
         """ tourne le robot vers la gauche """
-        self.h = 90  
+        self.h += 90
     
     def draw_robot(self,screen):
         """affiche le robot"""
