@@ -18,6 +18,7 @@ class newRobot:
             self.rect = self.robot.get_rect(x=x,y=y)
             self.speed = 5
             self.velocity = [0,0]
+            self.map_width, self.map_height= pygame.display.get_surface().get_size()
             
     
     def move(self): 
@@ -28,6 +29,14 @@ class newRobot:
         self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt
         self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
         self.h += (self.vr-self.vl)/self.l*dt
+        if y>=self.map_width :
+            self.h = -90
+        if y<=self.map_width :
+            self.h = 90
+        if x>=self.map_height :
+            self.h = 180
+        if x<=self.map_height :
+            self.h = 0
 
     def movement_avancer_x(self,dt):
         """ fait avancer le robot """
