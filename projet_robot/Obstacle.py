@@ -4,19 +4,20 @@ import numpy as np
 class Obstacle:
     #création d'obstacle
     
-    def __init__(self,x,y):
+    def __init__(self,x,y,nom):
         """ enresgistre les coordoonnées de nos obstacles"""
         self.x=x
         self.y=y
+        self.nom = nom
         self.list_obstacle = []
         self.list_obstacle.append([x,y])
-        self.obstacle = pygame.image.load("/home/david/iROBOT-/projet_robot/style-realiste-bombe-noire-ronde.jpg")
-     
+        self.colour = (255,0,0)
+        self.obstacle = pygame.Rect(x,y,20,20)
     #affichage d'obstacle
     
-    def draw_obstacle(self,screen,x,y):
+    def draw_obstacle(self,screen):
         """ dessine nos obstacles selon ses coordonnées"""
-        self.rect_obs = self.obstacle.get_rect(x=x,y=y)
-        screen.blit(self.obstacle,self.rect_obs)
+        pygame.draw.rect(screen,self.colour,self.obstacle)
+        
         
     

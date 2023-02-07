@@ -13,9 +13,9 @@ class Simulation:
         self.clock = pygame.time.Clock()
         self.robot =  newRobot(0,0,0,0)
         self.robot2 = newRobot(50,300,0,0)
-        self.obstacle1 = Obstacle(200,300)
-        self.obstacle2 = Obstacle(100,80)
-        self.obstacle3 = Obstacle(400,200)
+        self.obstacle1 = Obstacle(200,300,"Obstacle1")
+        self.obstacle2 = Obstacle(100,80,"Obstacle2")
+        self.obstacle3 = Obstacle(400,200,"Obstacle3")
         self.list_obs = [[200,300],[100,80],[400,200]]
         self.senseur = Senseur([200,math.radians(40)],self.surface_map)
         self.senseur_obs = self.senseur.sense_obstacles(self.robot,self.list_obs,self.robot.h)
@@ -57,9 +57,9 @@ class Simulation:
         self.robot.draw_robot(self.surface_map)
         self.robot2.draw_robot(self.surface_map)
         #draw obstacle
-        self.obstacle1.draw_obstacle(self.surface_map,200,200)
-        self.obstacle2.draw_obstacle(self.surface_map,100,80)
-        self.obstacle3.draw_obstacle(self.surface_map,400,200)
+        self.obstacle1.draw_obstacle(self.surface_map)
+        self.obstacle2.draw_obstacle(self.surface_map)
+        self.obstacle3.draw_obstacle(self.surface_map)
         
         pygame.display.flip()
         
