@@ -18,7 +18,7 @@ class newRobot:
             self.rect = self.robot.get_rect(x=x,y=y)
             self.speed = 5
             self.velocity = [0,0]
-            self.map_width, self.map_height= pygame.display.get_surface().get_size()
+            self.map_width, self.map_heigth= pygame.display.get_surface().get_size()
     
     def move(self): 
         """ deplacer le robot"""        
@@ -29,15 +29,19 @@ class newRobot:
         self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
         self.h += (self.vr-self.vl)/self.l*dt
         if self.x>=self.map_width :
+            self.h += 30
             self.vl=-self.vl
             self.vr=-self.vr
         if self.x<=0 :
+            self.h += 30
             self.vl=-self.vl
             self.vr=-self.vr
         if self.y>=self.map_heigth :
+            self.h += 30
             self.vl=-self.vl
             self.vr=-self.vr
         if self.y<=0 :
+            self.h += 30
             self.vl=-self.vl
             self.vr=-self.vr
 
