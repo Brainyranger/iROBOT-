@@ -29,7 +29,7 @@ class newRobot:
     def move_2(self,dt):
         self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt
         self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
-        self.h += (self.vr-self.vl)/self.w*dt
+        self.h += (self.vr-self.vl)/self.l*dt
 
     def movement_avancer_x(self,vx,vy):
         """ fait avancer le robot """
