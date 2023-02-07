@@ -5,22 +5,33 @@ from Senseur import *
     
 class newRobot:
     
-    def __init__(self,x,y,orientation,speed) -> None: 
-            self.x = x
-            self.y = y
+    def __init__(self,startpos,orientation,speed,senseur,largeur) -> None: 
+            self.conversion=3800 #metre en pixel
+            self.x = startpos[0]
+            self.y = startpos[1]
             self.h = orientation
-            self.Vx = 0
-            self.Vy = 0
+            self.l=largeur #largeur du robot
+            self.vl=0.01*self.conversion  #roue gauche
+            self.vr=0.01*self.conversion  #roue droite
+            self.Senseur = senseur
+            self.Vx = 0 # en cm/s
+            self.Vy = 0 # en cm/s
             self.vitesse_max = speed
             self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/images.jpg")
             self.rect = self.robot.get_rect(x=x,y=y)
             self.speed = 5
             self.velocity = [0,0]
+            
     
     def move(self): 
         """ deplacer le robot"""        
         self.rect.move_ip(self.velocity[0]*self.speed,self.velocity[1]*self.speed) 
         
+    def move_2(self,dt):
+        self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt
+        self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
+        self.h += (self.vr-self.vl)/self.w*dt
+
     def movement_avancer_x(self,vx,vy):
         """ fait avancer le robot """
         self.Vx = vx
@@ -55,16 +66,7 @@ class newRobot:
 
     def tourner_gauche(self):
         """ tourne le robot vers la gauche """
-        self.h = 90
-
-    #def move(self, vx, vy):
-    #    a = vx
-    #    b = vy
-    #    if (sqrt(a**2+b**2)>0):
-    #        a = vx * self.vitesse_max 
-    #        b = vy * self.vitesse_max 
-    #    robot.Vx = a
-    #    robot.Vy = b
+        self.h = 90  
     
     def draw_robot(self,screen):
         """affiche le robot"""
