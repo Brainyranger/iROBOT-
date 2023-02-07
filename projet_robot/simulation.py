@@ -61,7 +61,7 @@ class Simulation:
         """ affiche notre simulation """
         self.surface_map.fill("White")
         self.robot.draw_robot(self.surface_map)
-        self.robot2.draw_robot(self.surface_map)
+        self.robot2.draw_robot2(self.robot2.x,self.robot2.y,self.robot2.h,self.surface_map)
         #draw obstacle
         self.obstacle1.draw_obstacle(self.surface_map)
         self.obstacle2.draw_obstacle(self.surface_map)

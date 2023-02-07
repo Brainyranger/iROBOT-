@@ -70,3 +70,9 @@ class newRobot:
     def draw_robot(self,screen):
         """affiche le robot"""
         screen.blit(self.robot,self.rect)
+
+    def draw_robot2(self,x,y,h,screen):
+        """affiche le robot"""
+        rotated = pygame.transform.rotozoom(self.robot,math.degrees(h),1)
+        rect = rotated.get_rect(center=(x,y))
+        screen.blit(rotated,rect)
