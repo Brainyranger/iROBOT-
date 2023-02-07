@@ -1,5 +1,6 @@
 import pygame
 import sys
+import time
 from Obstacle import *
 from newRobot import *
 from Senseur import *
@@ -19,8 +20,9 @@ class Simulation:
         self.list_obs = [[200,300],[100,80],[400,200]]
         self.senseur = Senseur([200,math.radians(40)],self.surface_map)
         self.senseur_obs = self.senseur.sense_obstacles(self.robot,self.list_obs,self.robot.h)
-    
-            
+        self.dt=0
+        self.temps=time.time()    
+
     def event_gestion(self):
         """ gère les divers événements de notre simulation"""
         for event in pygame.event.get():
@@ -47,8 +49,12 @@ class Simulation:
             
     def event_update(self):
         """ fais la mise à jour de notre simulation """
+        self.dt = (time.time()-self.temps)
+        self.temps=time.time()
         self.robot.move()
+        self.robot2.move_2()
         self.senseur.sense_obstacles(self.robot,self.list_obs,self.robot.h)
+        self.senseur.sense_obstacles(self.robot2,self.list_obs,self.robot.h)
             
     
     def display(self):
