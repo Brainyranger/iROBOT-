@@ -31,20 +31,16 @@ class newRobot:
         if self.x>=self.map_width :
             self.vl=-self.vl
             self.vr=-self.vr
-            self.h += 180
         if self.x<=0 :
             self.vl=-self.vl
             self.vr=-self.vr
-            self.h += 0
-        if self.y>=self.map_height :
+        if self.y>=self.map_heigth :
             self.vl=-self.vl
             self.vr=-self.vr
-            self.h += 180
         if self.y<=0 :
             self.vl=-self.vl
             self.vr=-self.vr
-            
-            
+
     def movement_avancer_x(self,dt):
         """ fait avancer le robot """
         self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt
