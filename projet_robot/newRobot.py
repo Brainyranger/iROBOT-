@@ -17,7 +17,7 @@ class newRobot:
             self.Vx = 0 # en cm/s
             self.Vy = 0 # en cm/s
             self.vitesse_max = speed
-            self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/images.jpg")
+            self.robot = pygame.image.load("/home/david/iROBOT-/projet_robot/images.jpg") #modifier le chemin
             self.rect = self.robot.get_rect(x=x,y=y)
             self.speed = 5
             self.velocity = [0,0]
