@@ -13,7 +13,6 @@ class newRobot:
             self.l=largeur #largeur du robot
             self.vl=0.01*self.conversion  #roue gauche
             self.vr=0.01*self.conversion  #roue droite
-            self.Senseur = senseur
             self.Vx = 0 # en cm/s
             self.Vy = 0 # en cm/s
             self.vitesse_max = speed

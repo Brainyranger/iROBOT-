@@ -12,8 +12,8 @@ class Simulation:
         self.surface_map = surface_map
         self.running = True
         self.clock = pygame.time.Clock()
-        self.robot =  newRobot(0,0,0,0)
-        self.robot2 = newRobot(50,300,0,0)
+        self.robot =  newRobot(0,0,0,0,50)
+        self.robot2 = newRobot(50,300,0,0,50)
         self.obstacle1 = Obstacle(200,300,"Obstacle1")
         self.obstacle2 = Obstacle(100,80,"Obstacle2")
         self.obstacle3 = Obstacle(400,200,"Obstacle3")
