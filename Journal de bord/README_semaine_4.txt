@@ -9,3 +9,6 @@ Gregoire : Conception des concernant utilisant la vitesse, en adaptant les class
 David : Classe obstacle, senseur et simulation
 
 Théo : Modification classe senseur pour les collisions
+
+
+Entretien avec les clients :
