@@ -5,7 +5,7 @@ from Senseur import *
     
 class newRobot:
     
-    def __init__(self,x,y,orientation,speed,largeur) -> None: 
+    def __init__(self,x,y,orientation,speed,largeur,bord_map_x,bord_map_y) -> None: 
             self.conversion=3800 #metre en pixel
             self.x = x
             self.y = y
@@ -14,67 +14,33 @@ class newRobot:
             self.vl=0.05*self.conversion  #roue gauche
             self.vr=0.05*self.conversion  #roue droite
             self.vitesse_max = speed
-            self.robot = pygame.image.load("images.jpg") #modifier le chemin
-            self.rect = self.robot.get_rect(x=x,y=y)
-            self.speed = 5
-            self.velocity = [0,0]
-            self.map_width, self.map_heigth= pygame.display.get_surface().get_size()
-    
-    def move(self): 
-        """ deplacer le robot"""        
-        self.rect.move_ip(self.velocity[0]*self.speed,self.velocity[1]*self.speed) 
+            self.bord_map_x = bord_map_x
+            self.bord_map_y = bord_map_y
         
     def move_2(self,dt):
         self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt
         self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
         self.h += (self.vr-self.vl)/self.l*dt
-        if self.x>=self.map_width :
-            self.h += 30
+        if self.x>=self.bord_map_x :
+            self.h += 1
             self.vl=-self.vl
             self.vr=-self.vr
         if self.x<=0 :
             self.h += 30
             self.vl=-self.vl
             self.vr=-self.vr
-        if self.y>=self.map_heigth :
+        if self.y>=self.bord_map_y :
             self.h += 30
             self.vl=-self.vl
             self.vr=-self.vr
         if self.y<=0 :
             self.h += 30
             self.vl=-self.vl
-            self.vr=-self.vr
+            self.vr=-self.vr    
 
-    def movement_avancer_x(self,dt):
-        """ fait avancer le robot """
-        self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt
-
-    def movement_arriere_x(self,dt):
-        """ fait reculer le robot """
-        self.x -= ((self.vl+self.vr)/2)*math.cos(self.h)*dt
-
-    def movement_descend_y(self,dt):
-        """ fait decendre le robot """
-        self.y += ((self.vl+self.vr)/2)*math.sin(self.h)*dt
-
-    def movement_monte_y(self,dt):
-        """ fait monter le robot """
-        self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
-
-    def tourner_droite(self):
-        """ tourne le robot vers la droite """
-        self.h -= 90
-
-    def tourner_gauche(self):
-        """ tourne le robot vers la gauche """
-        self.h += 90
-    
-    def draw_robot(self,screen):
+    def draw_robot(self,x,y,h,screen):
         """affiche le robot"""
-        screen.blit(self.robot,self.rect)
-
-    def draw_robot2(self,x,y,h,screen):
-        """affiche le robot"""
-        rotated = pygame.transform.rotozoom(self.robot,math.degrees(h),1)
+        image_robot = pygame.image.load("images.jpg")
+        rotated = pygame.transform.rotozoom(image_robot,h,1)
         rect = rotated.get_rect(center=(x,y))
         screen.blit(rotated,rect)
