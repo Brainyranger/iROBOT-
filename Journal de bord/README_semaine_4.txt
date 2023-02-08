@@ -12,3 +12,14 @@ Théo : Modification classe senseur pour les collisions
 
 
 Entretien avec les clients :
+
+Les clients étaient satisfait de l'ensemble de notre travail. Ils ont soulevé quelques point de modifications notamment de séparer pygame de notre simulation. 
+
+Entretien entre collaborateurs :
+
+On c'est réparti les tâches ainsi :
+
+(David) gérer les packages 
+(Gégoire) dissocier pygame de la simulation
+(Samy) faire dire à la simulation qu'il y a collision
+(Théo) class Senseur (détection d'obstacles et détection de distance)
