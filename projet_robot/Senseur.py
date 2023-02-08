@@ -7,10 +7,10 @@ from newRobot import *
 
 class Senseur:
 
-    def __init__(self,map):
+    def __init__(self,bord_map_x,bord_map_y):
         """ initialise notre capteur"""
-        self.map_width, self.map_height= pygame.display.get_surface().get_size()
-        self.map = map
+        self.bord_map_x = bord_map_x
+        self.bord_map_y = bord_map_y
         self.distance = 0
         self.red = (255,0,0)
         self.green = (0,255,0)
@@ -31,7 +31,7 @@ class Senseur:
             y=list_obs[i][1]
             dist = math.sqrt(((x-newRobot.x)**2)+((y-newRobot.y)**2))
                    
-            if (self.get_distance(dist)) < 1.25:
+            if (int)(self.get_distance(dist)) == 0:
                 print("collision")
                 
                         
@@ -50,8 +50,8 @@ class Senseur:
                     
     
     
-    def draw_sensor(self,NewRobot,list_obs):
+    def draw_sensor(self,NewRobot,list_obs,screen):
         for p in list_obs:
-            pygame.draw.line(self.map,self.green,p,(NewRobot.x,NewRobot.y))  
+            pygame.draw.line(screen,self.green,p,(NewRobot.x,NewRobot.y))   
         
  
