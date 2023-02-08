@@ -20,6 +20,6 @@ Entretien entre collaborateurs :
 On c'est réparti les tâches ainsi :
 
 (David) gérer les packages 
-(Gégoire) dissocier pygame de la simulation
+(Grégoire) dissocier pygame de la simulation
 (Samy) faire dire à la simulation qu'il y a collision
 (Théo) class Senseur (détection d'obstacles et détection de distance)
