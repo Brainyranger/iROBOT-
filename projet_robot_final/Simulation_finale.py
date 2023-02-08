@@ -20,3 +20,10 @@ class Simulation_finale:
         self.senseur = Senseur(bord_map_x,bord_map_y)
         self.dt=0
         self.temps=time.time() 
+
+    def event_update(self):
+        """ fais la mise à jour de notre simulation """
+        self.dt = (time.time()-self.temps)
+        self.temps=time.time()
+        self.robot2.move_2(self.dt)
+        self.senseur.sense_obstacles(self.robot2,self.list_obs)
