@@ -31,7 +31,7 @@ class Senseur:
             y=list_obs[i][1]
             dist = math.sqrt(((x-newRobot.x)**2)+((y-newRobot.y)**2))
                    
-            if (int)(self.get_distance(dist)) == 0:
+            if (self.get_distance(dist)) < 1.25:
                 print("collision")
                 
                         
