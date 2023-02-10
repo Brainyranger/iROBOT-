@@ -1,4 +1,4 @@
-import sys
+
 import time
 from Obstacle import *
 from newRobot import *

@@ -1,7 +1,5 @@
 import pygame
-import sys
 from pygame.locals import *
-import numpy as np
 
 class Obstacle:
     #création d'obstacle

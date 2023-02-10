@@ -1,11 +1,8 @@
 import pygame
-import time
 import sys
-import math
-from Simulation_finale import Simulation_finale
-from Obstacle import *
-from newRobot import newRobot
-from Senseur import Senseur
+from ..Main_simulation import *
+from projet_robot.Obstacle import *
+from projet_robot.newRobot import *
 
 # création de l'environnemnt :
 pygame.init()
@@ -39,3 +36,4 @@ while simul.running:
           
 pygame.QUIT()
 sys.exit()
+

@@ -1,7 +1,5 @@
 import pygame
-import time
 import math
-import numpy as np
 from Obstacle import *
 from newRobot import * 
 

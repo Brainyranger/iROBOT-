@@ -1,6 +1,6 @@
 import pygame
 import math
-from Senseur import *
+
 
     
 class newRobot:
