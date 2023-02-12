@@ -1,10 +1,8 @@
-<<<<<<< HEAD:projet_robot/Simulation_pygame/Main_pygame.py
+
 import pygame
-=======
-import time
->>>>>>> 1fd48961fa29f88b685b8af5b82f845c2a7b9f45:projet_robot_final/Main_pygame.py
+
 import sys
-from ..Main_simulation import *
+from projet_robot.Main_simulation import *
 from projet_robot.Obstacle import *
 from projet_robot.newRobot import *
 
