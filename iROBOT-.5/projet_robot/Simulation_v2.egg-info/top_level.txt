@@ -1,8 +1,0 @@
-Main_pygame
-Main_simulation
-Obstacle
-Senseur
-Simulation
-Simulation_finale
-Simulation_pygame
-newRobot
