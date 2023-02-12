@@ -31,7 +31,7 @@ class newRobot:
 
     def draw_robot(self,x,y,h,screen):
         """affiche le robot"""
-        image_robot = pygame.image.load("images.jpg")
+        image_robot = pygame.draw.rect(screen,(255,255,0),(0,0,20,20))
         rotated = pygame.transform.rotozoom(image_robot,h,1)
         rect = rotated.get_rect(center=(x,y))
         screen.blit(rotated,rect)

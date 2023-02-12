@@ -3,7 +3,7 @@ import pygame
 
 import sys
 from Simulation.Simulation_finale import *
-from Simulation.Main_simulation import *
+#from Simulation.Main_simulation import *
 from Simulation.Obstacle import *
 from Simulation.newRobot import *
 from Simulation.Senseur import *
