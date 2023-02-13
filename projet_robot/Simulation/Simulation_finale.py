@@ -35,4 +35,4 @@ class Simulation_finale:
         self.temps=time.time()
         self.robot.move(self.dt)
         self.senseur.sense_obstacles(self.robot,self.list_obs)
-        self.detection_obstacle(self.robot2,self.list_obs)
+        self.detection_obstacle(self.robot,self.list_obs)
