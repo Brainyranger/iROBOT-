@@ -1,8 +1,7 @@
-import pygame
 import math
 
 
-    
+
 class newRobot:
     
     def __init__(self,x,y,orientation,speed,largeur,bord_map_x,bord_map_y) -> None: 
