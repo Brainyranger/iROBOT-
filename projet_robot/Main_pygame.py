@@ -1,6 +1,5 @@
 
 import pygame
-
 import sys
 from Simulation_finale import Simulation_finale 
 from Obstacle import Obstacle 
@@ -26,13 +25,20 @@ while simul.running:
         #draw surface
         screen.fill("White")
         #draw robot
-        simul.robot.draw_robot(simul.robot.x,simul.robot.y,simul.robot.h,screen)
+        image_robot = pygame.image.load("projet_robot/images.jpg")
+        rotated = pygame.transform.rotozoom(image_robot,h,1)
+        rect = rotated.get_rect(center=(x,y))
+        screen.blit(rotated,rect)
         #draw sensor
-        simul.senseur.draw_sensor(simul.robot,simul.list_obs,screen)
+        for p in simul.list_obs:
+            pygame.draw.line(screen,simul.senseur.green,p,(simul.robot.x,simul.robot.y)) 
         #draw obstacle
-        simul.obstacle1.draw_obstacle(screen)
-        simul.obstacle2.draw_obstacle(screen)
-        simul.obstacle3.draw_obstacle(screen)
+        simul.obstacle2 = pygame.Rect(simul.obstacle1.x,simul.obstacle1.y,simul.obstacle1.taille_x,simul.obstacle1.taille_y)
+        pygame.draw.rect(screen,simul.obstacle1.colour,simul.obstacle2)
+        simul.obstacle2 = pygame.Rect(simul.obstacle2.x,simul.obstacle2.y,simul.obstacle2.taille_x,simul.obstacle2.taille_y)
+        pygame.draw.rect(screen,simul.obstacle1.colour,simul.obstacle2)
+        simul.obstacle3 = pygame.Rect(simul.obstacle3.x,simul.obstacle3.y,simul.obstacle3.taille_x,simul.obstacle3.taille_y)
+        pygame.draw.rect(screen,simul.obstacle1.colour,simul.obstacle3)
         pygame.display.flip()
         clock.tick(80)
           

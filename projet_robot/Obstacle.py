@@ -14,12 +14,8 @@ class Obstacle:
         self.list_obstacle = []
         self.list_obstacle.append([x,y])
         self.colour = (0,0,255)
-    #affichage d'obstacle
     
-    def draw_obstacle(self,screen):
-        """ dessine nos obstacles selon ses coordonnées"""
-        obstacle = pygame.Rect(self.x,self.y,self.taille_x,self.taille_y)
-        pygame.draw.rect(screen,self.colour,obstacle)
+
     
     
         
