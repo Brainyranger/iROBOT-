@@ -15,6 +15,11 @@ Théo : Il n'a pas fait son travail
 
 Entrevue avec les clients : 
 
+Les clients n'étaient pas totalement satisfaits, selon eux nous sommes en retard d'une semaine. Nous devons mieux arranger l'arborescence de notre travail,
+et encore bien travailler pour séparer pygame et notre simulation. Faire aussi une partie controller avec au moins une méthode.
+
 Entrevue entre collaborateurs : 
+On a décidé de ne plus attribuer des tâches mais simplement de les exposer et que celui qui en voit puisse l'effectuer.
 
 Objectifs de la semaine : 
+Notre objectif premier est de rattrapper notre retard : avoir une bonne arborescence de travail, avoir un controller
