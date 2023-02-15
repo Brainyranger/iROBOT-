@@ -1,6 +1,3 @@
-import pygame
-from pygame.locals import *
-
 class Obstacle:
     #création d'obstacle
     
@@ -13,7 +10,6 @@ class Obstacle:
         self.taille_y = taille_y
         self.list_obstacle = []
         self.list_obstacle.append([x,y])
-        self.colour = (0,0,255)
     
 
     
