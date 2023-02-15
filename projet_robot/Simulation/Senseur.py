@@ -7,9 +7,9 @@ class Senseur:
         """ initialise notre capteur"""
         self.portee=portee
 
-    def get_distance(self,newRobot,obstacle)->float:
+    def get_distance(self,newRobot,obstacle_x,obstacle_y):
         """renvoie la distance entre le robot et l'obstacle"""
-        self.distance = math.sqrt(((obstacle.x-newRobot.x)**2)+((obstacle.y-newRobot.y)**2))*0.026
-        return distance
+        return  math.sqrt(((obstacle_x-newRobot.x)**2)+((obstacle_y-newRobot.y)**2))
+        
         
  

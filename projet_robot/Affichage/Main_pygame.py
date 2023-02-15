@@ -1,10 +1,10 @@
 
 import pygame
 import sys
-from Simulation_finale import Simulation_finale 
-from Obstacle import Obstacle 
-from newRobot import newRobot
-from Senseur import Senseur 
+from ..Simulation import Simulation_finale 
+from ..Simulation.Obstacle import Obstacle 
+from ..Simulation.newRobot import newRobot
+from ..Simulation.Senseur import Senseur 
 
 # création de l'environnemnt :
 pygame.init()

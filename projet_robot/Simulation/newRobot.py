@@ -20,7 +20,7 @@ class newRobot:
         self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
         self.h += (self.vr-self.vl)/self.l*dt
         #a utiliser dans la classe IA
-        if self.x>=self.bord_map_x or self.x<= 0 or self.y>=self.bord_map_y or self.y<=0 :
+        if self.x>=500 or self.x<= 0 or self.y>=420 or self.y<=0 :
             self.x -= ((self.vl+self.vr)/2)*math.cos(self.h)*dt
             self.y += ((self.vl+self.vr)/2)*math.sin(self.h)*dt
             self.h +=30

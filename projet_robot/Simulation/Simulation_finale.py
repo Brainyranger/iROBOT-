@@ -26,8 +26,9 @@ class Simulation_finale:
         for i in range(0,len(list_obs)):
          x=list_obs[i][0] 
          y=list_obs[i][1]	
-         if (int)(self.senseur.get_distance(self.robot,[x,y])) == 0:
+         if (self.senseur.get_distance(newRobot,x,y)) == 0:
     		    print("collision")
+         print("est à "+str(self.senseur.get_distance(newRobot,x,y))+"de l'obstacle")
           
           
     def event_update(self):
