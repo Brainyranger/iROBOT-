@@ -10,10 +10,10 @@ from Senseur import Senseur
 pygame.init()
 pygame.display.set_caption("Ma simulation")
 clock = pygame.time.Clock()
-bord_map_x = 500
-bord_map_y = 420
 green = (0,255,0)
 colour = (0,0,255)
+bord_map_x = 500
+bord_map_y = 420
 screen = pygame.display.set_mode((bord_map_x,bord_map_y),pygame.RESIZABLE)
 simul = Simulation_finale(bord_map_x,bord_map_y)
 #fais tourner la simulation
