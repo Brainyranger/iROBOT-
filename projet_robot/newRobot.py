@@ -4,22 +4,22 @@ import math
 
 class newRobot:
     
-    def __init__(self,x,y,orientation,speed,largeur,bord_map_x,bord_map_y) -> None: 
-            self.conversion=3800 #metre en pixel
+    def __init__(self,x,y,orientation,largeur) -> None: 
             self.x = x
             self.y = y
             self.h = orientation
             self.l=largeur #largeur du robot
-            self.vl=0.05*self.conversion  #roue gauche
-            self.vr=0.05*self.conversion  #roue droite
-            self.vitesse_max = speed
-            self.bord_map_x = bord_map_x
-            self.bord_map_y = bord_map_y
+            self.vl=0.05  #roue gauche
+            self.vr=0.05  #roue droite
         
     def move(self,dt):
+        conversion=3800 #metre en pixel
+        self.vl *= conversion
+        self.vr *= conversion
         self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt
         self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
         self.h += (self.vr-self.vl)/self.l*dt
+        #a utiliser dans la classe IA
         if self.x>=self.bord_map_x or self.x<= 0 or self.y>=self.bord_map_y or self.y<=0 :
             self.x -= ((self.vl+self.vr)/2)*math.cos(self.h)*dt
             self.y += ((self.vl+self.vr)/2)*math.sin(self.h)*dt
