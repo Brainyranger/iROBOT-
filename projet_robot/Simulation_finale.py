@@ -1,9 +1,9 @@
 
 import time
-from Simulation.Obstacle import *
-from Simulation.newRobot import *
-from Simulation.Senseur import *
-        
+import math
+from newRobot import newRobot
+from Obstacle import Obstacle
+from Senseur import Senseur        
 class Simulation_finale:
     
     def __init__(self,bord_map_x,bord_map_y)-> None:
@@ -20,15 +20,17 @@ class Simulation_finale:
         self.dt=0
         self.temps=time.time() 
         
-     def detection_obstacle(self,newRobot,list_obs):
-    	for i in range(0,len(list_obs)):
-    		x=list_obs[i][0]
-    		y=list_obs[i][1]
-    		dist = math.sqrt(((x-newRobot.x)**2)+((y-newRobot.y)**2))
+    def detection_obstacle(self,newRobot,list_obs):
+        """détection des collisions"""
+        for i in range(0,len(list_obs)):
+         x=list_obs[i][0] 
+         y=list_obs[i][1]
+         dist = math.sqrt(((x-newRobot.x)**2)+((y-newRobot.y)**2))
     		
-    		if (int)(self.senseur.get_distance(dist)) == 0:
-    			print("collision")
-                        
+         if (int)(self.senseur.get_distance(dist)) == 0:
+    		    print("collision")
+          
+          
     def event_update(self):
         """ fais la mise à jour de notre simulation """
         self.dt = (time.time()-self.temps)

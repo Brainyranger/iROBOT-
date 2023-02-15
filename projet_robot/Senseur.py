@@ -45,7 +45,9 @@ class Senseur:
                     
                 
                     
-    
+    def sense_distance(newRobot,x,y):
+        """capteur de distance par rapport aux coordonnées de l'obstacle"""
+        return math.sqrt(((x-newRobot.x)**2)+((y-newRobot.y)**2))
     
     def draw_sensor(self,NewRobot,list_obs,screen):
         for p in list_obs:
