@@ -2,7 +2,7 @@ import math
 
 
 
-class newRobot:
+class Robot:
     
     def __init__(self,x,y,orientation,largeur) -> None: 
             self.x = x

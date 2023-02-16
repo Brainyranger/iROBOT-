@@ -1,10 +1,11 @@
 
 import pygame
+from pygame.locals import *
 import sys
-from projet_robot.Simulation import Simulation_finale 
+from projet_robot.Simulation.Simulation_finale import Environnement 
 from projet_robot.Simulation.Obstacle import Obstacle 
-from projet_robot.Simulation.newRobot import newRobot
-from projet_robot.Simulation.Senseur import Senseur 
+from projet_robot.Simulation.newRobot import Robot
+from projet_robot.Simulation.Senseur import Sensor 
 
 # création de l'environnemnt :
 pygame.init()
@@ -14,8 +15,8 @@ green = (0,255,0)
 colour = (0,0,255)
 bord_map_x = 500
 bord_map_y = 420
-screen = pygame.display.set_mode((bord_map_x,bord_map_y),pygame.RESIZABLE)
-simul = Simulation_finale(bord_map_x,bord_map_y)
+screen = pygame.display.set_mode((bord_map_x,bord_map_y))
+simul = Environnement(bord_map_x,bord_map_y)
 image_robot = pygame.image.load("images.jpg")
 #fais tourner la simulation
 while simul.running:
