@@ -1,0 +1,5 @@
+setup.py
+irobot_v2.egg-info/PKG-INFO
+irobot_v2.egg-info/SOURCES.txt
+irobot_v2.egg-info/dependency_links.txt
+irobot_v2.egg-info/top_level.txt

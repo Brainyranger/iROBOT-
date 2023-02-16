@@ -1,5 +1,5 @@
-from Simulation_finale import *
-from newRobot import *
+from projet_robot.Simulation.Simulation_finale import *
+from projet_robot.Simulation.newRobot import *
 
 
 bord_map_x = 500

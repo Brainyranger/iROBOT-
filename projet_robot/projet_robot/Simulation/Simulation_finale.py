@@ -1,9 +1,9 @@
 
 import time
 import math
-from newRobot import newRobot
-from Obstacle import Obstacle
-from Senseur import Senseur
+from  projet_robot.Simulation.newRobot import newRobot
+from  projet_robot.Simulation.Obstacle import Obstacle
+from  projet_robot.Simulation.Senseur import Senseur
 
 class Simulation_finale:
     
