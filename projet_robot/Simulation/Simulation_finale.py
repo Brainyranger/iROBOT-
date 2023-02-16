@@ -24,11 +24,17 @@ class Simulation_finale:
     def detection_collision(self,newRobot,list_obs):
         """détection des collisions"""
         for i in range(0,len(list_obs)):
-         x=list_obs[i][0] 
-         y=list_obs[i][1]	
-         if (self.senseur.get_distance(newRobot,x,y)) == 0:
-    		    print("collision")
-         print("est à "+str(self.senseur.get_distance(newRobot,x,y))+"de l'obstacle")
+            x=list_obs[i][0] 
+            y=list_obs[i][1]	
+            if (self.senseur.get_distance(newRobot,x,y)) == 0:
+                print("Le robot se trouve à "+str((int)(self.senseur.get_distance(newRobot,x,y)))+" cm de Obs_")
+                print("COLLISION")
+            elif (self.senseur.get_distance(newRobot,x,y)) == "Rien":
+                print("Le senseur ne détecte pas d'obstacles")
+            else:
+                print("Le robot se trouve à "+str((int)(self.senseur.get_distance(newRobot,x,y)))+" cm de Obs_")
+    		    
+
           
           
     def event_update(self):

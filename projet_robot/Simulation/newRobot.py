@@ -9,13 +9,10 @@ class newRobot:
             self.y = y
             self.h = orientation
             self.l=largeur #largeur du robot
-            self.vl=0.05  #roue gauche
-            self.vr=0.05  #roue droite
+            self.vl=0.05*3800 #roue gauche
+            self.vr=0.05*3800 #roue droite
         
     def move(self,dt):
-        conversion=3800 #metre en pixel
-        self.vl *= conversion
-        self.vr *= conversion
         self.x += ((self.vl+self.vr)/2)*math.cos(self.h)*dt
         self.y -= ((self.vl+self.vr)/2)*math.sin(self.h)*dt
         self.h += (self.vr-self.vl)/self.l*dt
@@ -24,5 +21,3 @@ class newRobot:
             self.x -= ((self.vl+self.vr)/2)*math.cos(self.h)*dt
             self.y += ((self.vl+self.vr)/2)*math.sin(self.h)*dt
             self.h +=30
-            self.vl=-self.vl
-            self.vr=-self.vr
