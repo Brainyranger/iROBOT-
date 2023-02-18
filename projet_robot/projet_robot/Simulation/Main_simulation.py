@@ -1,5 +1,5 @@
-from projet_robot.Simulation.Simulation_finale import Environnement
-from projet_robot.Simulation.newRobot import Robot
+from projet_robot.Simulation.Environnement import Environnement
+from projet_robot.Simulation.Robot import Robot
 
 
 BORD_MAP_X = 500

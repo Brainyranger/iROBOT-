@@ -1,12 +1,11 @@
 
-import pygame,sys,os,math
+import pygame,sys,math
 from pygame.locals import *
 from projet_robot.Simulation.Environnement import Environnement 
 from projet_robot.Simulation.Obstacle import Obstacle 
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Senseur import Senseur 
 
-os.environ["SDL_VIDEODRIVER"]="dummy"
 # création de l'environnemnt :
 pygame.init()
 pygame.display.set_caption("Ma simulation")
