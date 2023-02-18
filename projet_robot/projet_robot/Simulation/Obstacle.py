@@ -8,8 +8,6 @@ class Obstacle:
         self.NOM        = NOM
         self.TAILLE_X   = TAILLE_X
         self.TAILLE_Y   = TAILLE_Y
-        self.LIST_OBSTACLE = []
-        self.LIST_OBSTACLE.append([POSITION_X,POSITION_Y])
     
 
     
