@@ -1,9 +1,9 @@
 
 import time
 import math
-from  Robot import Robot
-from  Obstacle import Obstacle
-from  Senseur import Senseur
+from  projet_robot.Simulation.Robot import Robot
+from  projet_robot.Simulation.Obstacle import Obstacle
+from  projet_robot.Simulation.Senseur import Senseur
 
 class Environnement:
     

@@ -3,3 +3,15 @@ irobot_v2.egg-info/PKG-INFO
 irobot_v2.egg-info/SOURCES.txt
 irobot_v2.egg-info/dependency_links.txt
 irobot_v2.egg-info/top_level.txt
+projet_robot/__init__.py
+projet_robot/Affichage/Main_pygame.py
+projet_robot/Affichage/__init__.py
+projet_robot/Simulation/Environnement.py
+projet_robot/Simulation/Main_simulation.py
+projet_robot/Simulation/Obstacle.py
+projet_robot/Simulation/Robot.py
+projet_robot/Simulation/Senseur.py
+projet_robot/Simulation/__init__.py
+projet_robot/Test/__init__.py
+projet_robot/Test/test_newRobot.py
+projet_robot/Test/test_obstacle.py
