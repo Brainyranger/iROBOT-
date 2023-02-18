@@ -27,12 +27,12 @@ class Environnement:
             x=self.LIST_OBS[i][0] 
             y=self.LIST_OBS[i][1]	
             if (self.senseur.get_distance(self.robot,x,y)) == 0:
-                print("Le robot se trouve à "+str((int)(self.sensor.get_distance(self.robot,x,y)))+" cm de Obs_")
+                print("Le robot se trouve à "+str((int)(self.senseur.get_distance(self.robot,x,y)))+" cm de Obs_")
                 print("COLLISION")
             elif (self.senseur.get_distance(self.robot,x,y)) == "Rien":
                 print("Le senseur ne détecte pas d'obstacles")
             else:
-                print("Le robot se trouve à "+str((int)(self.sensor.get_distance(self.robot,x,y)))+" cm de Obs_")
+                print("Le robot se trouve à "+str((int)(self.senseur.get_distance(self.robot,x,y)))+" cm de Obs_")
     		    
 
           

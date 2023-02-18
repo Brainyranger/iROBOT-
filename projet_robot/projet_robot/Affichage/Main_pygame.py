@@ -1,12 +1,12 @@
 
-import pygame
+import pygame,sys,os,math
 from pygame.locals import *
-import sys
 from projet_robot.Simulation.Environnement import Environnement 
 from projet_robot.Simulation.Obstacle import Obstacle 
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Senseur import Senseur 
 
+os.environ["SDL_VIDEODRIVER"]="dummy"
 # création de l'environnemnt :
 pygame.init()
 pygame.display.set_caption("Ma simulation")
@@ -33,7 +33,7 @@ while SIMUL.running:
         recto = rotated.get_rect(center=(SIMUL.robot.POSITION_X,SIMUL.robot.POSITION_Y))
         SCREEN.blit(rotated,recto)
         #draw sensor
-        pygame.draw.line(SCREEN,green,((SIMUL.robot.POSITION_X,SIMUL.robot.POSITION_Y),((SIMUL.robot.POSITION_X+SIMUL.senseur.PORTEE*math.cos(SIMUL.robot.ANGLE)),(SIMUL.robot.POSITION_Y-SIMUL.senseur.PORTEE*math.sin(SIMUL.robot.ANGLE))))
+        #pygame.draw.line(SCREEN,green,((SIMUL.robot.POSITION_X,SIMUL.robot.POSITION_Y),((SIMUL.robot.POSITION_X+SIMUL.senseur.PORTEE*math.cos(SIMUL.robot.ANGLE)),(SIMUL.robot.POSITION_Y-SIMUL.senseur.PORTEE*math.sin(SIMUL.robot.ANGLE)))),((0,0),(0,0)))
         #draw obstacle
         obstacle1 = pygame.Rect(SIMUL.obstacle1.POSITION_X,SIMUL.obstacle1.POSITION_Y,SIMUL.obstacle1.TAILLE_X,SIMUL.obstacle1.TAILLE_Y)
         pygame.draw.rect(SCREEN,colour,obstacle1)
