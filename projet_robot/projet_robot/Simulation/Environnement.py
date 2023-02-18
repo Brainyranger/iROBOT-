@@ -16,7 +16,7 @@ class Environnement:
         self.obstacle1 = Obstacle(200,300,"Obs_1",20,20)
         self.obstacle2 = Obstacle(100,80,"Obs_2",20,20)
         self.obstacle3 = Obstacle(400,200,"Obs_3",20,20)
-        self.LIST_OBS = [[self.obstacle1.x,self.obstacle1.y],[self.obstacle2.x,self.obstacle2.x],[self.obstacle3.x,self.obstacle3.x]]
+        self.LIST_OBS = [[self.obstacle1.POSITION_X,self.obstacle1.POSITION_Y],[self.obstacle2.POSITION_X,self.obstacle2.POSITION_Y],[self.obstacle3.POSITION_X,self.obstacle3.POSITION_Y]]
         self.senseur = Senseur(10)
         self.dt=0
         self.temps=time.time() 
