@@ -16,10 +16,10 @@ class Robot:
         
     def MOVE(self,dt):
         self.POSITION_X += ((self.MOTOR_LEFT + self.MOTOR_RIGHT)/2)*math.cos(self.ANGLE)*dt
-        self.POSITION_Y -= ((self.MOTOR_LEFT + self.MOTOR_RIGHT)/2)*math.sin(self.h)*dt
+        self.POSITION_Y -= ((self.MOTOR_LEFT + self.MOTOR_RIGHT)/2)*math.sin(self.ANGLE)*dt
         self.ANGLE      += (self.MOTOR_LEFT - self.MOTOR_RIGHT)/(self.WHEEL_BASE_WIDTH + 2*WHEEL_DIAMETER)*dt
         #a utiliser dans la classe IA
         if self.POSITION_X>=500 or self.POSITION_X<= 0 or self.POSITION_Y>=420 or self.POSITION_Y<=0 :
             self.POSITION_X -= ((self.MOTOR_LEFT + self.MOTOR_RIGHT)/2)*math.cos(self.ANGLE)*dt
-            self.POSITION_Y += ((self.MOTOR_LEFT + self.MOTOR_RIGHT)/2)*math.sin(self.h)*dt
+            self.POSITION_Y += ((self.MOTOR_LEFT + self.MOTOR_RIGHT)/2)*math.sin(self.ANGLE)*dt
             self.ANGLE      += 30

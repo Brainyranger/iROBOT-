@@ -11,8 +11,8 @@ class Senseur:
         """Renvoie la distance entre le robot et l'obstacle si il est dans le champ de vision du senseur"""
         po=self.PORTEE
         while po >= 0:
-            if (int)(Robot.x+(po*math.cos(Robot.h))) == obstacle_x and (int)(Robot.y-(po*math.sin(Robot.h))) == obstacle_y:
-                return  (int)(math.sqrt(((obstacle_x-Robot.x)**2)+((obstacle_y-Robot.y)**2))*0.026)
+            if (int)(Robot.POSITION_X+(po*math.cos(Robot.ANGLE))) == obstacle_x and (int)(Robot.POSITION_Y-(po*math.sin(Robot.ANGLE))) == obstacle_y:
+                return  (int)(math.sqrt(((obstacle_x-Robot.POSITION_X)**2)+((obstacle_y-Robot.POSITION_Y)**2))*0.026)
             po -= 1
         return "Rien"
         

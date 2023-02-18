@@ -2,7 +2,7 @@
 import pygame
 from pygame.locals import *
 import sys
-from projet_robot.Simulation.Simulation_finale import Environnement 
+from projet_robot.Simulation.Environnement import Environnement 
 from projet_robot.Simulation.Obstacle import Obstacle 
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Senseur import Senseur 
@@ -29,17 +29,17 @@ while SIMUL.running:
         #draw surface
         SCREEN.fill("White")
         #draw robot
-        rotated = pygame.transform.rotozoom(IMAGE_ROBOT,math.degrees(SIMUL.robot.h),1)
-        recto = rotated.get_rect(center=(SIMUL.robot.x,SIMUL.robot.y))
+        rotated = pygame.transform.rotozoom(IMAGE_ROBOT,math.degrees(SIMUL.robot.ANGLE),1)
+        recto = rotated.get_rect(center=(SIMUL.robot.POSITION_X,SIMUL.robot.POSITION_Y))
         SCREEN.blit(rotated,recto)
         #draw sensor
-        pygame.draw.line(SCREEN,green,((SIMUL.robot.x+SIMUL.senseur.PORTEE*math.cos(SIMUL.robot.h)),(SIMUL.robot.y-SIMUL.senseur.portee*math.sin(SIMUL.robot.h))),(SIMUL.robot.x,SIMUL.robot.y))
+        pygame.draw.line(SCREEN,green,((SIMUL.robot.POSITION_X,SIMUL.robot.POSITION_Y),((SIMUL.robot.POSITION_X+SIMUL.senseur.PORTEE*math.cos(SIMUL.robot.ANGLE)),(SIMUL.robot.POSITION_Y-SIMUL.senseur.PORTEE*math.sin(SIMUL.robot.ANGLE))))
         #draw obstacle
-        obstacle1 = pygame.Rect(SIMUL.obstacle1.x,SIMUL.obstacle1.y,SIMUL.obstacle1.taille_x,SIMUL.obstacle1.taille_y)
+        obstacle1 = pygame.Rect(SIMUL.obstacle1.POSITION_X,SIMUL.obstacle1.POSITION_Y,SIMUL.obstacle1.TAILLE_X,SIMUL.obstacle1.TAILLE_Y)
         pygame.draw.rect(SCREEN,colour,obstacle1)
-        obstacle2 = pygame.Rect(SIMUL.obstacle2.x,SIMUL.obstacle2.y,SIMUL.obstacle2.taille_x,SIMUL.obstacle2.taille_y)
+        obstacle2 = pygame.Rect(SIMUL.obstacle2.POSITION_X,SIMUL.obstacle2.POSITION_Y,SIMUL.obstacle2.TAILLE_X,SIMUL.obstacle2.TAILLE_Y)
         pygame.draw.rect(SCREEN,colour,obstacle2)
-        obstacle3 = pygame.Rect(SIMUL.obstacle3.x,SIMUL.obstacle3.y,SIMUL.obstacle3.taille_x,SIMUL.obstacle3.taille_y)
+        obstacle3 = pygame.Rect(SIMUL.obstacle3.POSITION_X,SIMUL.obstacle3.POSITION_Y,SIMUL.obstacle3.TAILLE_X,SIMUL.obstacle3.TAILLE_Y)
         pygame.draw.rect(SCREEN,colour,obstacle3)
         pygame.display.flip()
         clock.tick(50)
