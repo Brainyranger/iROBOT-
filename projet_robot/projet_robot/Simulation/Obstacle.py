@@ -1,15 +1,15 @@
 class Obstacle:
     #création d'obstacle
     
-    def __init__(self,x,y,nom,taille_x,taille_y):
-        """ enresgistre les coordoonnées de nos obstacles"""
-        self.x=x
-        self.y=y
-        self.nom = nom
-        self.taille_x = taille_x
-        self.taille_y = taille_y
-        self.list_obstacle = []
-        self.list_obstacle.append([x,y])
+    def __init__(self,POSITION_X,POSITION_Y,NOM,TAILLE_X,TAILLE_Y):
+        """ Initialise les coordoonnées, la taille et le nom de nos obstacles """
+        self.POSITION_X = POSITION_X
+        self.POSITION_Y = POSITION_Y
+        self.NOM        = NOM
+        self.TAILLE_X   = TAILLE_X
+        self.TAILLE_Y.  = TAILLE_Y
+        self.LIST_OBSTACLE = []
+        self.LIST_OBSTACLE.append([POSITION_X,POSITION_Y])
     
 
     
