@@ -1,5 +1,5 @@
 import unittest
-from Obstacle import Obstacle
+from  projet_robot.Simulation.Obstacle import Obstacle
 
 
 class TestObstacle(unittest.TestCase):

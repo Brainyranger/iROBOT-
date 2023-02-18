@@ -1,11 +1,11 @@
 import unittest
-from newRobot import newRobot
+from projet_robot.Simulation.Robot import Robot
 
 
 class TestnewRobot(unittest.TestCase):
     
     def setUp(self):
-        self.robot = newRobot(10,10,60,5,50,200,400)
+        self.robot = Robot(10,10,60,5,50,200,400)
         
     def pos_X(self):
         self.assertEqual(self.robot.x,10)
