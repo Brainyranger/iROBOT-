@@ -1,6 +1,7 @@
 
 import time
 import math
+from projet_robot.Controller.IA import IA,IA_avancer
 from  projet_robot.Simulation.Robot import Robot
 from  projet_robot.Simulation.Obstacle import Obstacle
 from  projet_robot.Simulation.Senseur import Senseur
@@ -18,6 +19,7 @@ class Environnement:
         self.obstacle3 = Obstacle(400,200,"Obs_3",20,20)
         self.LIST_OBS = [[self.obstacle1.POSITION_X,self.obstacle1.POSITION_Y,self.obstacle1.TAILLE_X,self.obstacle1.TAILLE_Y,self.obstacle1.NOM],[self.obstacle2.POSITION_X,self.obstacle2.POSITION_Y,self.obstacle2.TAILLE_X,self.obstacle2.TAILLE_Y,self.obstacle2.NOM],[self.obstacle3.POSITION_X,self.obstacle3.POSITION_Y,self.obstacle3.TAILLE_X,self.obstacle3.TAILLE_Y,self.obstacle3.NOM]]
         self.senseur = Senseur(10)
+        #self.IA = IA_avancer(self.IA,0.05,10,self.robot)
         self.dt=0
         self.temps=time.time() 
         
@@ -40,4 +42,5 @@ class Environnement:
         self.dt = (time.time()-self.temps)
         self.temps=time.time()
         self.robot.MOVE(self.dt)
+        #self.IA.IA_avancer.run(self.robot,0.05,self.dt)
         self.detection_collision()
