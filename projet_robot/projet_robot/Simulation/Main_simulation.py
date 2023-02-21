@@ -1,9 +1,14 @@
 from projet_robot.Simulation.Environnement import Environnement
-from projet_robot.Simulation.Robot import Robot
+import pygame
 
-
-BORD_MAP_X = 500
-BORD_MAP_Y = 420
-simul = Environnement(BORD_MAP_X,BORD_MAP_Y)
+pygame.init()
+pygame.display.set_caption("Ma simulation")
+bord_map_x = 500
+bord_map_y = 420
+simul = Environnement(bord_map_x,bord_map_y)
 while simul.running :
-	simul.event_update()
+        simul.update()
+        simul.simul_pygame.event_update(simul)
+
+pygame.QUIT()
+sys.exit()
