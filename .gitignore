@@ -1,2 +1,3 @@
-__pycache__/*.__pyc
+__pycache__/
+*.py[cod]
 irobot_v2.egg-info/
