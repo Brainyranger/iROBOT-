@@ -1,7 +1,7 @@
 import time
 import math
 import random
-from projet_robot.Controller.IA import IA,IA_avancer
+from projet_robot.Controller.IA import IA
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Obstacle import Obstacle
 from projet_robot.Simulation.Senseur import Senseur
@@ -13,7 +13,7 @@ class Environnement:
         """ Initialise les éléments de notre simulation"""
         self.bord_map_x = bord_map_x
         self.bord_map_y = bord_map_y
-        #self.simul_pygame = Simulation_pygame(bord_map_x,bord_map_y)
+        self.simul_pygame = Simulation_pygame(bord_map_x,bord_map_y)
         self.running = True
         self.robot = Robot(50,300,0)
         self.senseur = Senseur(10)
@@ -50,8 +50,6 @@ class Environnement:
             obs = Obstacle(x,y,taille_obs//2,taille_obs)
             if ancien_obs.x <= obs.x+(obs.taille_x)//2 and ancien_obs.x >= obs.y-((obs.taille_x))//2 or ancien_obs.y <= obs.y+(obs.taille_y)//2 and ancien_obs.y >= obs.y-((obs.taille_y))//2:
                 ancien_obs = obs
-            elif self.detection_une_collision(obs.x,obs.y,obs.taille_x,robot):
-                print("déja obstacle à cet emplacement")
             else:
                 lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])
          

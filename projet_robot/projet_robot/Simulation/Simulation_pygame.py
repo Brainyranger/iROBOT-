@@ -1,7 +1,6 @@
 import time
 import math,pygame
 from pygame.locals import *
-from  projet_robot.Controller.IA import IA,IA_avancer
 from  projet_robot.Simulation.Robot import Robot
 from  projet_robot.Simulation.Obstacle import Obstacle
 from  projet_robot.Simulation.Senseur import Senseur
