@@ -14,7 +14,7 @@ class IA:
         self.distance_parcouru = 0
         self.vitesse = vitesse
         self.robot = robot
-
+        self.s = True
 
     
     def run_forward(self,dt):
@@ -30,9 +30,13 @@ class IA:
     def update(self,dt):
         """fais la mise à jour de notre déplacement en ligne droite"""
         if self.distance_parcouru <= self.distance:
-            self.distance_parcouru += (self.vitesse/((WHEEL_DIAMETER)//2))*dt
+            x=self.robot.x
+            y=self.robot.y
+            #self.distance_parcouru += (self.vitesse/((WHEEL_DIAMETER)//2))*dt
             self.run_forward(dt)
-
+            self.distance_parcouru = (self.robot.x+self.robot.y) - (x+y)
+        else:
+            self.s = False
         self.robot.motor_left = 0
         self.robot.motor_right = 0
         print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")

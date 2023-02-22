@@ -53,14 +53,8 @@ class Environnement:
             	ens_obs.add(obs.x)
             	ens_obs.add(obs.y)
             	lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])
-            elif detection_une_collision(self,obs.x,obs.y,obs.taille_x,obs.taille_y,robot):
-             print("collision pas possible de poser obstacle")
-             
-            else:
-            	return 
-            
-            
-         
+            #elif detection_une_collision(self,obs.x,obs.y,obs.taille_x,obs.taille_y,robot):
+            # print("collision pas possible de poser obstacle")        
         return lr
           
     def update(self):
