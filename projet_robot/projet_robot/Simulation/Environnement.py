@@ -43,13 +43,15 @@ class Environnement:
         """place nb_obs obstacles dans l'environnemnt en faisant attention à ne pas
         supperposer les obstacles ni de le poser sur le robot"""
         lr = [] 
-        ancien_obs = Obstacle(0,0,0,0)
+        ens_obs = set()
         for i in range(0,nb_obs):
             taille_obs = random.randint(20,30)
-            x = random.randint(taille_obs//2,self.bord_map_x-taille_obs//2)
-            y = random.randint(taille_obs//2,self.bord_map_y-taille_obs//2)
-            obs = Obstacle(x,y,taille_obs//2,taille_obs)
+            x = random.randint(taille_obs,self.bord_map_x-taille_obs)
+            y = random.randint(taille_obs,self.bord_map_y-taille_obs)
+            obs = Obstacle(x,y,taille_obs,taille_obs)
             if obs.x not in ens_obs and obs.y not in ens_obs and obs.x+taille_obs//2 not in ens_obs and obs.y+taille_obs//2 not in ens_obs:
+            	ens_obs.add(obs.x)
+            	ens_obs.add(obs.y)
             	lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])
             elif detection_une_collision(self,obs.x,obs.y,obs.taille_x,obs.taille_y,robot):
              print("collision pas possible de poser obstacle")
