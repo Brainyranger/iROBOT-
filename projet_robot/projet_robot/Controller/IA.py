@@ -22,13 +22,15 @@ class IA:
         self.robot.h = 0
         self.robot.motor_left = self.vitesse
         self.robot.motor_right = self.vitesse
+        self.robot.move(dt)
+        
 
            
         
     def update(self,dt):
         if self.distance_parcouru <= self.distance:
             self.distance_parcouru += self.vitesse/360*math.pi*(WHEEL_DIAMETER)*dt
-            self.run_forward()
+            self.run_forward(dt)
 
         self.robot.motor_left = 0
         self.robot.motor_right = 0

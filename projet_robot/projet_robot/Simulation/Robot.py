@@ -1,13 +1,13 @@
 import math
 
-
+global WHEEL_DIAMETER 
+global WHEEL_BASE_WIDTH   
+WHEEL_DIAMETER = 5
+WHEEL_BASE_WIDTH= 40
 
 class Robot:
     
-    global WHEEL_DIAMETER   
-    WHEEL_DIAMETER = 5
-    global WHEEL_BASE_WIDTH 
-    WHEEL_BASE_WIDTH= 40
+  
 
     def __init__(self,x,y,h) -> None: 
             self.x  = x
