@@ -17,7 +17,7 @@ class IA:
 
 
     
-    def run_forward(self):
+    def run_forward(self,dt):
         """ avancer sur une ligne droite sur une distance donnée"""
         self.robot.h = 0
         self.robot.motor_left = self.vitesse
@@ -34,7 +34,7 @@ class IA:
 
         self.robot.motor_left = 0
         self.robot.motor_right = 0
-        print("j'ai fini de parcourir"+str(self.distance_parcouru)+"cm")
+        print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
         
 
 

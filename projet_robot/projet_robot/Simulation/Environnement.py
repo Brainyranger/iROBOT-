@@ -33,6 +33,7 @@ class Environnement:
         for i in range(0,len(self.list_obs)):	
             if (self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])) == 0:
                 print("COLLISION")
+                #time.sleep(1)
             if (self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])) == "Rien":
                 print("Le senseur ne détecte pas d'obstacles")
  
