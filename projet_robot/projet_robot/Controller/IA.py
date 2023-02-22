@@ -28,8 +28,9 @@ class IA:
            
         
     def update(self,dt):
+        """fais la mise à jour de notre déplacement en ligne droite"""
         if self.distance_parcouru <= self.distance:
-            self.distance_parcouru += self.vitesse/360*math.pi*(WHEEL_DIAMETER)*dt
+            self.distance_parcouru += (self.vitesse/2*math.pi*((WHEEL_DIAMETER)//2))*dt
             self.run_forward(dt)
 
         self.robot.motor_left = 0

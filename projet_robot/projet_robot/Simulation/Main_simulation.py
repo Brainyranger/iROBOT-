@@ -11,7 +11,7 @@ IA_robot = IA(0.2,10,simul.robot)
 while simul.running :
         simul.update()
         simul.simul_pygame.event_update(simul)
-        IA_robot.update(1000)
+        #IA_robot.update(simul.dt)
 
 pygame.QUIT()
 sys.exit()
