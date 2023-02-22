@@ -15,7 +15,6 @@ class IA:
         self.vitesse = vitesse
         self.robot = robot
         self.s = True
-(s
     
     def run_forward(self,dt):
         """ avancer sur une ligne droite sur une distance donnée"""
