@@ -12,7 +12,7 @@ while simul.running :
         simul.update()
         IA_robot.update(simul.dt)
         simul.simul_pygame.event_update(simul)
-        simul.running = IA_robot.set_caption
+        simul.running = IA_robot.s
 
 pygame.QUIT()
 sys.exit()
