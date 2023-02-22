@@ -48,10 +48,15 @@ class Environnement:
             x = random.randint(taille_obs//2,self.bord_map_x-taille_obs//2)
             y = random.randint(taille_obs//2,self.bord_map_y-taille_obs//2)
             obs = Obstacle(x,y,taille_obs//2,taille_obs)
-            if ancien_obs.x <= obs.x+(obs.taille_x)//2 and ancien_obs.x >= obs.y-((obs.taille_x))//2 or ancien_obs.y <= obs.y+(obs.taille_y)//2 and ancien_obs.y >= obs.y-((obs.taille_y))//2:
-                ancien_obs = obs
+            if obs.x not in ens_obs and obs.y not in ens_obs and obs.x+taille_obs//2 not in ens_obs and obs.y+taille_obs//2 not in ens_obs:
+            	lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])
+            elif detection_une_collision(self,obs.x,obs.y,obs.taille_x,obs.taille_y,robot):
+             print("collision pas possible de poser obstacle")
+             
             else:
-                lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])
+            	return 
+            
+            
          
         return lr
           
