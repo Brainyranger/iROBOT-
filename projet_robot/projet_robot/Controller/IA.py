@@ -15,7 +15,7 @@ class IA:
         self.vitesse = vitesse
         self.robot = robot
         self.s = True
-
+(s
     
     def run_forward(self,dt):
         """ avancer sur une ligne droite sur une distance donnée"""
@@ -34,7 +34,7 @@ class IA:
             y=self.robot.y
             #self.distance_parcouru += (self.vitesse/((WHEEL_DIAMETER)//2))*dt
             self.run_forward(dt)
-            self.distance_parcouru = (self.robot.x+self.robot.y) - (x+y)
+            self.distance_parcouru = (int)((self.robot.x+self.robot.y) - (x+y))
         else:
             self.s = False
         self.robot.motor_left = 0
