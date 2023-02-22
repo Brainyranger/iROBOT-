@@ -7,7 +7,7 @@ pygame.display.set_caption("Ma simulation")
 bord_map_x = 500
 bord_map_y = 420
 simul = Environnement(bord_map_x,bord_map_y)
-IA_robot = IA(0.2,10,simul.robot)
+IA_robot = IA(0.2*3800,200,simul.robot)
 while simul.running :
         simul.update()
         IA_robot.update(simul.dt)
