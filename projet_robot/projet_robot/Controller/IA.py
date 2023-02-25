@@ -9,36 +9,82 @@ WHEEL_BASE_WIDTH= 40
 
 class IA:
 
-    def __init__(self,vitesse,distance,robot):
-        self.distance = distance 
-        self.distance_parcouru = 0
-        self.vitesse = vitesse
-        self.robot = robot
-        self.s = True
-    
-    def run_forward(self,dt):
-        """ avancer sur une ligne droite sur une distance donnée"""
-        self.robot.h = 0
-        self.robot.motor_left = self.vitesse
-        self.robot.motor_right = self.vitesse
-        self.robot.move(dt)
+    def __init__(self):
+        self.start = True
+        self.IA_liste_commandes = []
         
-
-           
-        
-    def update(self,dt):
+    def update(self,robot,dt):
         """fais la mise à jour de notre déplacement en ligne droite"""
-        if self.distance_parcouru <= self.distance:
-            x=self.robot.x
-            y=self.robot.y
-            #self.distance_parcouru += (self.vitesse/((WHEEL_DIAMETER)//2))*dt
-            self.run_forward(dt)
-            self.distance_parcouru += (int)((self.robot.x+self.robot.y) - (x+y))
+        if self.IA_liste_commandes == []:
+            self.stop()
+            robot.set_motor_dps(0,0)
         else:
-            self.s = False
-        self.robot.motor_left = 0
-        self.robot.motor_right = 0
-        print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
+            for i in range(0,len(self.IA_liste_commandes)):
+                com = self.IA_liste_commandes[i]
+                if com.update(robot):
+                    i -= 1
+                    com.update()
+            self.stop()
+
+    def ajout_commandes(self,commande):
+        self.IA_liste_commandes.append(commande)
+        
+    def stop(self):
+        self.start = False
+        
+    def getstart(self):
+        return self.start
+
+class Avancer:
+
+    def __init__(self,vitesse,distance,robot):
+        self.robot = robot
+        self.vitesse = vitesse*3800
+        self.distance = distance
+        self.distance_parcouru = 0
+
+    def update(self,dt) :
+        if self.distance_parcouru <= self.distance:
+            self.robot.set_motor_dps(self.vitesse,self.vitesse)
+            self.distance_parcouru += abs((self.robot.getmovex(dt)+self.robot.getmovey(dt)) - (self.robot.x + self.robot.y))
+            print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
+            return True
+        return False
+			
+class Reculer:
+
+    def __init__(self,vitesse,distance,robot):
+        self.robot = robot
+        self.vitesse = -vitesse*3800
+        self.distance = distance
+        self.distance_parcouru = 0
+
+    def update(self,dt) :
+        if self.distance_parcouru <= self.distance:
+            self.robot.set_motor_dps(self.vitesse,self.vitesse)
+            self.distance_parcouru += abs((robot.getmovex(dt)+robot.getmovey(dt)) - (robot.x + robot.y))
+            print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
+            return True
+        return False
+
+class Tourner:
+
+    def __init__(self,vitesse,angle,dps,robot):
+        self.robot = robot
+        self.vitesse = vitesse
+        self.angle = angle
+        self.dps = dps
+        self.angle_parcouru = 0
+
+    def update(self,dt):
+        if abs(self.angle_parcouru) <= abs(self.angle):
+            if self.dps > 0:
+                self.robot.set_vitesse(self.vitesse + 1,self.vitesse)
+            else:
+                self.robot.set_vitesse(self.vitesse,self.vitesse + 1)
+            self.angle_parcouru += 1
+            return True
+        return False
         
 
 
