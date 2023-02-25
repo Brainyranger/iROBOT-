@@ -13,32 +13,30 @@ class Environnement:
         """ Initialise les éléments de notre simulation"""
         self.bord_map_x = bord_map_x
         self.bord_map_y = bord_map_y
-        self.simul_pygame = Simulation_pygame(bord_map_x,bord_map_y)
         self.running = True
         self.robot = Robot(50,300,0)
-        self.senseur = Senseur(10)
+        self.senseur = Senseur(30)
         self.dt=0
         self.temps=time.time() 
         self.list_obs=self.generer_obstacles(self.robot,5)
         
-    def detection_une_collision(self,x,y,taille,robot):
-        """détection une collision"""
-        if self.senseur.get_distance(robot,x,y,taille,taille)==0:
-            return True
-        return False
-        
 	
     def detection_collision(self):
         """détection des collisions"""
-        for i in range(0,len(self.list_obs)):	
-            if (self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])) == 0:
+        if self.robot.x >= self.bord_map_x or self.robot.x <= 0 or self.robot.y >= self.bord_map_y or self.robot.y <= 0 :
+                self.robot.angle += 30
+                print(self.robot.angle)
+        for i in range(0,len(self.list_obs)):
+            dist_robot_obstacle = self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])
+            if dist_robot_obstacle == 0:
                 print("COLLISION")
                 #time.sleep(1)
-            if (self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])) == "Rien":
+            if dist_robot_obstacle == "Rien":
                 print("Le senseur ne détecte pas d'obstacles")
+            else:
+                print("Le senseur a détecté un obstacle à "+str((int)(dist_robot_obstacle))+" cm")
  
 
-            
     def generer_obstacles(self,robot,nb_obs):
         """place nb_obs obstacles dans l'environnemnt en faisant attention à ne pas
         supperposer les obstacles ni de le poser sur le robot"""
