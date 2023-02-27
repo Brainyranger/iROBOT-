@@ -1,5 +1,6 @@
 from projet_robot.Simulation.Environnement import Environnement
-from projet_robot.Controller.IA import IA
+from projet_robot.Controller.IA import IA,Avancer
+from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 import pygame
 
 pygame.init()
