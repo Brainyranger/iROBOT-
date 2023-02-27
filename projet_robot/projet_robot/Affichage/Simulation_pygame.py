@@ -13,7 +13,7 @@ class Simulation_pygame:
         self.colour = (0,0,255)
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((bord_map_x,bord_map_y))
-        self.image_robot = pygame.image.load("images.jpg")
+        self.image_robot = pygame.image.load("projet_robot/projet_robot/Affichage/images.jpg")
 
     def event_update(self,simul):
         for event in pygame.event.get():

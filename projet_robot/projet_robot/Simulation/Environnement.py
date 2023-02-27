@@ -5,7 +5,7 @@ from projet_robot.Controller.IA import IA
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Obstacle import Obstacle
 from projet_robot.Simulation.Senseur import Senseur
-from projet_robot.Simulation.Simulation_pygame import Simulation_pygame
+from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 
 class Environnement:
     
