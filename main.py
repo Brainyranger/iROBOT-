@@ -13,10 +13,10 @@ ToutDroit = Avancer(0.03,2000,Simul.robot)
 IA = IA()
 IA.ajout_commandes(ToutDroit)
 while Simul.running :
-        IA.update(Simul.robot,Simul.dt)
+        ToutDroit.update(Simul.dt)
         Simul.update()
         Simul_pygame.event_update(Simul)
-        Simul.running = IA.getstart()
+        Simul.running = ToutDroit.update(Simul.dt)
 
 pygame.QUIT()
 sys.exit()

@@ -23,7 +23,7 @@ class IA:
                 com = self.IA_liste_commandes[i]
                 if com.update(robot):
                     i -= 1
-                    com.update()
+                    com.update(dt)
             self.stop()
 
     def ajout_commandes(self,commande):
@@ -46,7 +46,7 @@ class Avancer:
     def update(self,dt) :
         if self.distance_parcouru <= self.distance:
             self.robot.set_motor_dps(self.vitesse,self.vitesse)
-            self.distance_parcouru += abs((self.robot.getmovex(dt)+self.robot.getmovey(dt)) - (self.robot.x + self.robot.y))
+            self.distance_parcouru += math.sqrt((self.robot.getmovex(dt)+self.robot.x)**2+(self.robot.getmovey(dt) - self.robot.y)**2)
             print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
             return True
         return False

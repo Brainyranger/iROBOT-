@@ -30,13 +30,13 @@ class Simulation_pygame:
         
     def draw_robot(self,robot):
         """ Affiche le robot """
-        rotated = pygame.transform.rotozoom(self.image_robot,math.degrees(robot.h),1)
+        rotated = pygame.transform.rotozoom(self.image_robot,math.degrees(robot.angle),1)
         recto = rotated.get_rect(center=(robot.x,robot.y))
         self.screen.blit(rotated,recto)
         
     def draw_senseur(self,senseur,robot):
         """ Affiche le senseur """
-        pygame.draw.line(self.screen,self.green,(robot.x,robot.y),((robot.x + senseur.portee * math.cos(robot.h)),(robot.y - senseur.portee * math.sin(robot.h))))
+        pygame.draw.line(self.screen,self.green,(robot.x,robot.y),((robot.x + senseur.portee * math.cos(robot.angle)),(robot.y - senseur.portee * math.sin(robot.angle))))
 
     def draw_obstacle(self,x,y,taille_x,taille_y):
         """ Affiche l'obstacle """
