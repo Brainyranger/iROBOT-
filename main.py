@@ -9,7 +9,7 @@ bord_map_x = 500
 bord_map_y = 420
 Simul = Environnement(bord_map_x,bord_map_y)
 Simul_pygame = Simulation_pygame(Simul.bord_map_x,Simul.bord_map_y)
-ToutDroit = Avancer(0.03,2000,Simul.robot)
+ToutDroit = Avancer(0.03,20000,Simul.robot)
 IA = IA()
 IA.ajout_commandes(ToutDroit)
 while Simul.running :
