@@ -18,7 +18,7 @@ class Environnement(Thread):
         self.running = True
         self.robot = Robot(50,300,30)
         self.senseur = Senseur(30) 
-        self.list_obs=self.generer_obstacles(self.robot,5)
+        self.list_obs=self.generer_obstacles(5)
         
 	
     def detection_collision(self):
@@ -33,14 +33,14 @@ class Environnement(Thread):
             dist_robot_obstacle = self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])
             if dist_robot_obstacle == 0:
                 print("COLLISION")
-                #time.sleep(1)
+              
             if dist_robot_obstacle == "Rien":
                 print("Le senseur ne détecte pas d'obstacles")
             else:
                 print("Le senseur a détecté un obstacle à "+str((int)(dist_robot_obstacle))+" cm")
  
 
-    def generer_obstacles(self,robot,nb_obs):
+    def generer_obstacles(self,nb_obs):
         """place nb_obs obstacles dans l'environnemnt en faisant attention à ne pas
         supperposer les obstacles ni de le poser sur le robot"""
         lr = [] 
@@ -53,9 +53,7 @@ class Environnement(Thread):
             if obs.x not in ens_obs and obs.y not in ens_obs and obs.x+taille_obs//2 not in ens_obs and obs.y+taille_obs//2 not in ens_obs:
             	ens_obs.add(obs.x)
             	ens_obs.add(obs.y)
-            	lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])
-            #elif detection_une_collision(self,obs.x,obs.y,obs.taille_x,obs.taille_y,robot):
-            # print("collision pas possible de poser obstacle")        
+            	lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])        
         return lr
           
     def update(self,dt):
