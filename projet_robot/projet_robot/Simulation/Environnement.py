@@ -14,17 +14,18 @@ class Environnement:
         self.bord_map_x = bord_map_x
         self.bord_map_y = bord_map_y
         self.running = True
-        self.robot = Robot(50,300,0)
-        self.senseur = Senseur(30)
-        self.dt=0
-        self.temps=time.time() 
+        self.robot = Robot(50,300,30)
+        self.senseur = Senseur(30) 
         self.list_obs=self.generer_obstacles(self.robot,5)
         
 	
     def detection_collision(self):
         """détection des collisions"""
         if self.robot.x >= self.bord_map_x or self.robot.x <= 0 or self.robot.y >= self.bord_map_y or self.robot.y <= 0 :
-                self.robot.angle += 30
+                print(self.robot.angle)
+                self.robot.angle += math.pi
+                if self.robot.angle >= 2*math.pi:
+                    self.robot.angle -= 2*math.pi
                 print(self.robot.angle)
         for i in range(0,len(self.list_obs)):
             dist_robot_obstacle = self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])
@@ -55,9 +56,7 @@ class Environnement:
             # print("collision pas possible de poser obstacle")        
         return lr
           
-    def update(self):
+    def update(self,dt):
         """ fais la mise à jour de notre simulation """
-        self.dt = (time.time()-self.temps)
-        self.temps=time.time()
-        self.robot.move(self.dt)
+        self.robot.move(dt)
         self.detection_collision()
