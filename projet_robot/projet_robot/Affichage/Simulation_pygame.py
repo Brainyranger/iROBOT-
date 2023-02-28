@@ -1,14 +1,16 @@
 import time
 import math,pygame
 from pygame.locals import *
+from threading import Thread
 from  projet_robot.Simulation.Robot import Robot
 from  projet_robot.Simulation.Obstacle import Obstacle
 from  projet_robot.Simulation.Senseur import Senseur
 
-class Simulation_pygame:
+class Simulation_pygame(Thread):
 
     def __init__(self,bord_map_x,bord_map_y)-> None:
         """ Initialise les éléments de notre simulation"""
+        super(Simulation_pygame,self).__init__()
         self.green = (0,255,0)
         self.colour = (0,0,255)
         self.clock = pygame.time.Clock()

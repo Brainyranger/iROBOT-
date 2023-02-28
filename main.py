@@ -1,5 +1,5 @@
 from projet_robot.Simulation.Environnement import Environnement
-from projet_robot.Controller.IA import IA,Avancer
+from projet_robot.Controller.IA import IA,Avancer,Tourner,Reculer
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 import pygame,time
 
@@ -18,6 +18,9 @@ IA = IA()
 IA.ajout_commandes(Recule)
 Recule = Reculer(0.03,2000,Simul.robot)
 temps = time.time()
+Simul.start()
+Simul_pygame.start()
+IA.start()
 while Simul.running :
         temps_reel = time.time() - temps
         temps = time.time()

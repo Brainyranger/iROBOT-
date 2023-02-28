@@ -1,16 +1,18 @@
 import time
 import math
 import random
+from threading import Thread
 from projet_robot.Controller.IA import IA
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Obstacle import Obstacle
 from projet_robot.Simulation.Senseur import Senseur
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 
-class Environnement:
+class Environnement(Thread):
     
     def __init__(self,bord_map_x,bord_map_y)-> None:
         """ Initialise les éléments de notre simulation"""
+        super(Environnement,self).__init__()
         self.bord_map_x = bord_map_x
         self.bord_map_y = bord_map_y
         self.running = True

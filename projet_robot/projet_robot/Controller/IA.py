@@ -1,5 +1,6 @@
 import time
 import math
+from threading import Thread
 from projet_robot.Simulation.Robot import Robot
 
 global WHEEL_DIAMETER 
@@ -7,9 +8,10 @@ global WHEEL_BASE_WIDTH
 WHEEL_DIAMETER = 5
 WHEEL_BASE_WIDTH= 40
 
-class IA:
+class IA(Thread):
 
     def __init__(self):
+        super(IA,self).__init__()
         self.Status = True
         self.IA_commande = None
         
