@@ -10,15 +10,13 @@ class Robot:
   
 
     def __init__(self,x,y,angle) -> None: 
-        """ Initialise le robot avec une position en x et en y, une orientation et une vitesse pour la roue gauche et droite"""
         self.x  = x
         self.y  = y
-        self.angle  = angle
+        self.angle  = angle*math.pi/180 #conversion degré par seconde en radian par seconde
         self.motor_left  = 0 
         self.motor_right = 0 
         
     def move(self,dt):
-        """ Déplace le robot en fonction d'un temps donné """
         self.x += ((self.motor_left + self.motor_right)/2) * math.cos(self.angle)*dt
         self.y -= ((self.motor_left + self.motor_right)/2) * math.sin(self.angle)*dt
         self.angle += (self.motor_left - self.motor_right) / (WHEEL_BASE_WIDTH + 2*WHEEL_DIAMETER)*dt
@@ -33,11 +31,16 @@ class Robot:
     def servo_rotate(self, angle):
         """ Tourne le robot a l'angle en parametre """
         self.angle += angle
+        print(self.angle)
+        if self.angle > 2*math.pi:
+            self.angle -= 2*math.pi
+
+    def getAngleEnDegre(self):
+        return self.angle*180/math.pi
 
     def getmovex(self,dt):
-        """ Renvoie la position en x du robot au prochain déplacement """
         return (self.x+((self.motor_left+self.motor_right)/2)*math.cos(self.angle)*dt) 
 
     def getmovey(self,dt):
-        """ Renvoie la position en y du robot au prochain déplacement """
         return (self.y-((self.motor_left+self.motor_right)/2)*math.sin(self.angle)*dt)
+
