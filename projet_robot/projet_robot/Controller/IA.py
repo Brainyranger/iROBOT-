@@ -8,7 +8,7 @@ global WHEEL_BASE_WIDTH
 WHEEL_DIAMETER = 5
 WHEEL_BASE_WIDTH= 40
 
-class IA:
+class IA(Thread):
 
     def __init__(self):
         super(IA,self).__init__()
@@ -19,7 +19,7 @@ class IA:
         """fais la mise à jour de notre déplacement en ligne droite"""
         if self.IA_commande == []:
             self.stop()
-            robot.set_motor_dps(0,0)
+            #robot.set_motor_dps(0,0)
         else:
             for i in range(0,len(self.IA_commande)):
                 if self.IA_commande[i].getStatus() == True:

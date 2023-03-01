@@ -16,7 +16,7 @@ class Environnement(Thread):
         self.bord_map_x = bord_map_x
         self.bord_map_y = bord_map_y
         self.running = True
-        self.robot = Robot(50,300,30)
+        self.robot = Robot(50,300,0)
         self.senseur = Senseur(30) 
         self.list_obs=self.generer_obstacles(5)
         
