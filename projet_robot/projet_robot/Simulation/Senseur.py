@@ -14,7 +14,7 @@ class Senseur:
             if ((int)(Robot.x+(po*math.cos(Robot.angle))) >= x and (int)(Robot.y-(po*math.sin(Robot.angle))) >= y) and ((int)(Robot.x+(po*math.cos(Robot.angle))) <= (x+t_x) and (int)(Robot.y-(po*math.sin(Robot.angle))) <= (y+t_y)):
                 return  (int)(math.sqrt(((x-Robot.x)**2)+((y-Robot.y)**2))*0.026)
             po -= 1
-        return "Rien"
+        return False
         
         
         

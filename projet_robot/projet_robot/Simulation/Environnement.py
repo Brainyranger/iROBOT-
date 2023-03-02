@@ -34,7 +34,7 @@ class Environnement(Thread):
             if dist_robot_obstacle == 0:
                 print("COLLISION")
               
-            if dist_robot_obstacle == "Rien":
+            if dist_robot_obstacle == False:
                 print("Le senseur ne détecte pas d'obstacles")
             else:
                 print("Le senseur a détecté un obstacle à "+str((int)(dist_robot_obstacle))+" cm")
@@ -46,11 +46,11 @@ class Environnement(Thread):
         lr = [] 
         ens_obs = set()
         for i in range(0,nb_obs):
-            taille_obsx = random.randint(20,25)
-            taille_obsy = random.randint(25,30)
-            x = random.randint(taille_obsx,self.bord_map_x-taille_obs)
-            y = random.randint(taille_obsy,self.bord_map_y-taille_obs)
-            obs = Obstacle(x,y,taille_obsx,taille_obsy)
+            taille_obs_x = random.randint(20,25)
+            taille_obs_y = random.randint(25,30)
+            x = random.randint(taille_obs_x,self.bord_map_x-taille_obs_x)
+            y = random.randint(taille_obs_y,self.bord_map_y-taille_obs_y)
+            obs = Obstacle(x,y,taille_obs_x,taille_obs_y)
            
             lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])        
         return lr
