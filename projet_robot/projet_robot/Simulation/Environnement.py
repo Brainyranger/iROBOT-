@@ -46,14 +46,13 @@ class Environnement(Thread):
         lr = [] 
         ens_obs = set()
         for i in range(0,nb_obs):
-            taille_obs = random.randint(20,30)
-            x = random.randint(taille_obs,self.bord_map_x-taille_obs)
-            y = random.randint(taille_obs,self.bord_map_y-taille_obs)
-            obs = Obstacle(x,y,taille_obs,taille_obs)
-            if obs.x not in ens_obs and obs.y not in ens_obs and obs.x+taille_obs//2 not in ens_obs and obs.y+taille_obs//2 not in ens_obs:
-            	ens_obs.add(obs.x)
-            	ens_obs.add(obs.y)
-            	lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])        
+            taille_obsx = random.randint(20,25)
+            taille_obsy = random.randint(25,30)
+            x = random.randint(taille_obsx,self.bord_map_x-taille_obs)
+            y = random.randint(taille_obsy,self.bord_map_y-taille_obs)
+            obs = Obstacle(x,y,taille_obsx,taille_obsy)
+           
+            lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])        
         return lr
           
     def update(self,dt):
