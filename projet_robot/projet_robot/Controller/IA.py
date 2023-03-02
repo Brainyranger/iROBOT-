@@ -118,3 +118,72 @@ class Tourner:
         
 
 
+
+class Square:
+
+	def	__init__(self,Robot):
+		self.IA_cmd = []
+		self.robot = Robot
+		self.count = 0
+		ToutDroit1 = Avancer(0.03,250,self.robot)
+		ToutDroit2 = Avancer(0.03,250,self.robot)
+		ToutDroit3 = Avancer(0.03,250,self.robot)
+		ToutDroit4 = Avancer(0.03,250,self.robot)
+		
+		TournerDroite1 = Tourner(0,90,30,self.robot)
+		TournerDroite2 = Tourner(0,90,30,self.robot)
+		TournerDroite3 = Tourner(0,90,30,self.robot)
+		TournerDroite4 = Tourner(0,90,30,self.robot)
+		self.IA_cmd.append(ToutDroit1)
+		self.IA_cmd.append(TournerDroite1)
+		self.IA_cmd.append(ToutDroit2)
+		self.IA_cmd.append(TournerDroite2)
+		self.IA_cmd.append(ToutDroit3)
+		self.IA_cmd.append(TournerDroite3)
+		self.IA_cmd.append(ToutDroit4)
+		self.IA_cmd.append(TournerDroite4)
+
+		
+	def	start(self):
+	
+		ToutDroit1 = Avancer(0.03,250,self.robot)
+		ToutDroit2 = Avancer(0.03,250,self.robot)
+		ToutDroit3 = Avancer(0.03,250,self.robot)
+		ToutDroit4 = Avancer(0.03,250,self.robot)
+		
+		TournerDroite1 = Tourner(0,90,30,self.robot)
+		TournerDroite2 = Tourner(0,90,30,self.robot)
+		TournerDroite3 = Tourner(0,90,30,self.robot)
+		TournerDroite4 = Tourner(0,90,30,self.robot)
+		self.IA_cmd.append(ToutDroit1)
+		self.IA_cmd.append(TournerDroite1)
+		self.IA_cmd.append(ToutDroit2)
+		self.IA_cmd.append(TournerDroite2)
+		self.IA_cmd.append(ToutDroit3)
+		self.IA_cmd.append(TournerDroite3)
+		self.IA_cmd.append(ToutDroit4)
+		self.IA_cmd.append(TournerDroite4)
+		
+		return True
+		
+			
+			 
+	def stop(self):
+	
+		return self.count >= 8
+		
+	def update(self,dt):
+	
+		#if not self.start():
+			#self.start()
+			
+			
+		for j in range(0,len(self.IA_cmd)):
+                	if self.IA_cmd[j].Status == True:
+                    		self.IA_cmd[j].update(dt)
+                    		return
+                	self.count += 1
+                    	
+                
+		if self.stop():
+                	self.robot.set_motor_dps(0,0)
