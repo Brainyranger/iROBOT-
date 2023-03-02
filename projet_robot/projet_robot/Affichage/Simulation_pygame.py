@@ -17,6 +17,10 @@ class Simulation_pygame(Thread):
         self.screen = pygame.display.set_mode((bord_map_x,bord_map_y))
         self.image_robot = pygame.image.load("projet_robot/projet_robot/Affichage/images.jpg")
 
+
+        pygame.init()
+        pygame.display.set_caption("Ma simulation")
+        
     def event_update(self,simul):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
