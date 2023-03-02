@@ -47,7 +47,7 @@ class Avancer:
         self.Status = True
 
     def update(self,dt) :
-        if self.distance_parcouru <= self.distance:
+        if self.distance_parcouru < self.distance:
             self.robot.set_motor_dps(self.vitesse,self.vitesse)
             self.distance_parcouru += abs((self.robot.getmovex(dt)+self.robot.getmovey(dt)) - (self.robot.x + self.robot.y))
             print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
@@ -57,6 +57,9 @@ class Avancer:
 
     def getStatus(self):
         return self.Status
+
+    def start(self):
+        self.Status = True
 
     def stop(self):
         self.Status = False
@@ -71,7 +74,7 @@ class Reculer:
         self.Status = True
 
     def update(self,dt) :
-        if self.distance_parcouru <= self.distance:
+        if self.distance_parcouru < self.distance:
             self.robot.set_motor_dps(self.vitesse,self.vitesse)
             self.distance_parcouru += abs((self.robot.getmovex(dt)+self.robot.getmovey(dt)) - (self.robot.x + self.robot.y))
             print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
@@ -81,6 +84,9 @@ class Reculer:
     
     def getStatus(self):
         return self.Status
+
+    def start(self):
+        self.Status = True
 
     def stop(self):
         self.Status = False
@@ -97,14 +103,19 @@ class Tourner:
         self.Status = True
 
     def update(self,dt):
-        if self.angle_parcouru <= self.angle:
+        if self.angle_parcouru < self.angle:
             if self.dps == 0:
                 self.stop()
             else:
                 self.robot.set_motor_dps(self.vitesse,self.vitesse)
                 angle = self.dps*dt*math.pi/180
+                if (self.dps*dt + self.angle_parcouru) > 90:
+                    angle = (self.angleInitial+90 - self.robot.getAngleEnDegre())*math.pi/180
+                    self.angleInitial += 90
+                    self.angle_parcouru = self.angle
+                else :
+                    self.angle_parcouru += angle*180/math.pi
                 self.robot.servo_rotate(angle)
-                self.angle_parcouru += self.dps*dt
                 print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
         else:
             self.angle_parcouru = 0
@@ -112,6 +123,9 @@ class Tourner:
 
     def getStatus(self):
         return self.Status
+
+    def start(self):
+        self.Status = True
 
     def stop(self):
         self.Status = False
@@ -122,72 +136,28 @@ class Tourner:
 class Square:
 
 	def	__init__(self,Robot):
-		self.IA_cmd = []
-		self.robot = Robot
-		self.count = 0
-		ToutDroit1 = Avancer(0.03,250,self.robot)
-		ToutDroit2 = Avancer(0.03,250,self.robot)
-		ToutDroit3 = Avancer(0.03,250,self.robot)
-		ToutDroit4 = Avancer(0.03,250,self.robot)
-		
-		TournerDroite1 = Tourner(0,90,30,self.robot)
-		TournerDroite2 = Tourner(0,90,30,self.robot)
-		TournerDroite3 = Tourner(0,90,30,self.robot)
-		TournerDroite4 = Tourner(0,90,30,self.robot)
-		self.IA_cmd.append(ToutDroit1)
-		self.IA_cmd.append(TournerDroite1)
-		self.IA_cmd.append(ToutDroit2)
-		self.IA_cmd.append(TournerDroite2)
-		self.IA_cmd.append(ToutDroit3)
-		self.IA_cmd.append(TournerDroite3)
-		self.IA_cmd.append(ToutDroit4)
-		self.IA_cmd.append(TournerDroite4)
-
-		
-	def	start(self):
-	
-		ToutDroit1 = Avancer(0.03,250,self.robot)
-		ToutDroit2 = Avancer(0.03,250,self.robot)
-		ToutDroit3 = Avancer(0.03,250,self.robot)
-		ToutDroit4 = Avancer(0.03,250,self.robot)
-		
-		TournerDroite1 = Tourner(0,90,30,self.robot)
-		TournerDroite2 = Tourner(0,90,30,self.robot)
-		TournerDroite3 = Tourner(0,90,30,self.robot)
-		TournerDroite4 = Tourner(0,90,30,self.robot)
-		self.IA_cmd.append(ToutDroit1)
-		self.IA_cmd.append(TournerDroite1)
-		self.IA_cmd.append(ToutDroit2)
-		self.IA_cmd.append(TournerDroite2)
-		self.IA_cmd.append(ToutDroit3)
-		self.IA_cmd.append(TournerDroite3)
-		self.IA_cmd.append(ToutDroit4)
-		self.IA_cmd.append(TournerDroite4)
-		
-		return True
-		
-			
+	    self.robot = Robot
+	    self.ToutDroit = Avancer(0.03,250,self.robot)
+	    self.TournerGauche = Tourner(0,90,30,self.robot)
+	    self.count = 0
+	    self.Status = True
 			 
 	def stop(self):
-	
-		return self.count >= 8
-		
+            self.Status = False
+            
 	def update(self,dt):
-	
-		#if not self.start():
-			#self.start()
-			
-			
-		for j in range(0,len(self.IA_cmd)):
-                	if self.IA_cmd[j].Status == True:
-                    		self.IA_cmd[j].update(dt)
-                    		return
-                	self.count += 1
-                    	
-                
-		if self.stop():
-                	self.robot.set_motor_dps(0,0)
-
+            if self.count == 8 or self.Status == False:
+                self.stop()
+            else:
+                if self.ToutDroit.getStatus() == True:
+                    self.ToutDroit.update(dt)
+                else:
+                    if self.TournerGauche.getStatus() == True:
+                        self.TournerGauche.update(dt)
+                    else:
+                        self.count += 2
+                        self.ToutDroit.start()
+                        self.TournerGauche.start()
 
 class Triangle:
 
