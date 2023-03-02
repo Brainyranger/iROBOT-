@@ -141,23 +141,29 @@ class Square:
 	    self.TournerGauche = Tourner(0,90,30,self.robot)
 	    self.count = 0
 	    self.Status = True
+
+    def start(self):
+        self.Status = True
 			 
 	def stop(self):
-            self.Status = False
+        self.Status = False
+    
+    def getStatus(self):
+        return self.Status
             
 	def update(self,dt):
-            if self.count == 8 or self.Status == False:
-                self.stop()
+        if self.count == 8 or self.getStatus() == False:
+            self.stop()
+        else:
+            if self.ToutDroit.getStatus() == True:
+                self.ToutDroit.update(dt)
             else:
-                if self.ToutDroit.getStatus() == True:
-                    self.ToutDroit.update(dt)
+                if self.TournerGauche.getStatus() == True:
+                    self.TournerGauche.update(dt)
                 else:
-                    if self.TournerGauche.getStatus() == True:
-                        self.TournerGauche.update(dt)
-                    else:
-                        self.count += 2
-                        self.ToutDroit.start()
-                        self.TournerGauche.start()
+                    self.count += 2
+                    self.ToutDroit.start()
+                    self.TournerGauche.start()
 
 class Triangle:
 
@@ -185,10 +191,10 @@ class Triangle:
 	def update(self,dt):
 			
 		for j in range(0,len(self.IA_cmd)):
-                	if self.IA_cmd[j].Status == True:
-                    		self.IA_cmd[j].update(dt)
-                    		return
-                	self.count += 1
+            if self.IA_cmd[j].Status == True:
+                self.IA_cmd[j].update(dt)
+                return
+            self.count += 1
                     	
                 
 		if self.stop():
