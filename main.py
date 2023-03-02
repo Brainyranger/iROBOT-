@@ -1,5 +1,5 @@
 from projet_robot.Simulation.Environnement import Environnement
-from projet_robot.Controller.IA import IA,Avancer,Tourner,Reculer,Square
+from projet_robot.Controller.IA import IA,Avancer,Tourner,Reculer,Square,Triangle
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 import pygame,time
 
@@ -13,6 +13,8 @@ Simul_pygame = Simulation_pygame(Simul.bord_map_x,Simul.bord_map_y)
 IA = IA()
 #Commandes pour faire un carré
 IA_square = Square(Simul.robot)
+#Commandes pour faire un triangle
+IA_triangle = Triangle(Simul.robot)
 temps = time.time()
 while Simul.running :
         temps_reel = time.time() - temps
