@@ -36,7 +36,6 @@ class IA(Thread):
         
     def getStatus(self):
         return self.Status
-
 class Avancer:
 
     def __init__(self,vitesse,distance,robot):
@@ -49,7 +48,10 @@ class Avancer:
     def update(self,dt) :
         if self.distance_parcouru < self.distance:
             self.robot.set_motor_dps(self.vitesse,self.vitesse)
-            self.distance_parcouru += abs((self.robot.getmovex(dt)+self.robot.getmovey(dt)) - (self.robot.x + self.robot.y))
+            position_move = math.sqrt(((self.robot.getmovex(dt)- self.robot.x)**2)+((self.robot.getmovey(dt)- self.robot.y)**2))*0.026
+            if position_move > self.distance_parcouru:
+                self.robot.set_motor_dps(self.vitesse/100,self.vitesse/100)
+            self.distance_parcouru += position_move
             print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
         else:
             self.distance_parcouru = 0
@@ -135,24 +137,24 @@ class Tourner:
 
 class Square:
 
-	def	__init__(self,Robot):
-	    self.robot = Robot
-	    self.ToutDroit = Avancer(0.03,250,self.robot)
-	    self.TournerGauche = Tourner(0,90,30,self.robot)
-	    self.count = 0
-	    self.Status = True
+    def __init__(self,Robot):
+        self.robot = Robot
+        self.ToutDroit = Avancer(0.03,6,self.robot)
+        self.TournerGauche = Tourner(0,90,30,self.robot)
+        self.count = 0
+        self.Status = True
+			 
+    def stop(self):
+        self.Status = False
+
+    def getStatus(self):
+        return self.Status
 
     def start(self):
         self.Status = True
-			 
-	def stop(self):
-        self.Status = False
-    
-    def getStatus(self):
-        return self.Status
-            
-	def update(self,dt):
-        if self.count == 8 or self.getStatus() == False:
+        
+    def update(self,dt):
+        if self.count == 8 or self.Status == False:
             self.stop()
         else:
             if self.ToutDroit.getStatus() == True:
@@ -163,14 +165,15 @@ class Square:
                 else:
                     self.count += 2
                     self.ToutDroit.start()
-                    self.TournerGauche.start()
+                    self.TournerGauche.start()            
+
 
 class Triangle:
 
     def	__init__(self,robot):
         self.robot = robot
         self.TournerTriangle = Tourner(0,120,30,self.robot)
-        self.ToutDroit = Avancer(0.03,250,self.robot)
+        self.ToutDroit = Avancer(0.03,8,self.robot)
         self.count = 0
         self.Status = True
 
@@ -195,4 +198,4 @@ class Triangle:
                 else:
                     self.count += 2
                     self.ToutDroit.start()
-                    self.TournerTriangle.start() 
+                    self.TournerTriangle.start()
