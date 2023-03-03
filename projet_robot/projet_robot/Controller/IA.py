@@ -48,10 +48,10 @@ class Avancer:
     def update(self,dt) :
         if self.distance_parcouru < self.distance:
             self.robot.set_motor_dps(self.vitesse,self.vitesse)
-            position_move = math.sqrt(((self.robot.getmovex(dt)- self.robot.x)**2)+((self.robot.getmovey(dt)- self.robot.y)**2))*0.026
-            if position_move > self.distance_parcouru:
+            position_move = self.distance_parcouru + math.sqrt(((self.robot.getmovex(dt)- self.robot.x)**2)+((self.robot.getmovey(dt)- self.robot.y)**2))*0.026
+            if position_move > self.distance:
                 self.robot.set_motor_dps(self.vitesse/100,self.vitesse/100)
-            self.distance_parcouru += position_move
+            self.distance_parcouru += math.sqrt(((self.robot.getmovex(dt)- self.robot.x)**2)+((self.robot.getmovey(dt)- self.robot.y)**2))*0.026
             print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
         else:
             self.distance_parcouru = 0
