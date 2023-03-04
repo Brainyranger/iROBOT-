@@ -37,6 +37,8 @@ class Environnement(Thread):
             for j in range(0,taille_robot):
                 if self.robot.x+j*math.cos(self.robot.angle) >= self.list_obs[i][0] and self.robot.y+j*math.sin(self.robot.angle) >= self.list_obs[i][1] and self.robot.x+j*math.cos(self.robot.angle) <= (self.list_obs[i][0]+self.list_obs[i][2]) and self.robot.x+j*math.sin(self.robot.angle) <= (self.list_obs[i][1]+self.list_obs[i][3]):
                     print("COLLISION")
+                    return True
+        return False
  
 
     def generer_obstacles(self,nb_obs):
@@ -45,8 +47,8 @@ class Environnement(Thread):
         lr = [] 
         ens_obs = set()
         for i in range(0,nb_obs):
-            taille_obs_x = random.randint(20,25)
-            taille_obs_y = random.randint(25,30)
+            taille_obs_x = random.randint(20,23)
+            taille_obs_y = random.randint(27,30)
             x = random.randint(taille_obs_x,self.bord_map_x-taille_obs_x)
             y = random.randint(taille_obs_y,self.bord_map_y-taille_obs_y)
             obs = Obstacle(x,y,taille_obs_x,taille_obs_y)

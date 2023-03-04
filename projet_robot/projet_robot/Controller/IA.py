@@ -18,7 +18,7 @@ class IA(Thread):
 
         super(IA,self).__init__()
         self.Status = True
-        self.IA_commande = [IA_commande]
+        self.IA_commande = IA_commande
         
     def step(self,dt):
         """ Parcoure notre liste de commandes et éxécute commande par commande """
