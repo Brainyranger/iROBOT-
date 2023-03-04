@@ -31,14 +31,13 @@ class Environnement(Thread):
             dist_robot_obstacle = self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])
             if dist_robot_obstacle != False:
                 print("Le senseur a détecté un obstacle à "+str((int)(dist_robot_obstacle))+" cm")
-        #Détection par la simulation
-        taille_robot = 60
-        for i in range(0,len(self.list_obs)):
+            #Détection par la simulation
+            taille_robot = 60
             for j in range(0,taille_robot):
-                if self.robot.x+j*math.cos(self.robot.angle) >= self.list_obs[i][0] and self.robot.y+j*math.sin(self.robot.angle) >= self.list_obs[i][1] and self.robot.x+j*math.cos(self.robot.angle) <= (self.list_obs[i][0]+self.list_obs[i][2]) and self.robot.x+j*math.sin(self.robot.angle) <= (self.list_obs[i][1]+self.list_obs[i][3]):
+                if self.robot.x+(j-30)*math.cos(self.robot.getAngleEnDegre()) >= self.list_obs[i][0] and self.robot.y+(j-30)*math.sin(self.robot.getAngleEnDegre()) >= self.list_obs[i][1] and self.robot.x+(j-30)*math.cos(self.robot.getAngleEnDegre()) <= (self.list_obs[i][0]+self.list_obs[i][2]) and self.robot.y+(j-30)*math.sin(self.robot.getAngleEnDegre()) <= (self.list_obs[i][1]+self.list_obs[i][3]):
                     print("COLLISION")
                     return True
-        return False
+        return False 
  
 
     def generer_obstacles(self,nb_obs):
