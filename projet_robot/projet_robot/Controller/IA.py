@@ -18,10 +18,10 @@ class IA(Thread):
 
         super(IA,self).__init__()
         self.Status = True
-        self.IA_commande = IA_commande
+        self.IA_commande = [IA_commande]
         
     def step(self,dt):
-        """fais la mise à jour de notre liste de commandes"""
+        """ Parcoure notre liste de commandes et éxécute commande par commande """
 
         if self.IA_commande == []:
             self.stop()
@@ -34,17 +34,17 @@ class IA(Thread):
                 
 
     def ajout_commandes(self,commande):
-        """ ajout d'une commande """
+        """ Ajout d'une commande à la liste de commandes """
 
         self.IA_commande.append(commande)
         
     def stop(self):
-        """ arret de la commande en cours """
+        """ Arret de l'IA """
 
         self.Status = False
         
     def getStatus(self):
-        """ renvoie l'état de la commande """
+        """ Renvoie l'état de l'IA """
 
         return self.Status
 
@@ -71,7 +71,7 @@ class Avancer:
         self.Status = True
 
     def update(self,dt) :
-        """fais la mise à jour de notre déplacement en ligne droite """
+        """ Fais la mise à jour de notre déplacement en ligne droite """
 
         if self.distance_parcouru < self.distance:
             self.robot.set_motor_dps(self.vitesse,self.vitesse)
@@ -85,17 +85,17 @@ class Avancer:
             self.stop()
 
     def getStatus(self):
-        """ renvoie l'état de la commande """
+        """ Renvoie l'état de la commande """
 
         return self.Status
 
     def start(self):
-        """ lance la commande """
+        """ Lance la commande """
 
         self.Status = True
 
     def stop(self):
-        """ arret de la commande en cours"""
+        """ Arret de la commande en cours"""
 
         self.Status = False
 			
@@ -114,6 +114,8 @@ class Reculer:
         self.Status = True
 
     def update(self,dt) :
+        """ Fais la mise à jour de notre déplacement en ligne droite """
+
         if self.distance_parcouru < self.distance:
             self.robot.set_motor_dps(self.vitesse,self.vitesse)
             self.distance_parcouru += abs((self.robot.getmovex(dt)+self.robot.getmovey(dt)) - (self.robot.x + self.robot.y))
@@ -123,17 +125,17 @@ class Reculer:
             self.stop()
     
     def getStatus(self):
-        """ renvoie l'état de notre commande """
+        """ Renvoie l'état de notre commande """
 
         return self.Status
 
     def start(self):
-        """ lance notre commande """
+        """ Lance notre commande """
 
         self.Status = True
 
     def stop(self):
-        """ arrête la commande en cours """
+        """ Arrête la commande en cours """
 
         self.Status = False
 
@@ -155,7 +157,7 @@ class Tourner:
         self.Status = True
 
     def update(self,dt):
-        """ fais la mise à jour de notre commande """
+        """ Fais la mise à jour de notre commande """
 
         if self.angle_parcouru < self.angle:
             if self.dps == 0:
@@ -176,17 +178,17 @@ class Tourner:
             self.stop()
 
     def getStatus(self):
-        """ renvoie l'état de la commande """
+        """ Renvoie l'état de la commande """
 
         return self.Status
 
     def start(self):
-        """ lance la commande """
+        """ Lance la commande """
 
         self.Status = True
 
     def stop(self):
-        """ arrête la commande en cours """
+        """ Arrête la commande en cours """
 
         self.Status = False
         
@@ -210,22 +212,22 @@ class Square:
         self.Status = True
 			 
     def stop(self):
-        """ arrête la commande en cours """
+        """ Arrête la commande en cours """
 
         self.Status = False
 
     def getStatus(self):
-        """ renvoie l'état de la commande """
+        """ Renvoie l'état de la commande """
 
         return self.Status
 
     def start(self):
-        """ lance la commande """
+        """ Lance la commande """
 
         self.Status = True
         
     def update(self,dt):
-        """ fais la mise à jour de notre commande """
+        """ Fais la mise à jour de notre commande """
 
         if self.count == 8 or self.Status == False:
             self.stop()
@@ -258,15 +260,23 @@ class Triangle:
         self.Status = True
 
     def start(self):
+        """ Lance la commande """
+
         self.Status = True
 				
     def stop(self):
+        """ Arrête la commande en cours """
+
         self.Status = False
 
     def getStatus(self):
+        """ Renvoie l'état de la commande """
+
         return self.Status
 		
     def update(self,dt):
+        """ Fais la mise à jour de la commande """
+        
         if self.count == 6 or self.Status == False:
             self.stop()
         else:
