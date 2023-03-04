@@ -10,16 +10,21 @@ WHEEL_BASE_WIDTH= 40
 
 class IA(Thread):
 
-    def __init__(self):
+    def __init__(self,IA_commande):
+        """ constructeur de notre classe IA
+            initialisation de notre liste de commandes
+            initialisation de l'état de notre commande courante"""
+
+
         super(IA,self).__init__()
         self.Status = True
-        self.IA_commande = []
+        self.IA_commande = IA_commande
         
-    def update(self,dt):
-        """fais la mise à jour de notre déplacement en ligne droite"""
+    def step(self,dt):
+        """fais la mise à jour de notre liste de commandes"""
+
         if self.IA_commande == []:
             self.stop()
-            #robot.set_motor_dps(0,0)
         else:
             for i in range(0,len(self.IA_commande)):
                 if self.IA_commande[i].getStatus() == True:
@@ -29,16 +34,36 @@ class IA(Thread):
                 
 
     def ajout_commandes(self,commande):
+        """ ajout d'une commande """
+
         self.IA_commande.append(commande)
         
     def stop(self):
+        """ arret de la commande en cours """
+
         self.Status = False
         
     def getStatus(self):
+        """ renvoie l'état de la commande """
+
         return self.Status
+
+    def	select_commandes(self,indice):
+        """ selectionne par indice notre commande """
+
+    	if indice < 0 or indice > len(self.IA_commande):
+    		return
+    	return self.IA_commande[indice]
+
+
 class Avancer:
 
     def __init__(self,vitesse,distance,robot):
+        """ constructeur de notre classe Avancer
+        initialisation de la vitesse de nos roues 
+        initialisation de la distance à parcourir
+        initialisation de notre robot pour lequel on applique la comande"""
+
         self.robot = robot
         self.vitesse = vitesse*3800
         self.distance = distance
@@ -46,6 +71,8 @@ class Avancer:
         self.Status = True
 
     def update(self,dt) :
+        """fais la mise à jour de notre déplacement en ligne droite """
+
         if self.distance_parcouru < self.distance:
             self.robot.set_motor_dps(self.vitesse,self.vitesse)
             position_move = self.distance_parcouru + math.sqrt(((self.robot.getmovex(dt)- self.robot.x)**2)+((self.robot.getmovey(dt)- self.robot.y)**2))*0.026
@@ -58,17 +85,28 @@ class Avancer:
             self.stop()
 
     def getStatus(self):
+        """ renvoie l'état de la commande """
+
         return self.Status
 
     def start(self):
+        """ lance la commande """
+
         self.Status = True
 
     def stop(self):
+        """ arret de la commande en cours"""
+
         self.Status = False
 			
 class Reculer:
 
     def __init__(self,vitesse,distance,robot):
+        """ constructeur de notre classe Reculer
+        initialisation de la vitesse de nos roues 
+        initialisation de la distance à parcourir
+        initialisation de notre robot pour lequel on applique la comande"""
+
         self.robot = robot
         self.vitesse = -vitesse*3800
         self.distance = distance
@@ -85,17 +123,29 @@ class Reculer:
             self.stop()
     
     def getStatus(self):
+        """ renvoie l'état de notre commande """
+
         return self.Status
 
     def start(self):
+        """ lance notre commande """
+
         self.Status = True
 
     def stop(self):
+        """ arrête la commande en cours """
+
         self.Status = False
 
 class Tourner:
 
     def __init__(self,vitesse,angle,dps,robot):
+        """ Constructeur de notre classe Tourner 
+        initialisation de la vitesse de nos roues
+        initialisation de l'angle qu'on doit parcourir 
+        initialisation de la distance à parcourir en degré/s pour parcourir l'angle
+        initialisation de notre robot pour lequel on applique la comande"""
+
         self.robot = robot
         self.vitesse = vitesse
         self.angle = angle
@@ -105,6 +155,8 @@ class Tourner:
         self.Status = True
 
     def update(self,dt):
+        """ fais la mise à jour de notre commande """
+
         if self.angle_parcouru < self.angle:
             if self.dps == 0:
                 self.stop()
@@ -124,12 +176,18 @@ class Tourner:
             self.stop()
 
     def getStatus(self):
+        """ renvoie l'état de la commande """
+
         return self.Status
 
     def start(self):
+        """ lance la commande """
+
         self.Status = True
 
     def stop(self):
+        """ arrête la commande en cours """
+
         self.Status = False
         
 
@@ -138,6 +196,13 @@ class Tourner:
 class Square:
 
     def __init__(self,Robot):
+        """ Constructeur de la classe Square, commande pour faire un carrée 
+        initialisation du robot pour lequel on applique la commande
+        initialisation de l'état de la commande 
+        initialisation de la capacité d'aller tout droit 
+        initilisation de la capcité de tourner à gauche
+         """
+
         self.robot = Robot
         self.ToutDroit = Avancer(0.03,6,self.robot)
         self.TournerGauche = Tourner(0,90,30,self.robot)
@@ -145,15 +210,23 @@ class Square:
         self.Status = True
 			 
     def stop(self):
+        """ arrête la commande en cours """
+
         self.Status = False
 
     def getStatus(self):
+        """ renvoie l'état de la commande """
+
         return self.Status
 
     def start(self):
+        """ lance la commande """
+
         self.Status = True
         
     def update(self,dt):
+        """ fais la mise à jour de notre commande """
+
         if self.count == 8 or self.Status == False:
             self.stop()
         else:
@@ -171,6 +244,13 @@ class Square:
 class Triangle:
 
     def	__init__(self,robot):
+        """ Constructeur de notre classe Triangle, pour tracer un Trinagle
+        initilisation du robot pour lequel on applique la commande
+        initialisation de l'état de la commande 
+        initialisation de la capacité d'aller tout droit 
+        initilisation de la capcité de tourner à gauche
+         """
+         
         self.robot = robot
         self.TournerTriangle = Tourner(0,120,30,self.robot)
         self.ToutDroit = Avancer(0.03,8,self.robot)
