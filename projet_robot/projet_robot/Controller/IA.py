@@ -289,3 +289,34 @@ class Triangle:
                     self.count += 2
                     self.ToutDroit.start()
                     self.TournerTriangle.start()
+
+
+class Approche_Mur:
+
+	def	__init__(self,robot,env,vitesse):
+		self.robot = robot
+		self.env = env
+		self.distance_parcourir = self.env.bord_map_x - (WHEEL_BASE_WIDTH /2)
+		self.tout_droit = Avancer(vitesse*3800,self.distance_parcourir,self.robot)
+		self.Status = True
+		
+		
+	def	start(self):
+		self.Status = True
+		
+	def	stop(self):
+		self.Status = False
+		
+	def getStatus(self):
+        	return self.Status
+		
+	def	update(self,dt):
+		
+		self.tout_droit.start()
+		
+		if math.sqrt((self.distance_parcourir-self.robot.x)**2)<5:
+			self.robot.set_motor_dps(0,0)
+			self.stop()
+		else:
+			self.tout_droit.update(dt)
+			
