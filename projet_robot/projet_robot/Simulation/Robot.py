@@ -32,7 +32,7 @@ class Robot:
     
     def servo_rotate(self, angle):
         """ Tourne le robot a l'angle en parametre """
-        self.angle += angle
+        self.angle += angle*math.p/180
         if self.angle > 2*math.pi:
             self.angle -= 2*math.pi
 

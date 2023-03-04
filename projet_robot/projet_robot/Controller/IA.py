@@ -164,13 +164,13 @@ class Tourner:
                 self.stop()
             else:
                 self.robot.set_motor_dps(self.vitesse,self.vitesse)
-                angle = self.dps*dt*math.pi/180
-                if (self.dps*dt + self.angle_parcouru) > self.angle:
-                    angle = (self.angleInitial+self.angle - self.robot.getAngleEnDegre())*math.pi/180
+                angle = self.dps*dt
+                if (angle + self.angle_parcouru) > self.angle:
+                    angle = self.angleInitial+self.angle - self.robot.getAngleEnDegre()
                     self.angleInitial += self.angle
                     self.angle_parcouru = self.angle
                 else :
-                    self.angle_parcouru += angle*180/math.pi
+                    self.angle_parcouru += angle
                 self.robot.servo_rotate(angle)
                 print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
         else:

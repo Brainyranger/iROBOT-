@@ -23,21 +23,20 @@ class Environnement(Thread):
 	
     def detection_collision(self):
         """détection des collisions"""
+        #Détection des bords de map
         if self.robot.x >= self.bord_map_x or self.robot.x <= 0 or self.robot.y >= self.bord_map_y or self.robot.y <= 0 :
-                print(self.robot.angle)
-                self.robot.angle += math.pi
-                if self.robot.angle >= 2*math.pi:
-                    self.robot.angle -= 2*math.pi
-                print(self.robot.angle)
+                self.robot.servo_rotate(180)
+        #Détection par le senseur
         for i in range(0,len(self.list_obs)):
             dist_robot_obstacle = self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])
-            if dist_robot_obstacle == 0:
-                print("COLLISION")
-              
-            if dist_robot_obstacle == False:
-                print("Le senseur ne détecte pas d'obstacles")
-            else:
+            if dist_robot_obstacle != False:
                 print("Le senseur a détecté un obstacle à "+str((int)(dist_robot_obstacle))+" cm")
+        #Détection par la simulation
+        taille_robot = 60
+        for i in range(0,len(self.list_obs)):
+            for j in range(0,taille_robot):
+                if self.robot.x+j*math.cos(self.robot.angle) >= self.list_obs[i][0] and self.robot.y+j*math.sin(self.robot.angle) >= self.list_obs[i][1] and self.robot.x+j*math.cos(self.robot.angle) <= (self.list_obs[i][0]+self.list_obs[i][2]) and self.robot.x+j*math.sin(self.robot.angle) <= (self.list_obs[i][1]+self.list_obs[i][3]):
+                    print("COLLISION")
  
 
     def generer_obstacles(self,nb_obs):
