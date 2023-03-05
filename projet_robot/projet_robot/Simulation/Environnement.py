@@ -30,7 +30,7 @@ class Environnement(Thread):
         for i in range(0,len(self.list_obs)):
             dist_robot_obstacle = self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])
             if dist_robot_obstacle != False:
-                print("Le senseur a détecté un obstacle à "+str((int)(dist_robot_obstacle))+" cm")
+                print("Le senseur a détecté un obstacle à "+str(dist_robot_obstacle)+" cm")
             #Détection par la simulation
             taille_robot = 60
             for j in range(0,taille_robot):
