@@ -6,7 +6,7 @@ from projet_robot.Simulation.Robot import Robot
 global WHEEL_DIAMETER 
 global WHEEL_BASE_WIDTH   
 WHEEL_DIAMETER = 5
-WHEEL_BASE_WIDTH= 40
+WHEEL_BASE_WIDTH= 60
 
 class IA(Thread):
 
@@ -294,6 +294,11 @@ class Triangle:
 class Approche_Mur:
 
 	def	__init__(self,robot,env,vitesse):
+        """ contructeur de la classe approche Mur
+        initialise un robot pour lequel on applique la commande
+        initialise l'environnement du robot
+        initialise la vitesse des roues du robot"""
+
 		self.robot = robot
 		self.env = env
 		self.distance_parcourir = self.env.bord_map_x - (WHEEL_BASE_WIDTH /2)
@@ -302,15 +307,19 @@ class Approche_Mur:
 		
 		
 	def	start(self):
+        """ Lance la commande """
 		self.Status = True
 		
 	def	stop(self):
+        """ Arrête de la commande en cours """
 		self.Status = False
 		
 	def getStatus(self):
+        """ renvoie l'état de la commande """
         	return self.Status
 		
 	def	update(self,dt):
+        """ fais la mise à jour de la commande """
 		
 		self.tout_droit.start()
 		

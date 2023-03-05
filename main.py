@@ -25,22 +25,28 @@ IA_square = Square(Simul.robot)
 IA_triangle = Triangle(Simul.robot)
 #commandes pour s'approcher d'un mur le plus près possible horizontalement
 IA_Approche_Mur_x = Approche_Mur(Simul.robot,Simul,0.03)
-
+# 2 approche pour gérer IA
+#première approche
 #commandes générique
 IA = IA([IA_square,IA_triangle,IA_avance,IA_tourne_droit,IA_Approche_Mur_x,IA_tourne_gauche])
+#commandes pour sélectionner par indice quelle IA on veut éxécuter
+IA = IA.select_commandes(1)
+#deuxième approche 
+#IA = IA([])
+#ajout des commandes qu'on veut éxécuter
+#IA.ajout_commandes([IA_square])
+
+#initialisation du temps avant le début de la simulation
 temps = time.time()
 #lancer les thread 
 Simul.start()
 Simul_pygame.start()
 IA.start()
 
-#commandes pour sélectionner par indice quelle IA on veut éxécuter
-IA = IA.select_commandes(1)
-
 while Simul.running :
         temps_reel = time.time() - temps
         temps = time.time()
-        IA.step(temps_reel)
+        IA.update(temps_reel)
         Simul.update(temps_reel)
         Simul_pygame.event_update(Simul)
         Simul.running = IA.getStatus()
