@@ -293,17 +293,20 @@ class Triangle:
 
 class Approche_Mur:
 
-	def	__init__(self,robot,env,vitesse):
+	def	__init__(self,acceleration,vitesse_freinage,pos_mur,robot):
         """ contructeur de la classe approche Mur
         initialise un robot pour lequel on applique la commande
         initialise l'environnement du robot
         initialise la vitesse des roues du robot"""
 
 		self.robot = robot
-		self.env = env
-		self.distance_parcourir = self.env.bord_map_x - (WHEEL_BASE_WIDTH /2)
-		self.tout_droit = Avancer(vitesse*3800,self.distance_parcourir,self.robot)
-		self.Status = True
+        self.vitesse = 0
+        self.vitesse_freinage = vitesse_freinage*3800
+        self.acceleration = acceleration*3800
+        self.pos_mur = pos_mur
+        self.distance_arret = 0
+        self.compteur = True
+        self.Status = True
 		
 		
 	def	start(self):
@@ -318,14 +321,23 @@ class Approche_Mur:
         """ renvoie l'état de la commande """
         	return self.Status
 		
-	def	update(self,dt):
-        """ fais la mise à jour de la commande """
-		
-		self.tout_droit.start()
-		
-		if math.sqrt((self.distance_parcourir-self.robot.x)**2)<5:
-			self.robot.set_motor_dps(0,0)
-			self.stop()
-		else:
-			self.tout_droit.update(dt)
+	def update(self,dt) :
+        if self.compteur == True:
+            v = self.vitesse
+            self.distance_arret = 0
+            while v > 0:
+                v -= self.vitesse_freinage
+                self.distance_arret += v*math.cos(self.robot.angle)*dt + v*math.sin(self.robot.angle)*dt
+        if self.robot.getmovex(2*dt)+self.distance_arret < self.pos_mur:
+            self.vitesse += self.acceleration
+            self.robot.set_motor_dps(self.vitesse,self.vitesse)
+        else:
+            self.compteur = False
+            print(self.distance_arret)
+            if self.vitesse > 0:
+                self.vitesse -= self.vitesse_freinage
+                self.robot.set_motor_dps(self.vitesse,self.vitesse)
+            else:
+                self.robot.set_motor_dps(0,0)
+                self.stop()
 			
