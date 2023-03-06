@@ -20,7 +20,7 @@ class IA(Thread):
         self.Status = True
         self.IA_commande = IA_commande
         
-    def step(self,dt):
+    def update(self,dt):
         """ Parcoure notre liste de commandes et éxécute commande par commande """
 
         if self.IA_commande == []:
