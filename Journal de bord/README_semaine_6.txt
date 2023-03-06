@@ -1,6 +1,6 @@
 Le mercredi 22 Février 2023 : Sixième semaine du projet
 
-travail effectué durant la semaiine :
+travail effectué durant la semaine :
 
 David : Il a fini les packages et corrigé l'arborescence. Les méthodes génerer_obstacle, la classe IA. Tuto thread et cinématique.
 Suppression des fichiers pycache.

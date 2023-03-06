@@ -24,7 +24,7 @@ IA_square = Square(Simul.robot)
 #Commandes pour faire un triangle
 IA_triangle = Triangle(Simul.robot)
 #commandes pour s'approcher d'un mur le plus près possible horizontalement
-IA_Approche_Mur_x = Approche_Mur(Simul.robot,Simul,0.03)
+IA_Approche_Mur_x = Approche_Mur(0.003,0.03,Simul.bord_map_x,Simul.robot)
 # 2 approche pour gérer IA
 #première approche
 #commandes générique

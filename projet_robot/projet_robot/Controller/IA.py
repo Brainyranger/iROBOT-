@@ -51,9 +51,9 @@ class IA(Thread):
     def	select_commandes(self,indice):
         """ selectionne par indice notre commande """
 
-    	if indice < 0 or indice > len(self.IA_commande):
-    		return
-    	return self.IA_commande[indice]
+        if indice < 0 or indice > len(self.IA_commande):
+    	    return
+        return self.IA_commande[indice]
 
 
 class Avancer:

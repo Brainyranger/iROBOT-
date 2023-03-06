@@ -1,7 +1,7 @@
 Le mercredi 15 Février 2023 : Cinquième semaine du projet 
 
 
-travail effectué durant la semaiine :
+travail effectué durant la semaine :
 
 David : Il a essayé de d'organiser le projet en utlisant la notion de package. Mais il n'a pas réussi, il a effectué les classes TestObstacle et TestNewRobot
 qui teste respectivement les méthodes des classes newRobot et obstacle.
