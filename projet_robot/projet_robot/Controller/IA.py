@@ -10,25 +10,25 @@ WHEEL_BASE_WIDTH= 60
 
 class IA(Thread):
 
-    def __init__(self,IA_commande):
+    def __init__(self,ia_commande):
         """ constructeur de notre classe IA
             initialisation de notre liste de commandes
             initialisation de l'état de notre commande courante"""
 
 
         super(IA,self).__init__()
-        self.Status = True
-        self.IA_commande = IA_commande
+        self.status = True
+        self.ia_commande = ia_commande
         
     def update(self,dt):
         """ Parcoure notre liste de commandes et éxécute commande par commande """
 
-        if self.IA_commande == []:
+        if self.ia_commande == []:
             self.stop()
         else:
-            for i in range(0,len(self.IA_commande)):
-                if self.IA_commande[i].getStatus() == True:
-                    self.IA_commande[i].update(dt)
+            for i in range(0,len(self.ia_commande)):
+                if self.ia_commande[i].getStatus() == True:
+                    self.ia_commande[i].update(dt)
                     return
             self.stop()
                 
@@ -36,24 +36,24 @@ class IA(Thread):
     def ajout_commandes(self,commande):
         """ Ajout d'une commande à la liste de commandes """
 
-        self.IA_commande.append(commande)
+        self.ia_commande.append(commande)
         
     def stop(self):
         """ Arret de l'IA """
 
-        self.Status = False
+        self.status = False
         
     def getStatus(self):
         """ Renvoie l'état de l'IA """
 
-        return self.Status
+        return self.status
 
     def	select_commandes(self,indice):
         """ selectionne par indice notre commande """
 
-        if indice < 0 or indice > len(self.IA_commande):
+        if indice < 0 or indice > len(self.ia_commande):
     	    return
-        return self.IA_commande[indice]
+        return self.ia_commande[indice]
 
 
 class Avancer:
@@ -68,7 +68,7 @@ class Avancer:
         self.vitesse = vitesse*3800
         self.distance = distance
         self.distance_parcouru = 0
-        self.Status = True
+        self.status = True
 
     def update(self,dt) :
         """ Fais la mise à jour de notre déplacement en ligne droite """
@@ -87,17 +87,17 @@ class Avancer:
     def getStatus(self):
         """ Renvoie l'état de la commande """
 
-        return self.Status
+        return self.status
 
     def start(self):
         """ Lance la commande """
 
-        self.Status = True
+        self.status = True
 
     def stop(self):
         """ Arret de la commande en cours"""
 
-        self.Status = False
+        self.status = False
 			
 class Reculer:
 
@@ -111,7 +111,7 @@ class Reculer:
         self.vitesse = -vitesse*3800
         self.distance = distance
         self.distance_parcouru = 0
-        self.Status = True
+        self.status = True
 
     def update(self,dt) :
         """ Fais la mise à jour de notre déplacement en ligne droite """
@@ -127,17 +127,17 @@ class Reculer:
     def getStatus(self):
         """ Renvoie l'état de notre commande """
 
-        return self.Status
+        return self.status
 
     def start(self):
         """ Lance notre commande """
 
-        self.Status = True
+        self.status = True
 
     def stop(self):
         """ Arrête la commande en cours """
 
-        self.Status = False
+        self.status = False
 
 class Tourner:
 
@@ -154,7 +154,7 @@ class Tourner:
         self.dps = dps
         self.angle_parcouru = 0
         self.angleInitial = self.robot.getAngleEnDegre()
-        self.Status = True
+        self.status = True
 
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
@@ -180,17 +180,17 @@ class Tourner:
     def getStatus(self):
         """ Renvoie l'état de la commande """
 
-        return self.Status
+        return self.status
 
     def start(self):
         """ Lance la commande """
 
-        self.Status = True
+        self.status = True
 
     def stop(self):
         """ Arrête la commande en cours """
 
-        self.Status = False
+        self.status = False
         
 
 
@@ -206,41 +206,41 @@ class Square:
          """
 
         self.robot = Robot
-        self.ToutDroit = Avancer(0.03,6,self.robot)
-        self.TournerGauche = Tourner(0,90,30,self.robot)
+        self.toutDroit = Avancer(0.03,6,self.robot)
+        self.tournerGauche = Tourner(0,90,30,self.robot)
         self.count = 0
-        self.Status = True
+        self.status = True
 			 
     def stop(self):
         """ Arrête la commande en cours """
 
-        self.Status = False
+        self.status = False
 
     def getStatus(self):
         """ Renvoie l'état de la commande """
 
-        return self.Status
+        return self.status
 
     def start(self):
         """ Lance la commande """
 
-        self.Status = True
+        self.status = True
         
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
 
-        if self.count == 8 or self.Status == False:
+        if self.count == 8 or self.status == False:
             self.stop()
         else:
-            if self.ToutDroit.getStatus() == True:
-                self.ToutDroit.update(dt)
+            if self.toutDroit.getStatus() == True:
+                self.toutDroit.update(dt)
             else:
-                if self.TournerGauche.getStatus() == True:
-                    self.TournerGauche.update(dt)
+                if self.tournerGauche.getStatus() == True:
+                    self.tournerGauche.update(dt)
                 else:
                     self.count += 2
-                    self.ToutDroit.start()
-                    self.TournerGauche.start()            
+                    self.toutDroit.start()
+                    self.tournerGauche.start()            
 
 
 class Triangle:
@@ -254,41 +254,41 @@ class Triangle:
          """
          
         self.robot = robot
-        self.TournerTriangle = Tourner(0,120,30,self.robot)
-        self.ToutDroit = Avancer(0.03,8,self.robot)
+        self.tournerTriangle = Tourner(0,120,30,self.robot)
+        self.toutDroit = Avancer(0.03,8,self.robot)
         self.count = 0
-        self.Status = True
+        self.status = True
 
     def start(self):
         """ Lance la commande """
 
-        self.Status = True
+        self.status = True
 				
     def stop(self):
         """ Arrête la commande en cours """
 
-        self.Status = False
+        self.status = False
 
     def getStatus(self):
         """ Renvoie l'état de la commande """
 
-        return self.Status
+        return self.status
 		
     def update(self,dt):
         """ Fais la mise à jour de la commande """
         
-        if self.count == 6 or self.Status == False:
+        if self.count == 6 or self.status == False:
             self.stop()
         else:
-            if self.ToutDroit.getStatus() == True:
-                self.ToutDroit.update(dt)
+            if self.toutDroit.getStatus() == True:
+                self.toutDroit.update(dt)
             else:
-                if self.TournerTriangle.getStatus() == True:
-                    self.TournerTriangle.update(dt)
+                if self.tournerTriangle.getStatus() == True:
+                    self.tournerTriangle.update(dt)
                 else:
                     self.count += 2
-                    self.ToutDroit.start()
-                    self.TournerTriangle.start()
+                    self.toutDroit.start()
+                    self.tournerTriangle.start()
 
 
 class Approche_Mur:
@@ -306,20 +306,20 @@ class Approche_Mur:
         self.pos_mur = pos_mur
         self.distance_arret = 0
         self.compteur = True
-        self.Status = True
+        self.status = True
 		
 		
 	def	start(self):
         """ Lance la commande """
-		self.Status = True
+		self.status = True
 		
 	def	stop(self):
         """ Arrête de la commande en cours """
-		self.Status = False
+		self.status = False
 		
 	def getStatus(self):
         """ renvoie l'état de la commande """
-        	return self.Status
+        	return self.status
 		
 	def update(self,dt) :
         if self.compteur == True:
