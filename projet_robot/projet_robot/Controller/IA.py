@@ -171,7 +171,7 @@ class Tourner:
                     self.angle_parcouru = self.angle
                 else :
                     self.angle_parcouru += angle
-                self.robot.servo_rotate(angle)
+                self.robot.move_angle(angle)
                 print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
         else:
             self.angle_parcouru = 0

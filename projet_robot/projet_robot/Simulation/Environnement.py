@@ -25,7 +25,7 @@ class Environnement(Thread):
         """détection des collisions"""
         #Détection des bords de map
         if self.robot.x >= self.bord_map_x or self.robot.x <= 0 or self.robot.y >= self.bord_map_y or self.robot.y <= 0 :
-                self.robot.servo_rotate(180)
+                self.robot.move_angle(180)
         #Détection par le senseur
         for i in range(0,len(self.list_obs)):
             dist_robot_obstacle = self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])
@@ -42,9 +42,8 @@ class Environnement(Thread):
 
     def generer_obstacles(self,nb_obs):
         """place nb_obs obstacles dans l'environnemnt en faisant attention à ne pas
-        supperposer les obstacles ni de le poser sur le robot"""
+        supperposer les obstacles"""
         lr = [] 
-        ens_obs = set()
         for i in range(0,nb_obs):
             taille_obs_x = random.randint(20,23)
             taille_obs_y = random.randint(27,30)
