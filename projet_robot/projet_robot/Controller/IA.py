@@ -2,6 +2,8 @@ import time
 import math
 from threading import Thread
 from projet_robot.Simulation.Robot import Robot
+from projet_robot.Controller.Toolbox_IA import Constante,Decorator,Avancer_decorator
+
 
 global WHEEL_DIAMETER 
 global WHEEL_BASE_WIDTH   
@@ -23,7 +25,7 @@ class IA(Thread):
     def update(self,dt):
         """ Parcoure notre liste de commandes et éxécute commande par commande """
 
-        if self.ia_commande == []:
+        if len(self.ia_commande) == 0:
             self.stop()
         else:
             for i in range(0,len(self.ia_commande)):
@@ -63,27 +65,26 @@ class Avancer:
         initialisation de la vitesse de nos roues 
         initialisation de la distance à parcourir
         initialisation de notre robot pour lequel on applique la comande"""
-
         self.robot = robot
         self.vitesse = vitesse*3800
         self.distance = distance
-        self.distance_parcouru = 0
-        self.status = True
 
     def update(self,dt) :
         """ Fais la mise à jour de notre déplacement en ligne droite """
-
-        if self.distance_parcouru < self.distance:
-            self.robot.set_motor_dps(self.vitesse,self.vitesse)
-            position_move = self.distance_parcouru + math.sqrt(((self.robot.getmovex(dt)- self.robot.x)**2)+((self.robot.getmovey(dt)- self.robot.y)**2))*0.026
-            if position_move > self.distance:
-                self.robot.set_motor_dps(self.vitesse/10,self.vitesse/10)
-            self.distance_parcouru += math.sqrt(((self.robot.getmovex(dt)- self.robot.x)**2)+((self.robot.getmovey(dt)- self.robot.y)**2))*0.026
-            print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
-        else:
-            self.distance_parcouru = 0
-            self.stop()
-
+	
+        if not self.start():
+        	self.start()
+        
+        self.robot.set_motor_dps(self.vitesse,self.vitesse)
+        self.parcouru += get_distance_parcouru(self.robot.x,self.robot.y,self.robot.getmovex(dt),self.robot.getmovey(dt))
+        
+        if self.stop():
+        	self.robot.set_motor_dps(0,0)
+        	return
+        
+        self.avancer(dt)
+         	
+        	
     def getStatus(self):
         """ Renvoie l'état de la commande """
 
@@ -91,53 +92,14 @@ class Avancer:
 
     def start(self):
         """ Lance la commande """
-
+	    self.distance_parcouru = 0
         self.status = True
 
     def stop(self):
         """ Arret de la commande en cours"""
-
+	    return self.distance_parcouru > self.distance
         self.status = False
 			
-class Reculer:
-
-    def __init__(self,vitesse,distance,robot):
-        """ constructeur de notre classe Reculer
-        initialisation de la vitesse de nos roues 
-        initialisation de la distance à parcourir
-        initialisation de notre robot pour lequel on applique la comande"""
-
-        self.robot = robot
-        self.vitesse = -vitesse*3800
-        self.distance = distance
-        self.distance_parcouru = 0
-        self.status = True
-
-    def update(self,dt) :
-        """ Fais la mise à jour de notre déplacement en ligne droite """
-
-        if self.distance_parcouru < self.distance:
-            self.robot.set_motor_dps(self.vitesse,self.vitesse)
-            self.distance_parcouru += abs((self.robot.getmovex(dt)+self.robot.getmovey(dt)) - (self.robot.x + self.robot.y))
-            print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
-        else:
-            self.distance_parcouru = 0
-            self.stop()
-    
-    def getStatus(self):
-        """ Renvoie l'état de notre commande """
-
-        return self.status
-
-    def start(self):
-        """ Lance notre commande """
-
-        self.status = True
-
-    def stop(self):
-        """ Arrête la commande en cours """
-
-        self.status = False
 
 class Tourner:
 

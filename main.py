@@ -4,13 +4,13 @@ from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 import time
 
 
-#Recule = Reculer(0.03,200,Simul.robot)
+
 #initialisation de l'environnment
 bord_map_x = 500
 bord_map_y = 420
 simul = Environnement(bord_map_x,bord_map_y)
 #initialisation de notre affichage
-simul_pygame = Simulation_pygame(Simul.bord_map_x,Simul.bord_map_y)
+simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 #énumération des commandes de notre IA
 
 
@@ -24,13 +24,13 @@ IA_square = Square(simul.robot)
 #Commandes pour faire un triangle
 IA_triangle = Triangle(simul.robot)
 #commandes pour s'approcher d'un mur le plus près possible horizontalement
-IA_Approche_Mur_x = Approche_Mur(0.003,0.03,simul.bord_map_x,simul.robot)
+#IA_Approche_Mur_x = Approche_Mur(0.003,0.03,simul.bord_map_x,simul.robot)
 # 2 approche pour gérer IA
 #première approche
 #commandes générique
-IA = IA([IA_square,IA_triangle,IA_avance,IA_tourne_droit,IA_Approche_Mur_x,IA_tourne_gauche])
+IA = IA([IA_square,IA_triangle,IA_avance,IA_tourne_droit,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécuter
-IA = IA.select_commandes(1)
+IA = IA.select_commandes(2)
 #deuxième approche 
 #IA = IA([])
 #ajout des commandes qu'on veut éxécuter
@@ -43,7 +43,7 @@ simul.start()
 simul_pygame.start()
 IA.start()
 
-while Simul.running :
+while simul.running :
         temps_reel = time.time() - temps
         temps = time.time()
         IA.update(temps_reel)
