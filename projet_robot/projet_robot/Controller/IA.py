@@ -75,8 +75,6 @@ class Avancer:
     def update(self,dt) :
         """ Fais la mise à jour de notre déplacement en ligne droite """
 	
-        if not self.start():
-        	self.start()
         
         if self.stop():
         	self.robot.set_motor_dps(0,0)
@@ -84,7 +82,6 @@ class Avancer:
         	return
         	
         self.distance_parcouru += Avancer_deux.get_distance_parcourue(self,dt)
-        print(self.distance_parcouru)
         Avancer_decorator.avancer(self,dt)
          	
         	
