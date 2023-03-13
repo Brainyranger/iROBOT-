@@ -1,5 +1,5 @@
 from projet_robot.Simulation.Environnement import Environnement
-from projet_robot.Controller.IA import IA,Avancer,Tourner,Reculer,Square,Triangle,Approche_Mur
+from projet_robot.Controller.IA import IA,Avancer,Tourner
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 import time
 
@@ -19,16 +19,11 @@ IA_avance = Avancer(0.03,8,simul.robot)
 #commandes pour tourner selon un angle donnée 
 IA_tourne_gauche = Tourner(0,90,30,simul.robot)
 IA_tourne_droit  = Tourner(0,180,30,simul.robot)
-#Commandes pour faire un carré
-IA_square = Square(simul.robot)
-#Commandes pour faire un triangle
-IA_triangle = Triangle(simul.robot)
-#commandes pour s'approcher d'un mur le plus près possible horizontalement
-#IA_Approche_Mur_x = Approche_Mur(0.003,0.03,simul.bord_map_x,simul.robot)
+
 # 2 approche pour gérer IA
 #première approche
 #commandes générique
-IA = IA([IA_square,IA_triangle,IA_avance,IA_tourne_droit,IA_tourne_gauche])
+IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécuter
 IA = IA.select_commandes(2)
 #deuxième approche 
