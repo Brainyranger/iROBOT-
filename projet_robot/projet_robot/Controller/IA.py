@@ -102,42 +102,31 @@ class Avancer:
 
 class Tourner:
 
-    def __init__(self,vitesse,angle,dps,robot):
+    def __init__(self,angle,dps,robot):
         """ Constructeur de notre classe Tourner 
         initialisation de la vitesse de nos roues
         initialisation de l'angle qu'on doit parcourir 
         initialisation de la distance à parcourir en degré/s pour parcourir l'angle
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = robot
-        self.vitesse = vitesse
+        self.robot = Decorator(robot)
         self.angle = angle
         self.dps = dps
         self.angle_parcouru = 0
-        self.angleInitial = self.robot.getAngleEnDegre()
         self.status = True
 
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
 
-        if self.angle_parcouru < self.angle:
-            if self.dps == 0:
-                self.stop()
-            else:
-                self.robot.set_motor_dps(self.vitesse,self.vitesse)
-                angle = self.dps*dt
-                if (angle + self.angle_parcouru) > self.angle:
-                    angle = self.angleInitial+self.angle - self.robot.getAngleEnDegre()
-                    self.angleInitial += self.angle
-                    self.angle_parcouru = self.angle
-                else :
-                    self.angle_parcouru += angle
-                self.robot.move_angle(angle)
-                print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
-        else:
-            self.angle_parcouru = 0
-            self.stop()
-
+        if self.stop():
+        	self.robot.set_motor_dps(0,0)
+        	self.status = False
+        	print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
+        	return
+      
+        self.angle_parcouru += self.dps*dt
+        Decorator.tourner(self,self.dps,dt)
+	
     def getStatus(self):
         """ Renvoie l'état de la commande """
 
@@ -145,160 +134,12 @@ class Tourner:
 
     def start(self):
         """ Lance la commande """
-
+        self.angle_parcouru = 0
         self.status = True
 
     def stop(self):
         """ Arrête la commande en cours """
 
-        self.status = False
+        return self.angle_parcouru > self.angle
         
 
-
-
-class Square:
-
-    def __init__(self,Robot):
-        """ Constructeur de la classe Square, commande pour faire un carrée 
-        initialisation du robot pour lequel on applique la commande
-        initialisation de l'état de la commande 
-        initialisation de la capacité d'aller tout droit 
-        initilisation de la capcité de tourner à gauche
-         """
-
-        self.robot = Robot
-        self.toutDroit = Avancer(0.03,6,self.robot)
-        self.tournerGauche = Tourner(0,90,30,self.robot)
-        self.count = 0
-        self.status = True
-			 
-    def stop(self):
-        """ Arrête la commande en cours """
-
-        self.status = False
-
-    def getStatus(self):
-        """ Renvoie l'état de la commande """
-
-        return self.status
-
-    def start(self):
-        """ Lance la commande """
-
-        self.status = True
-        
-    def update(self,dt):
-        """ Fais la mise à jour de notre commande """
-
-        if self.count == 8 or self.status == False:
-            self.stop()
-        else:
-            if self.toutDroit.getStatus() == True:
-                self.toutDroit.update(dt)
-            else:
-                if self.tournerGauche.getStatus() == True:
-                    self.tournerGauche.update(dt)
-                else:
-                    self.count += 2
-                    self.toutDroit.start()
-                    self.tournerGauche.start()            
-
-
-class Triangle:
-
-    def	__init__(self,robot):
-        """ Constructeur de notre classe Triangle, pour tracer un Trinagle
-        initilisation du robot pour lequel on applique la commande
-        initialisation de l'état de la commande 
-        initialisation de la capacité d'aller tout droit 
-        initilisation de la capcité de tourner à gauche
-         """
-         
-        self.robot = robot
-        self.tournerTriangle = Tourner(0,120,30,self.robot)
-        self.toutDroit = Avancer(0.03,8,self.robot)
-        self.count = 0
-        self.status = True
-
-    def start(self):
-        """ Lance la commande """
-
-        self.status = True
-				
-    def stop(self):
-        """ Arrête la commande en cours """
-
-        self.status = False
-
-    def getStatus(self):
-        """ Renvoie l'état de la commande """
-
-        return self.status
-		
-    def update(self,dt):
-        """ Fais la mise à jour de la commande """
-        
-        if self.count == 6 or self.status == False:
-            self.stop()
-        else:
-            if self.toutDroit.getStatus() == True:
-                self.toutDroit.update(dt)
-            else:
-                if self.tournerTriangle.getStatus() == True:
-                    self.tournerTriangle.update(dt)
-                else:
-                    self.count += 2
-                    self.toutDroit.start()
-                    self.tournerTriangle.start()
-
-
-class Approche_Mur:
-
-	def	__init__(self,acceleration,vitesse_freinage,pos_mur,robot):
-        """ contructeur de la classe approche Mur
-        initialise un robot pour lequel on applique la commande
-        initialise l'environnement du robot
-        initialise la vitesse des roues du robot"""
-
-		self.robot = robot
-        self.vitesse = 0
-        self.vitesse_freinage = vitesse_freinage*3800
-        self.acceleration = acceleration*3800
-        self.pos_mur = pos_mur
-        self.distance_arret = 0
-        self.compteur = True
-        self.status = True
-		
-		
-	def	start(self):
-        """ Lance la commande """
-		self.status = True
-		
-	def	stop(self):
-        """ Arrête de la commande en cours """
-		self.status = False
-		
-	def getStatus(self):
-        """ renvoie l'état de la commande """
-        	return self.status
-		
-	def update(self,dt) :
-        if self.compteur == True:
-            v = self.vitesse
-            self.distance_arret = 0
-            while v > 0:
-                v -= self.vitesse_freinage
-                self.distance_arret += v*math.cos(self.robot.angle)*dt + v*math.sin(self.robot.angle)*dt
-        if self.robot.getmovex(2*dt)+self.distance_arret < self.pos_mur:
-            self.vitesse += self.acceleration
-            self.robot.set_motor_dps(self.vitesse,self.vitesse)
-        else:
-            self.compteur = False
-            print(self.distance_arret)
-            if self.vitesse > 0:
-                self.vitesse -= self.vitesse_freinage
-                self.robot.set_motor_dps(self.vitesse,self.vitesse)
-            else:
-                self.robot.set_motor_dps(0,0)
-                self.stop()
-			

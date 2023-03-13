@@ -1,4 +1,5 @@
 
+import math
 
 class Constante:
 
@@ -24,10 +25,6 @@ class   Decorator:
     def	__getattr__(self,attr):
     	return  getattr(self.robot,attr)
 	
-class	Avancer_decorator(Decorator):
-
-    def	__init__(self,robot):
-        Decorator.__init__(self,self.robot)
 
     def get_distance_parcourue(self,dt):
     	posx1 = self.robot.x
@@ -39,3 +36,6 @@ class	Avancer_decorator(Decorator):
    
     def	avancer(self,dt):
         self.robot.set_motor_dps(self.vitesse,self.vitesse)
+        
+    def tourner(self,dps,dt):
+        self.robot.move_angle(self.dps*dt)
