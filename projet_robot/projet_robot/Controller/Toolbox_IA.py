@@ -26,19 +26,16 @@ class   Decorator:
 	
 class	Avancer_decorator(Decorator):
 
-    def	__init__(self):
-	    self.angle = 0
-	    self.distance_parcouru = 0
-	    self.position_move = 0
+    def	__init__(self,robot):
+        Decorator.__init__(self,self.robot)
 
-        def get_distance_parcourue(self,posx1,posy1,posx2,posy2):
-        return math.sqrt((posx2-posx1)**2+(posy2-posy1)**2)*0.026
+    def get_distance_parcourue(self,dt):
+    	posx1 = self.robot.x
+    	posy1 = self.robot.y
+    	posx2 = self.robot.getmovex(dt)
+    	posy2 = self.robot.getmovey(dt)
+    	return math.sqrt((posx2-posx1)**2+(posy2-posy1)**2)*0.026
      
-     
-    def aupas(self,dt):
-        self.robot.set_motor_dps(self.vitesse/10,self.vitesse/10)
-        self.distance_parcouru += math.sqrt(((self.robot.getmovex(dt)- self.robot.x)**2)+((self.robot.getmovey(dt)- self.robot.y)**2))*0.026
-
+   
     def	avancer(self,dt):
-        if self.position_move > self.distance:
-        	return self.aupas(dt)
+        self.robot.set_motor_dps(self.vitesse,self.vitesse)

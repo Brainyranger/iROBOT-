@@ -65,9 +65,12 @@ class Avancer:
         initialisation de la vitesse de nos roues 
         initialisation de la distance à parcourir
         initialisation de notre robot pour lequel on applique la comande"""
-        self.robot = robot
+
+        self.robot = Decorator(robot)
         self.vitesse = vitesse*3800
         self.distance = distance
+        self.distance_parcouru = 0
+        self.status = False
 
     def update(self,dt) :
         """ Fais la mise à jour de notre déplacement en ligne droite """
@@ -75,14 +78,14 @@ class Avancer:
         if not self.start():
         	self.start()
         
-        self.robot.set_motor_dps(self.vitesse,self.vitesse)
-        self.parcouru += get_distance_parcouru(self.robot.x,self.robot.y,self.robot.getmovex(dt),self.robot.getmovey(dt))
-        
         if self.stop():
         	self.robot.set_motor_dps(0,0)
+        	self.status = False
         	return
-        
-        self.avancer(dt)
+        	
+        self.distance_parcouru += Avancer_deux.get_distance_parcourue(self,dt)
+        print(self.distance_parcouru)
+        Avancer_deux.avancer(self,dt)
          	
         	
     def getStatus(self):
@@ -92,14 +95,13 @@ class Avancer:
 
     def start(self):
         """ Lance la commande """
-	    self.distance_parcouru = 0
+        self.distance_parcouru = 0
         self.status = True
 
     def stop(self):
         """ Arret de la commande en cours"""
-	    return self.distance_parcouru > self.distance
-        self.status = False
-			
+        return self.distance_parcouru >= self.distance
+
 
 class Tourner:
 
