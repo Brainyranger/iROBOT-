@@ -85,7 +85,7 @@ class Avancer:
         	
         self.distance_parcouru += Avancer_deux.get_distance_parcourue(self,dt)
         print(self.distance_parcouru)
-        Avancer_deux.avancer(self,dt)
+        Avancer_decorator.avancer(self,dt)
          	
         	
     def getStatus(self):
