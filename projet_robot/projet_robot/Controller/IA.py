@@ -11,7 +11,7 @@ WHEEL_BASE_WIDTH= 60
 
 class IA(Thread):
 
-    def __init__(self,ia_commande):
+    def __init__(self,ia_command):
         """ constructeur de notre classe IA
             initialisation de notre liste de commandes
             initialisation de l'état de notre commande courante"""
@@ -19,30 +19,34 @@ class IA(Thread):
 
         super(IA,self).__init__()
         self.status = True
-        self.ia_commande = ia_commande
+        self.ia_command = ia_command
+        self.curr_command = -1
         
     def update(self,dt):
         """ Parcoure notre liste de commandes et éxécute commande par commande """
 
-        if len(self.ia_commande) == 0:
-            self.stop()
-        else:
-            for i in range(0,len(self.ia_commande)):
-                if self.ia_commande[i].getStatus() == True:
-                    self.ia_commande[i].update(dt)
-                    return
-            self.stop()
-                
+        if len(self.ia_command) == 0:
+            self.status = False
+            
+        if self.stop():
+            self.status = False
+            return
+            
+        if self.curr_command < 0 or self.ia_command[self.curr_command].stop():
+            self.curr_command += 1
+            self.ia_command[self.curr_command].start()
+        
+        self.ia_command[self.curr_command].update(dt)       
 
-    def ajout_commandes(self,commande):
+    def ajout_commandes(self,command):
         """ Ajout d'une commande à la liste de commandes """
 
-        self.ia_commande.append(commande)
+        self.ia_command.append(command)
         
     def stop(self):
         """ Arret de l'IA """
-
-        self.status = False
+        return self.curr_command == len(self.ia_command)-1 and self.ia_command[self.curr_command].stop()
+        
         
     def getStatus(self):
         """ Renvoie l'état de l'IA """
@@ -52,9 +56,10 @@ class IA(Thread):
     def	select_commandes(self,indice):
         """ selectionne par indice notre commande """
 
-        if indice < 0 or indice > len(self.ia_commande):
+        if indice < 0 or indice > len(self.ia_command):
     	    return
-        return self.ia_commande[indice]
+        return self.ia_command[indice]
+
 
 
 class Avancer:
