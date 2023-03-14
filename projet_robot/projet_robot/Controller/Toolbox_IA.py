@@ -26,6 +26,11 @@ class   Decorator:
     	return  getattr(self.robot,attr)
 	
 
+class	Avancer_Decorator(Decorator):
+
+    def __init__(self,robot):
+        Decorator.__init__(self,robot)
+        
     def get_distance_parcourue(self,dt):
     	posx1 = self.robot.x
     	posy1 = self.robot.y
@@ -36,7 +41,16 @@ class   Decorator:
    
     def	avancer(self,dt):
         self.robot.set_motor_dps(self.vitesse,self.vitesse)
-        
+
+class	Tourner_Decorator(Decorator):
+    
+    def __init__(self,robot):
+        Decorator.__init__(self,robot) 
+               
     def tourner(self,dps,dt):
-        self.robot.move_angle(self.dps*dt)
+        self.robot.servo_rotate(self.dps*dt)
         self.robot.set_motor_dps(0,0)
+	    
+	 
+	
+  
