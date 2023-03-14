@@ -2,12 +2,8 @@ import time
 import math
 from threading import Thread
 from projet_robot.Simulation.Robot import Robot
-from projet_robot.Controller.Toolbox_IA import Constante,Decorator
+from projet_robot.Controller.Toolbox_IA import Constante,Decorator,Avancer_Decorator as forward, Tourner_Decorator as turn
 
-global WHEEL_DIAMETER 
-global WHEEL_BASE_WIDTH   
-WHEEL_DIAMETER = 5
-WHEEL_BASE_WIDTH= 60
 
 class IA(Thread):
 
@@ -70,7 +66,7 @@ class Avancer:
         initialisation de la distance à parcourir
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = Decorator(robot)
+        self.robot = forward(robot)
         self.vitesse = vitesse*3800
         self.distance = distance
         self.distance_parcouru = 0
@@ -85,8 +81,8 @@ class Avancer:
         	self.status = False
         	return
         	
-        self.distance_parcouru += Avancer_deux.get_distance_parcourue(self,dt)
-        Avancer_decorator.avancer(self,dt)
+        self.distance_parcouru += forward.get_distance_parcourue(self,dt)
+        forward.avancer(self,dt)
          	
         	
     def getStatus(self):
@@ -113,7 +109,7 @@ class Tourner:
         initialisation de la distance à parcourir en degré/s pour parcourir l'angle
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = Decorator(robot)
+        self.robot = turn(robot)
         self.angle = angle
         self.dps = dps
         self.angle_parcouru = 0
@@ -129,7 +125,7 @@ class Tourner:
         	return
       
         self.angle_parcouru += self.dps*dt
-        Decorator.tourner(self,self.dps,dt)
+        turn.tourner(self,self.dps,dt)
 	
     def getStatus(self):
         """ Renvoie l'état de la commande """

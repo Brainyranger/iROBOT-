@@ -19,17 +19,17 @@ IA_avance = Avancer(0.03,8,simul.robot)
 #commandes pour tourner selon un angle donnée 
 IA_tourne_gauche = Tourner(0,90,30,simul.robot)
 IA_tourne_droit  = Tourner(0,180,30,simul.robot)
+IA_tourne_triangle = Tourner(120,30,Simul.robot)
 
-# 2 approche pour gérer IA
-#première approche
 #commandes générique
 IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécuter
 IA = IA.select_commandes(2)
-#deuxième approche 
-#IA = IA([])
-#ajout des commandes qu'on veut éxécuter
-#IA.ajout_commandes([IA_square])
+
+#commandes pour tracer un carrée     
+IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
+#commandes pour tracer un traingle
+IA = IA([IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle])
 
 #initialisation du temps avant le début de la simulation
 temps = time.time()
