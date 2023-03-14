@@ -1,4 +1,5 @@
 import math
+from projet_robot.Controller.Toolbox_IA import Constante
 
 global WHEEL_DIAMETER 
 global WHEEL_BASE_WIDTH   

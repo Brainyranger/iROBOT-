@@ -3,6 +3,7 @@ import math
 import random
 from threading import Thread
 from projet_robot.Controller.IA import IA
+from projet_robot.Controller.Toolbox_IA import Constante
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Obstacle import Obstacle
 from projet_robot.Simulation.Senseur import Senseur

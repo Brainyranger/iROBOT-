@@ -1,3 +1,4 @@
+from projet_robot.Controller.Toolbox_IA import Constante
 class Obstacle:
     
     def __init__(self,x,y,taille_x,taille_y):
