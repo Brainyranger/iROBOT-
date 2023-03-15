@@ -3,7 +3,7 @@ import math
 import random
 from threading import Thread
 from projet_robot.Controller.IA import IA
-from projet_robot.Controller.Toolbox_IA import Constante
+from projet_robot.Controller.Toolbox_IA import Constante as const
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Obstacle import Obstacle
 from projet_robot.Simulation.Senseur import Senseur
@@ -18,7 +18,7 @@ class Environnement(Thread):
         self.bord_map_y = bord_map_y
         self.running = True
         self.robot = Robot(50,300,0)
-        self.senseur = Senseur(30) 
+        self.senseur = Senseur(const.getPorteeSenseur()) 
         self.list_obs=self.generer_obstacles(5)
         
 	
@@ -33,12 +33,8 @@ class Environnement(Thread):
             if dist_robot_obstacle != False:
                 print("Le senseur a détecté un obstacle à "+str(dist_robot_obstacle)+" cm")
             #Détection par la simulation
-            taille_robot = 60
-            for j in range(0,taille_robot):
-                if self.robot.x+(j-30)*math.cos(self.robot.getAngleEnDegre()) >= self.list_obs[i][0] and self.robot.y+(j-30)*math.sin(self.robot.getAngleEnDegre()) >= self.list_obs[i][1] and self.robot.x+(j-30)*math.cos(self.robot.getAngleEnDegre()) <= (self.list_obs[i][0]+self.list_obs[i][2]) and self.robot.y+(j-30)*math.sin(self.robot.getAngleEnDegre()) <= (self.list_obs[i][1]+self.list_obs[i][3]):
-                    print("COLLISION")
-                    return True
-        return False 
+            for j in range(0,const.getLargeurRobot()):
+                if self.robot.x+(j-const.getLargeurRobot()/2)*math.cos(self.robot.getAngleEnDegre()) >= self.list_obs[i][0] and self.robot.y+(j-const.getLargeurRobot()/2)*math.sin(self.robot.getAngleEnDegre()) >= self.list_obs[i][1] and self.robot.x+(j-const.getLargeurRobot()/2)*math.cos(self.robot.getAngleEnDegre()) <= (self.list_obs[i][0]+self.list_obs[i][2]) and self.robot.y+(j-const.getLargeurRobot()/2)*math.sin(self.robot.getAngleEnDegre()) <= (self.list_obs[i][1]+self.list_obs[i][3]):
  
 
     def generer_obstacles(self,nb_obs):
