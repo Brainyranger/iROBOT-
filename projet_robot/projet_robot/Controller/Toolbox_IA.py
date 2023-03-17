@@ -54,7 +54,7 @@ class	Tourner_Decorator(Decorator):
 	def tourner2(self,speed,angle,dps,dt):
         
         self.robot.set_motor_dps(speed*(1+(angle/90)),speed*(1-(angle/90)))
-        self.robot.servo_rotate(dps*dt)
+        self.robot.move_angle(dps*dt)
         
     def dist_turn(self,vitesse,angle,dt):
         return ((vitesse*(1-(angle/90))+vitesse*(1+(angle/90)))/2)*dt*(angle/360)
