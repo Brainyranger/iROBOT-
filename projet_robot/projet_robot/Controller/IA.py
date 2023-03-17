@@ -102,7 +102,7 @@ class Avancer:
 
 class Tourner:
 
-    def __init__(self,angle,dps,robot):
+    def __init__(self,vitesse,angle,dps,robot):
         """ Constructeur de notre classe Tourner 
         initialisation de la vitesse de nos roues
         initialisation de l'angle qu'on doit parcourir 
@@ -110,22 +110,29 @@ class Tourner:
         initialisation de notre robot pour lequel on applique la comande"""
 
         self.robot = turn(robot)
+        self.vitesse = vitesse*3800 
         self.angle = angle
         self.dps = dps
         self.angle_parcouru = 0
         self.status = True
-
+        self.rayon = (60/math.tan(self.angle)) # rayon de la courbure 
+        
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
 
+        	
+        	
         if self.stop():
         	self.robot.set_motor_dps(0,0)
         	self.status = False
-        	print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
+        	print("j'ai fini de parcourir "+str(self.angle_parcouru)+" cm")
         	return
-      
         self.angle_parcouru += self.dps*dt
+        #self.angle_parcouru += turn.dist_turn(self,self.vitesse,self.angle,dt)
+        print(self.angle_parcouru)
         turn.tourner(self,self.dps,dt)
+        #turn.tourner2(self,(self.vitesse*0.1),self.angle,self.dps,dt)
+       
 	
     def getStatus(self):
         """ Renvoie l'état de la commande """
@@ -140,6 +147,7 @@ class Tourner:
     def stop(self):
         """ Arrête la commande en cours """
 
-        return self.angle_parcouru > self.angle
-        
+        return self.angle_parcouru > (self.angle)
+        #return self.angle_parcouru > abs((math.pi * self.rayon)/2)*1.12
+              
 
