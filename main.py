@@ -19,7 +19,7 @@ IA_avance = Avancer(0.03,8,simul.robot)
 #commandes pour tourner selon un angle donnée 
 IA_tourne_gauche = Tourner(0.03,90,30,simul.robot)
 IA_tourne_droit  = Tourner(0.03,180,30,simul.robot)
-IA_tourne_triangle = Tourner(0.03,120,30,Simul.robot)
+IA_tourne_triangle = Tourner(0.03,120,30,simul.robot)
 
 #commandes générique
 IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
@@ -27,9 +27,9 @@ IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
 IA = IA.select_commandes(2)
 
 #commandes pour tracer un carrée     
-IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
+IA_carre = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 #commandes pour tracer un traingle
-IA = IA([IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle])
+IA_triangle = IA([IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle])
 
 #initialisation du temps avant le début de la simulation
 temps = time.time()
