@@ -4,6 +4,7 @@ import math
 class Constante:
 
     def __init__(self):
+        self.cst = None
 
     def getLargeurRobot():
         return 60
