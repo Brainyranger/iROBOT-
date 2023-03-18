@@ -49,7 +49,7 @@ class	Tourner_Decorator(Decorator):
         Decorator.__init__(self,robot) 
                
     def tourner(self,dps,dt):
-        self.robot.servo_rotate(self.dps*dt)
+        self.robot.move_angle(self.dps*dt)
         self.robot.set_motor_dps(0,0)
 	    
 	def tourner2(self,speed,angle,dps,dt):

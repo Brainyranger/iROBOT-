@@ -125,7 +125,7 @@ class Tourner:
         if self.stop():
         	self.robot.set_motor_dps(0,0)
         	self.status = False
-        	print("j'ai fini de parcourir "+str(self.angle_parcouru)+" cm")
+        	print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degrés")
         	return
         self.angle_parcouru += self.dps*dt
         #self.angle_parcouru += turn.dist_turn(self,self.vitesse,self.angle,dt)
