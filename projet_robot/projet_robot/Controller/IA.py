@@ -16,19 +16,20 @@ class IA(Thread):
         super(IA,self).__init__()
         self.status = True
         self.ia_command = ia_command
-        self.curr_command = -1
+        self.curr_command = 0
         
     def update(self,dt):
         """ Parcoure notre liste de commandes et éxécute commande par commande """
 
         if len(self.ia_command) == 0:
             self.status = False
+            return
             
         if self.stop():
             self.status = False
             return
             
-        if self.curr_command < 0 or self.ia_command[self.curr_command].stop():
+        if self.curr_command < len(self.ia_command) and self.ia_command[self.curr_command].stop():
             self.curr_command += 1
             self.ia_command[self.curr_command].start()
         
@@ -80,9 +81,10 @@ class Avancer:
         	self.robot.set_motor_dps(0,0)
         	self.status = False
         	return
-        	
+        
+        forward.avancer(self,self.vitesse,dt)
         self.distance_parcouru += forward.get_distance_parcourue(self,dt)
-        forward.avancer(self,dt)
+        print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
          	
         	
     def getStatus(self):
@@ -97,9 +99,8 @@ class Avancer:
 
     def stop(self):
         """ Arret de la commande en cours"""
-         if self.distance_parcouru >= self.distance:
-            print("j'ai fini de parcourir "+str(self.distance_parcouru)+" cm")
-            return True
+         return self.distance_parcouru >= self.distance:
+
 
 class Tourner:
 
@@ -133,6 +134,7 @@ class Tourner:
         print(self.angle_parcouru)
         turn.tourner(self,self.dps,dt)
         #turn.tourner2(self,(self.vitesse*0.1),self.angle,self.dps,dt)
+        print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degrés")
        
 	
     def getStatus(self):
@@ -148,9 +150,7 @@ class Tourner:
     def stop(self):
         """ Arrête la commande en cours """
 
-        if self.angle_parcouru >= self.angle:
-           	print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degrés")
-           	return True
+        return self.angle_parcouru >= self.angle:
         #return self.angle_parcouru > abs((math.pi * self.rayon)/2)*1.12
               
 

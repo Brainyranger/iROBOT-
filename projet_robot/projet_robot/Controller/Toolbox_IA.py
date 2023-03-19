@@ -40,8 +40,8 @@ class	Avancer_Decorator(Decorator):
     	return math.sqrt((posx2-posx1)**2+(posy2-posy1)**2)*0.026
      
    
-    def	avancer(self,dt):
-        self.robot.set_motor_dps(self.vitesse,self.vitesse)
+    def	avancer(self,speed,dt):
+        self.robot.set_motor_dps(speed,speed)
 
 class	Tourner_Decorator(Decorator):
     
