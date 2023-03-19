@@ -49,8 +49,16 @@ class Environnement(Thread):
             x = random.randint(taille_obs_x,self.bord_map_x-taille_obs_x)
             y = random.randint(taille_obs_y,self.bord_map_y-taille_obs_y)
             obs = Obstacle(x,y,taille_obs_x,taille_obs_y)
-           
-            lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])        
+            cpt = 0
+            if len(lr) == 0:
+                lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])
+            for j in range (0,len(lr)):
+                while cpt < taille_obs_x:
+                    if lr[j][0] <= x+cpt and lr[j][0]+lr[j][2] >= x+cpt and lr[j][1] <= y+cpt and lr[j][3] >= y+cpt:
+                        print("Il y a déjà un obstacle sur cette case !")
+                    else:
+                        lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])
+                    cpt += 1
         return lr
           
     def update(self,dt):
