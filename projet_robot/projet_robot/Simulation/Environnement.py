@@ -19,7 +19,9 @@ class Environnement(Thread):
         self.running = True
         self.robot = Robot(50,300,0)
         self.senseur = Senseur(const.getPorteeSenseur()) 
-        self.list_obs=self.generer_obstacles(5)
+        self.list_obs_mobiles = self.generer_obstacles(4,0.003)
+        self.list_obs_immobiles = self.generer_obstacles(2,0)
+        self.list_obs = self.list_obs_mobiles + self.list_obs_immobiles
         
 	
     def detection_collision(self):
@@ -28,6 +30,7 @@ class Environnement(Thread):
         if self.robot.x >= self.bord_map_x or self.robot.x <= 0 or self.robot.y >= self.bord_map_y or self.robot.y <= 0 :
                 self.robot.move_angle(180)
         #Détection par le senseur
+        self.list_obs = self.list_obs_mobiles + self.list_obs_immobiles
         for i in range(0,len(self.list_obs)):
             dist_robot_obstacle = self.senseur.get_distance(self.robot,self.list_obs[i][0],self.list_obs[i][1],self.list_obs[i][2],self.list_obs[i][3])
             if dist_robot_obstacle != False:
@@ -39,7 +42,7 @@ class Environnement(Thread):
                     return True
         return False 
 
-    def generer_obstacles(self,nb_obs):
+    def generer_obstacles(self,nb_obs,speed):
         """place nb_obs obstacles dans l'environnemnt en faisant attention à ne pas
         supperposer les obstacles"""
         lr = [] 
@@ -48,20 +51,27 @@ class Environnement(Thread):
             taille_obs_y = random.randint(27,30)
             x = random.randint(taille_obs_x,self.bord_map_x-taille_obs_x)
             y = random.randint(taille_obs_y,self.bord_map_y-taille_obs_y)
-            obs = Obstacle(x,y,taille_obs_x,taille_obs_y)
+            obs_i = Obstacle(x,y,taille_obs_x,taille_obs_y,speed)
             cpt = 0
             if len(lr) == 0:
-                lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])
-            for j in range (0,len(lr)):
-                while cpt < taille_obs_x:
-                    if lr[j][0] <= x+cpt and lr[j][0]+lr[j][2] >= x+cpt and lr[j][1] <= y+cpt and lr[j][3] >= y+cpt:
-                        print("Il y a déjà un obstacle sur cette case !")
-                    else:
-                        lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y])
-                    cpt += 1
+                lr.append(obs_i)
+            else:
+                for j in range (0,len(lr)):
+                    while cpt < taille_obs_x:
+                        if lr[j][0] <= x+cpt and lr[j][0]+lr[j][2] >= x+cpt and lr[j][1] <= y+cpt and lr[j][3] >= y+cpt:
+                            print("Il y a déjà un obstacle sur cette case !")
+                        else:
+                            lr.append(obs_i)
+                        cpt += 1
         return lr
-          
+
+    def move_obstacles(self,dt):
+        """ Déplace les obstacles mobiles """
+        for i in range (0,len(self.list_obs_mobiles)):
+            self.list_obs_mobiles[i].move(dt)
+
     def update(self,dt):
         """ fais la mise à jour de notre simulation """
+        self.move_obstacles(dt)
         self.robot.move(dt)
         self.detection_collision()
