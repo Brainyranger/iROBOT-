@@ -132,7 +132,7 @@ class Tourner:
         self.angle_parcouru += self.dps*dt
         #self.angle_parcouru += turn.dist_turn(self,self.vitesse,self.angle,dt)
         print(self.angle_parcouru)
-        turn.tourner(self,self.dps,dt)
+        turn.tourner(self,self.vitesse,self.dps,dt)
         #turn.tourner2(self,(self.vitesse*0.1),self.angle,self.dps,dt)
         print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degrés")
        

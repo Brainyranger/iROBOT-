@@ -48,9 +48,9 @@ class	Tourner_Decorator(Decorator):
     def __init__(self,robot):
         Decorator.__init__(self,robot) 
                
-    def tourner(self,dps,dt):
+    def tourner(self,speed,dps,dt):
         self.robot.move_angle(self.dps*dt)
-        self.robot.set_motor_dps(0,0)
+        self.robot.set_motor_dps(speed,speed)
 	    
 	def tourner2(self,speed,angle,dps,dt):
         
