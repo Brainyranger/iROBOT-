@@ -22,6 +22,7 @@ class Simulation_pygame(Thread):
         pygame.display.set_caption("Ma simulation")
         
     def event_update(self,simul):
+        """ gère les événements de notre affichage graphique"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 simul.running = False
