@@ -2,7 +2,7 @@ import time
 import math
 from threading import Thread
 from projet_robot.Simulation.Robot import Robot
-from projet_robot.Controller.Toolbox_IA import Constante,Decorator,Avancer_Decorator as forward, Tourner_Decorator as turn
+from projet_robot.Controller.Toolbox_IA import Constante as const,Decorator,Avancer_Decorator as forward, Tourner_Decorator as turn
 
 
 class IA(Thread):
@@ -117,7 +117,7 @@ class Tourner:
         self.dps = dps
         self.angle_parcouru = 0
         self.status = True
-        self.rayon = (60/math.tan(self.angle)) # rayon de la courbure 
+        self.rayon = (const.getLargeurRobot()/math.tan(self.angle)) # rayon de la courbure 
         
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
@@ -127,14 +127,14 @@ class Tourner:
         if self.stop():
         	self.robot.set_motor_dps(0,0)
         	self.status = False
-        	print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degrés")
+        	print("j'ai fini de parcourir "+str(self.angle_parcouru)+" cm")
         	return
-        self.angle_parcouru += self.dps*dt
-        #self.angle_parcouru += turn.dist_turn(self,self.vitesse,self.angle,dt)
-        print(self.angle_parcouru)
-        turn.tourner(self,self.vitesse,self.dps,dt)
-        #turn.tourner2(self,(self.vitesse*0.1),self.angle,self.dps,dt)
-        print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degrés")
+        #self.angle_parcouru += self.dps*dt
+        #turn.tourner(self,self.vitesse,self.dps,dt)
+        self.angle_parcouru += turn.dist_turn(self,self.vitesse,self.angle,dt)
+        turn.tourner2(self,(self.vitesse*0.1),self.angle,self.dps,dt)
+        
+        print("j'ai fini de parcourir "+str(self.angle_parcouru)+" cm")
        
 	
     def getStatus(self):
@@ -150,7 +150,5 @@ class Tourner:
     def stop(self):
         """ Arrête la commande en cours """
 
-        return self.angle_parcouru >= self.angle
-        #return self.angle_parcouru > abs((math.pi * self.rayon)/2)*1.12
-              
-
+        #return self.angle_parcouru >= self.angle
+        return self.angle_parcouru >= abs((math.pi * self.rayon)/2)*1.12
