@@ -99,7 +99,7 @@ class Avancer:
 
     def stop(self):
         """ Arret de la commande en cours"""
-         return self.distance_parcouru >= self.distance:
+        return self.distance_parcouru >= self.distance
 
 
 class Tourner:
@@ -150,7 +150,7 @@ class Tourner:
     def stop(self):
         """ Arrête la commande en cours """
 
-        return self.angle_parcouru >= self.angle:
+        return self.angle_parcouru >= self.angle
         #return self.angle_parcouru > abs((math.pi * self.rayon)/2)*1.12
               
 

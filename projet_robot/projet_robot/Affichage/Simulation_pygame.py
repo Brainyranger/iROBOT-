@@ -29,7 +29,7 @@ class Simulation_pygame(Thread):
         self.draw_robot(simul.robot)
         self.draw_senseur(simul.senseur,simul.robot)
         for i in range(0,len(simul.list_obs)):	
-            self.draw_obstacle(simul.list_obs[i].x,simul.list_obs[i].y,simul.list_obs[i].taille_x,simul.list_obs[i].taille_y)
+            self.draw_obstacle(simul.list_obs[i][0],simul.list_obs[i][1],simul.list_obs[i][2],simul.list_obs[i][3])
         pygame.display.flip()
         self.clock.tick(50)
 
