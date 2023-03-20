@@ -1,5 +1,4 @@
 import math
-from projet_robot.Controller.Toolbox_IA import Constante
 
 class Senseur:
 

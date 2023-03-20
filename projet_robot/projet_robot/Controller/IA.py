@@ -2,7 +2,7 @@ import time
 import math
 from threading import Thread
 from projet_robot.Simulation.Robot import Robot
-from projet_robot.Controller.Toolbox_IA import Constante as const,Decorator,Avancer_Decorator as forward, Tourner_Decorator as turn
+from projet_robot.Controller.Toolbox_IA import largeur_robot,Decorator,Avancer_Decorator as forward, Tourner_Decorator as turn
 
 
 class IA(Thread):
@@ -117,7 +117,7 @@ class Tourner:
         self.dps = dps
         self.angle_parcouru = 0
         self.status = True
-        self.rayon = (const.getLargeurRobot()/math.tan(self.angle)) # rayon de la courbure 
+        self.rayon = (largeur_robot/math.tan(self.angle)) # rayon de la courbure 
         
     def update(self,dt):
         """ Fais la mise à jour de notre commande """

@@ -1,4 +1,4 @@
-from projet_robot.Controller.Toolbox_IA import Constante
+
 import random,math
 
 class Obstacle:

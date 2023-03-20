@@ -3,28 +3,9 @@ import math
 
 class Constante:
 
-    def __init__(self):
-        """ classe constante pour initialiser toutes nos constantes """
-        self.cst = None
-
-    def getLargeurRobot():
-        """ renvoie la distance entre les deux roues du robot """
-
-        return 60
-    def getDiametreRoue():
-        """ renvoie le diamètre des roues """
-
-        return 7
-
-    def getPorteeSenseur():
-        """ renvoie la portée du senseur """
-        return 30
-    
-    def getSizeObs():
-        """ renvoie la taille fixe d'un obstacle """
-
-        return 20
-
+largeur_robot = 60
+diametre_roue = 7
+portee_senseur = 30
 
 class   Decorator:
 

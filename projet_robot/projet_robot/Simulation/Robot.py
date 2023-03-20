@@ -1,5 +1,5 @@
 import math
-from projet_robot.Controller.Toolbox_IA import Constante as const
+from projet_robot.Controller.Toolbox_IA import largeur_robot,diametre_roue
 
 
 class Robot:
@@ -18,7 +18,7 @@ class Robot:
         """ Deplace le robot selon x et y et modifie son angle """
         self.x += ((self.motor_left + self.motor_right)/2) * math.cos(self.angle)*dt
         self.y -= ((self.motor_left + self.motor_right)/2) * math.sin(self.angle)*dt
-        self.angle += (self.motor_left - self.motor_right) / (const.getLargeurRobot() + 2*const.getDiametreRoue())*dt
+        self.angle += (self.motor_left - self.motor_right) / (largeur_robot + 2*diametre_roue)*dt
 
     def set_motor_dps(self, motor_left, motor_right):
         """ Fixe la vitesse d'un moteur """
