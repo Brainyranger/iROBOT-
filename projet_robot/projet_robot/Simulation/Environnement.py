@@ -31,8 +31,8 @@ class Environnement(Thread):
         if self.robot.x >= self.bord_map_x or self.robot.x <= 0 or self.robot.y >= self.bord_map_y or self.robot.y <= 0 :
                 print("COLLISION MUR")
                 self.robot.move_angle(180)
-        for k in range(0,len(self.list_obs_mobiles)):
-            if self.list_obs_mobiles[k][0] >= self.bord_map_x or self.list_obs_mobiles[k][0] <= 0 or self.list_obs_mobiles[k][1] >= self.bord_map_y or self.list_obs_mobiles[k][1] <= 0:
+  for k in range(0,len(self.list_obs_mobiles)):
+            if self.list_obs_mobiles[k][0] >= self.bord_map_x-self.list_obs_mobiles[k][2] or self.list_obs_mobiles[k][0] <= 0 or self.list_obs_mobiles[k][1] >= self.bord_map_y-self.list_obs_mobiles[k][3] or self.list_obs_mobiles[k][1] <= 0:
                 self.list_obs_mobiles[k][4] = - self.list_obs_mobiles[k][4]
                 print("OBSTACLE REPONDIT SUR LE MUR")
 
