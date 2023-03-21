@@ -44,3 +44,13 @@ class Robot:
         """ Simule le déplacement du robot en y selon un temps dt """
         return (self.y-((self.motor_left+self.motor_right)/2)*math.sin(self.angle)*dt)
 
+    def get_motor_position(self,distance):
+        """
+        Lit les etats des moteurs en degre.
+        :return: couple du  degre de rotation des moteurs
+        """
+        
+        degres_rotation = (distance/circonference_robot)*360
+        self.motor_left= degres_rotation
+        self.motor_right = degres_rotation
+        return (self.motor_left, self.motor_right)
