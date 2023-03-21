@@ -25,28 +25,16 @@ class   Decorator:
 class	Avancer_Decorator(Decorator):
 
     def __init__(self,robot):
-        """ classe Avancer_Decorator qui hérite de Decorator
-         initialise un robot et lui octroie de nouvelle méthodes pour la commande 
-         avancer """
-
         Decorator.__init__(self,robot)
-        
-    def get_distance_parcourue(self,dt):
-        """ renvoie la distance entre la position initial (x,y) du robot et la position en un instant dt 
-         du robot """
-
-    	posx1 = self.robot.x
-    	posy1 = self.robot.y
-    	posx2 = self.robot.getmovex(dt)
-    	posy2 = self.robot.getmovey(dt)
-    	return math.sqrt((posx2-posx1)**2+(posy2-posy1)**2)*0.026
-     
    
-    def	avancer(self,speed,dt):
-        """ initialise les vitesse des moteurs du robot """
-
-        self.robot.set_motor_dps(speed,speed)
-
+    	
+    def nb_tour(self,distance):
+        return distance/circonference_robot
+    
+    def getdegre_rotation(self,distance):
+        valeur = Avancer_Decorator.nb_tour(self,distance)*360
+        return valeur
+    	
 class	Tourner_Decorator(Decorator):
     
     def __init__(self,robot):

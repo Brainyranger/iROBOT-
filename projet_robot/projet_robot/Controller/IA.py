@@ -67,10 +67,9 @@ class Avancer:
         initialisation de la distance à parcourir
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = robot
+        self.robot = forward(robot)
         self.vitesse = vitesse*3800
         self.distance = distance
-        self.distance_parcouru = 0
         self.status = False
 
     def update(self,dt) :
@@ -83,7 +82,7 @@ class Avancer:
         	return
         
         self.avancer(self.distance,dt)
-        self.distance_parcouru += (self.vitesse*dt)/60 
+        self.distance_parcouru += (self.vitesse*dt) 
         
         	
     def getStatus(self):
@@ -93,6 +92,7 @@ class Avancer:
 
     def start(self):
         """ Lance la commande """
+        self.distance_degre = forward.getdegre_rotation(self,self.distance)
         self.distance_parcouru = 0
         self.status = True
         
@@ -103,8 +103,10 @@ class Avancer:
   
         
     def	avancer(self,distance,dt):
-       self.robot.set_motor_dps(self.robot.get_motor_position(self.distance)[0]*dt,self.robot.get_motor_position(self.distance)[1]*dt)
-
+        motor_left = self.distance_degre*dt
+        motor_right = self.distance_degre*dt
+        self.robot.set_motor_dps(motor_left,motor_right)
+        
 class Tourner:
 
     def __init__(self,vitesse,angle,dps,robot):
