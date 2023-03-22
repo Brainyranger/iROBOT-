@@ -38,27 +38,21 @@ class	Avancer_Decorator(Decorator):
 class	Tourner_Decorator(Decorator):
     
     def __init__(self,robot):
-        """ classe Tourner_Decorator qui hérite de Decorator
-         initialise un robot et lui octroie de nouvelle méthodes pour la commande 
-         Tourner """
-        Decorator.__init__(self,robot) 
-               
-    def tourner(self,speed,dps,dt):
-        """ fais tourner les roues du robot sans vitesse """
-
-        self.robot.move_angle(self.dps*dt)
-        self.robot.set_motor_dps(0,0)
-	    
-    def tourner2(self,speed,angle,dps,dt):
-        """ fais tourner le robot selon les vitesses de rotation des roues """
-
-        self.robot.set_motor_dps(speed*(1+(angle/90)),speed*(1-(angle/90)))
-        self.robot.move_angle(dps*dt)
+        Decorator.__init__(self,robot)
+        self.rayon_courbure = 60
         
-    def dist_turn(self,vitesse,angle,dt):
-        """ renvoie la distance parcourue en cm à chaque instant dt en fonction d'un angle de rotation """
-         
-        return ((vitesse*(1-(angle/90))+vitesse*(1+(angle/90)))/2)*dt*(angle/360)
+    def get_distance_parcourue(self):
+        return math.pi*2*self.rayon_courbure*0.25 
+               
+        
+    def nb_tour(self):
+        circonf = math.pi*7
+        return (2*Tourner_Decorator.get_distance_parcourue(self)/circonf)
+    
+    def getdegre_rotation(self):
+        #valeur = Tourner_Decorator.nb_tour(self)*360
+        #pour tourner à gauche et droite = 320
+        return 320
        
 	
   
