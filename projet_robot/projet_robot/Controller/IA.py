@@ -71,6 +71,9 @@ class Avancer:
         self.vitesse = vitesse*3800
         self.distance = distance
         self.status = False
+        self.distance_parcouru = 0
+        self.distance_degre = 0
+
 
     def update(self,dt) :
         """ Fais la mise à jour de notre déplacement en ligne droite """
@@ -119,6 +122,10 @@ class Tourner:
         self.robot = turn(robot)
         self.vitesse = vitesse*3800
         self.angle = angle 
+        self.distance_parcouru = 0
+        self.angle_parcouru = 0
+        self.vitesse_reel = 0
+        self.distance_degre = 0
         
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
