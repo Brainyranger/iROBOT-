@@ -1,8 +1,6 @@
 
 import math
 
-class Constante:
-
 largeur_robot = 60
 diametre_roue = 7
 portee_senseur = 30
@@ -19,7 +17,7 @@ class   Decorator:
     def	__getattr__(self,attr):
         """ renvoie les attributs du robot """
 
-    	return  getattr(self.robot,attr)
+        return  getattr(self.robot,attr)
 	
 
 class	Avancer_Decorator(Decorator):

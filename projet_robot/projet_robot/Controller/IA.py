@@ -143,7 +143,7 @@ class Tourner:
         	self.robot.set_motor_dps(0,0)
         	self.status = False
         	return
-        self.tourner_gauche(dt)
+        self.tourner_droit(dt)
         self.angle_parcouru += self.vitesse*dt
         
         
