@@ -33,7 +33,7 @@ class IA(Thread):
             self.curr_command += 1
             self.ia_command[self.curr_command].start()
         
-        self.ia_command[self.curr_command].update(dt)       
+        self.ia_command[self.curr_command].run()       
 
     def ajout_commandes(self,command):
         """ Ajout d'une commande à la liste de commandes """
@@ -56,7 +56,7 @@ class IA(Thread):
         if indice < 0 or indice > len(self.ia_command):
     	    return
         return self.ia_command[indice]
-
+    
 
 
 class Avancer:
@@ -109,7 +109,14 @@ class Avancer:
         motor_left = self.distance_degre*dt
         motor_right = self.distance_degre*dt
         self.robot.set_motor_dps(motor_left,motor_right)
-        
+
+    def run(self):
+        temps = time.time()
+        while self.getStatus():
+            temps_reel = time.time() - temps
+            temps = time.time()
+            self.update(temps_reel)   
+
 class Tourner:
 
     def __init__(self,vitesse,angle,robot):
@@ -171,3 +178,9 @@ class Tourner:
         motor_right= self.distance_degre*(1+(self.angle/90))*dt*self.vitesse_reel
         self.robot.set_motor_dps(motor_left,motor_right)
               
+    def run(self):
+        temps = time.time()
+        while self.getStatus():
+            temps_reel = time.time() - temps
+            temps = time.time()
+            self.update(temps_reel) 
