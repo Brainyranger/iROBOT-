@@ -39,20 +39,21 @@ class	Tourner_Decorator(Decorator):
     
     def __init__(self,robot):
         Decorator.__init__(self,robot)
-        self.rayon_courbure = 60
+        self.angle
         
     def get_distance_parcourue(self):
-        return math.pi*2*self.rayon_courbure*0.25 
+        rayon_braquage = abs(largeur_robot/math.tan(self.angle))
+        arc_pisur2 = 0.25*2*math.pi
+        dist_une_roue = (rayon_braquage*arc_pisur2)/2
+        constante_de_correction = 4.5
+        return dist_une_roue - constante_de_correction
                
         
     def nb_tour(self):
-        circonf = math.pi*7
-        return (2*Tourner_Decorator.get_distance_parcourue(self)/circonf)
+        return (Tourner_Decorator.get_distance_parcourue(self)/circonference_robot)
     
     def getdegre_rotation(self):
-        #valeur = Tourner_Decorator.nb_tour(self)*360
-        #pour tourner à gauche et droite = 320
-        return 320
+        return Tourner_Decorator.nb_tour(self)*360
        
 	
   
