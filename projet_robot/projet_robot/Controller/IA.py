@@ -17,7 +17,7 @@ class IA(Thread):
         self.status = True
         self.ia_command = ia_command
         self.curr_command = 0
-        
+
     def update(self,dt):
         """ Parcoure notre liste de commandes et éxécute commande par commande """
 
@@ -28,12 +28,12 @@ class IA(Thread):
         if self.stop():
             self.status = False
             return
-            
+
         if self.curr_command < len(self.ia_command) and self.ia_command[self.curr_command].stop():
             self.curr_command += 1
             self.ia_command[self.curr_command].start()
         
-        self.ia_command[self.curr_command].run()       
+        self.ia_command[self.curr_command].update(dt)       
 
     def ajout_commandes(self,command):
         """ Ajout d'une commande à la liste de commandes """
@@ -56,7 +56,7 @@ class IA(Thread):
         if indice < 0 or indice > len(self.ia_command):
     	    return
         return self.ia_command[indice]
-    
+
 
 
 class Avancer:
@@ -70,10 +70,8 @@ class Avancer:
         self.robot = forward(robot)
         self.vitesse = vitesse*3800
         self.distance = distance
-        self.status = False
         self.distance_parcouru = 0
-        self.distance_degre = 0
-
+        self.status = False
 
     def update(self,dt) :
         """ Fais la mise à jour de notre déplacement en ligne droite """
@@ -83,10 +81,10 @@ class Avancer:
         	self.robot.set_motor_dps(0,0)
         	self.status = False
         	return
-        
-        self.avancer(self.distance,dt)
-        self.distance_parcouru += (self.vitesse*dt) 
-        
+        forward.avancer(self,self.vitesse,dt)
+        self.distance_parcouru += forward.get_distance_parcourue(self,dt)
+
+         	
         	
     def getStatus(self):
         """ Renvoie l'état de la commande """
@@ -95,31 +93,17 @@ class Avancer:
 
     def start(self):
         """ Lance la commande """
-        self.distance_degre = forward.getdegre_rotation(self,self.distance)
         self.distance_parcouru = 0
         self.status = True
-        
 
     def stop(self):
         """ Arret de la commande en cours"""
         return self.distance_parcouru >= self.distance
-  
-        
-    def	avancer(self,distance,dt):
-        motor_left = self.distance_degre*dt
-        motor_right = self.distance_degre*dt
-        self.robot.set_motor_dps(motor_left,motor_right)
 
-    def run(self):
-        temps = time.time()
-        while self.getStatus():
-            temps_reel = time.time() - temps
-            temps = time.time()
-            self.update(temps_reel)   
 
 class Tourner:
 
-    def __init__(self,vitesse,angle,robot):
+    def __init__(self,vitesse,angle,dps,robot):
         """ Constructeur de notre classe Tourner 
         initialisation de la vitesse de nos roues
         initialisation de l'angle qu'on doit parcourir 
@@ -127,12 +111,12 @@ class Tourner:
         initialisation de notre robot pour lequel on applique la comande"""
 
         self.robot = turn(robot)
-        self.vitesse = vitesse*3800
-        self.angle = angle 
-        self.distance_parcouru = 0
+        self.vitesse = vitesse*3800 
+        self.angle = angle
+        self.dps = dps
         self.angle_parcouru = 0
-        self.vitesse_reel = 0
-        self.distance_degre = 0
+        self.status = True
+        self.rayon = (largeur_robot/math.tan(self.angle)) # rayon de la courbure 
         
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
@@ -143,11 +127,11 @@ class Tourner:
         	self.robot.set_motor_dps(0,0)
         	self.status = False
         	return
-        self.tourner_droit(dt)
-        self.angle_parcouru += self.vitesse*dt
-        
-        
-        print("j'ai fini de parcourir "+str(self.angle_parcouru)+"degrés")
+        #self.angle_parcouru += self.dps*dt
+        #turn.tourner(self,self.vitesse,self.dps,dt)
+        self.angle_parcouru += turn.dist_turn(self,self.vitesse,self.angle,dt)
+        turn.tourner2(self,(self.vitesse*0.1),self.angle,self.dps,dt)
+        print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
        
 	
     def getStatus(self):
@@ -158,29 +142,10 @@ class Tourner:
     def start(self):
         """ Lance la commande """
         self.angle_parcouru = 0
-        self.vitesse_reel = (self.vitesse/3800)*100
-        self.distance_degre = turn.getdegre_rotation(self)
         self.status = True
 
     def stop(self):
         """ Arrête la commande en cours """
 
-        return self.angle_parcouru > self.distance_degre
-       
-    def tourner_gauche(self,dt):
-        motor_left = self.distance_degre*(1+(self.angle/90))*dt*self.vitesse_reel
-        motor_right= self.distance_degre*(1-(self.angle/90))*dt*self.vitesse_reel
-        self.robot.set_motor_dps(motor_left,motor_right)
-        print(self.distance_degre)
-        
-    def tourner_droit(self,dt):
-        motor_left = self.distance_degre*(1-(self.angle/90))*dt*self.vitesse_reel
-        motor_right= self.distance_degre*(1+(self.angle/90))*dt*self.vitesse_reel
-        self.robot.set_motor_dps(motor_left,motor_right)
-              
-    def run(self):
-        temps = time.time()
-        while self.getStatus():
-            temps_reel = time.time() - temps
-            temps = time.time()
-            self.update(temps_reel) 
+        #return self.angle_parcouru >= (self.angle)
+        return self.angle_parcouru > abs((math.pi * self.rayon)/2)*1.12
