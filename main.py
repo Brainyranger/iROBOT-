@@ -45,7 +45,7 @@ demi_tour = Tourner(0.03,360,30,simul.robot,"gauche")
 #IA = IA([IA_tourne_gauche])
 #exo 1.2
 #IA = IA_avance_led(0.03,simul.robot,10)
-IA = IA([IA_conditionnelle_List([IA_exo21,IA_exo22],demi_tour,simul)])
+#IA = IA([IA_conditionnelle_List([IA_exo21,IA_exo22],demi_tour,simul)])
 
 
 

@@ -243,10 +243,8 @@ class IA_conditionnelle:
             return
             
         if not self.condition.detection_obstacle():
-            self.cmd_2.stop()
             return self.cmd_1.update(dt)
         else:
-            self.cmd_1.stop()
             return self.cmd_2.update(dt)
            
         
@@ -283,13 +281,10 @@ class IA_conditionnelle_List:
             return
             
         if not self.condition.detection_obstacle():
-            self.cmd_2.stop()
-            self.cmd_1[1].stop()
             return self.cmd_1[0].update(dt)
         else:
-            self.cmd_1[0].stop()
             self.cmd_2.update(dt)
-            self.cmd_1[1].update(dt)
+            return self.cmd_1[1].update(dt)
            
         
     def getStatus(self):
