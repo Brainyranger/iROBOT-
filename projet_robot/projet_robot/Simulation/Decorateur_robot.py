@@ -4,9 +4,9 @@ class Decorateur_robot_reel(Robot)
 
     def __init__(self,robot)->None:
     	self.robot = robot
-	self.x = 50
-	self.y = 300
-	self.angle  = 0 #conversion degré par seconde en radian par seconde
+	    self.x = 50
+	    self.y = 300
+	    self.angle  = 0 #conversion degré par seconde en radian par seconde
 
     def move(self,dt):
         """ Deplace le robot selon x et y et modifie son angle """

@@ -1,5 +1,5 @@
 from projet_robot.Simulation.Environnement import Environnement
-from projet_robot.Controller.IA import IA,Avancer,Tourner,IA_conditionnelle,IA_avance_led
+from projet_robot.Controller.IA import IA,Avancer,Tourner,IA_conditionnelle,IA_avance_led,IA_conditionnelle_List
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 import time
 
@@ -40,12 +40,12 @@ IA_exo21 = IA([IA_avance_2cm,IA_tourne_g45,IA_avance_5cm,IA_tourne_droit,IA_avan
 IA_avance_7cm = Avancer(0.03,7,simul.robot)
 IA_exo22 = IA([IA_avance_2cm,IA_tourne_gauche,IA_avance_5cm,IA_tourne_droit,IA_avance_7cm,IA_tourne_droit,IA_avance_5cm,IA_tourne_gauche,IA_avance_2cm])
 #exo 2.3:
-demi_tour = Tourner(0.03,180,30,simul.robot,"gauche")
+demi_tour = Tourner(0.03,360,30,simul.robot,"gauche")
 #IA = IA([IA_conditionnelle(IA_exo21,demi_tour,simul)])
 #IA = IA([IA_tourne_gauche])
 #exo 1.2
-IA = IA_avance_led(0.03,simul.robot,10)
-
+#IA = IA_avance_led(0.03,simul.robot,10)
+IA = IA([IA_conditionnelle_List([IA_exo21,IA_exo22],demi_tour,simul)])
 
 
 

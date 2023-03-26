@@ -22,7 +22,7 @@ class Environnement(Thread):
         self.list_obs_mobiles = self.generer_obstacles(2,0.01)
         self.list_obs_immobiles = self.generer_obstacles(2,0)
         self.list_obs = self.list_obs_mobiles + self.list_obs_immobiles
-        self.list_gemme = self.generer_gemme(10,10)
+        self.list_gemme = self.generer_gemme(1,10)
         self.senseur_gemme = Senseur_gemme(30)
         
 	

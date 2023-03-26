@@ -163,8 +163,10 @@ class IA_conditionnelle:
             return
             
         if not self.condition.detection_obstacle():
-            self.cmd_1.update(dt)
+            self.cmd_2.stop()
+            return self.cmd_1.update(dt)
         else:
+            self.cmd_1.stop()
             return self.cmd_2.update(dt)
            
         
@@ -224,3 +226,87 @@ class IA_avance_led:
         return self.distance_parcouru >= self.distance
     
   
+
+
+class IA_conditionnelle:
+    
+    def __init__(self,command1,command2,condition):
+        self.cmd_1 = command1
+        self.cmd_2 = command2
+        self.condition = condition
+        self.status = True
+        
+        
+    def update(self,dt):
+           
+        if self.stop():
+            return
+            
+        if not self.condition.detection_obstacle():
+            self.cmd_2.stop()
+            return self.cmd_1.update(dt)
+        else:
+            self.cmd_1.stop()
+            return self.cmd_2.update(dt)
+           
+        
+    def getStatus(self):
+        """ Renvoie l'état de la commande """
+
+        return self.status
+
+    def start(self):
+        """ Lance la commande """
+        self.status = True
+        self.cmd_1.start()
+        self.cmd_2.start()  
+        self.condition = self.condition.detection_obstacle()
+        
+    def stop(self):
+        """ Arrête la commande en cours """
+        
+        return self.condition.detection_collision() or self.condition.detection_collision_bord_map_robot()
+    
+
+class IA_conditionnelle_List:
+    
+    def __init__(self,commands,command2,condition):
+        self.cmd_1 = commands
+        self.cmd_2 = command2
+        self.condition = condition
+        self.status = True
+        
+        
+    def update(self,dt):
+           
+        if self.stop():
+            return
+            
+        if not self.condition.detection_obstacle():
+            self.cmd_2.stop()
+            self.cmd_1[1].stop()
+            return self.cmd_1[0].update(dt)
+        else:
+            self.cmd_1[0].stop()
+            self.cmd_2.update(dt)
+            self.cmd_1[1].update(dt)
+           
+        
+    def getStatus(self):
+        """ Renvoie l'état de la commande """
+
+        return self.status
+
+    def start(self):
+        """ Lance la commande """
+        self.status = True
+        self.cmd_1[0].start()
+        self.cmd_1[1].start()
+        self.cmd_2.start()  
+        self.condition = self.condition.detection_obstacle()
+        
+    def stop(self):
+        """ Arrête la commande en cours """
+        
+        return self.condition.detection_collision() or self.condition.detection_collision_bord_map_robot()
+    
