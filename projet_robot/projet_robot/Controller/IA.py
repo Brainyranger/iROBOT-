@@ -110,29 +110,31 @@ class Tourner:
         initialisation de la distance à parcourir en degré/s pour parcourir l'angle
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = turn(robot)
-        self.vitesse = vitesse*3800 
+        self.robot = robot
+        self.vitesse = vitesse
         self.angle = angle
         self.dps = dps
         self.angle_parcouru = 0
-        self.status = True
-        self.rayon = (largeur_robot/math.tan(self.angle)) # rayon de la courbure 
-        
+        self.angleInitial = self.robot.getAngleEnDegre()
+        self.Status = True
+
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
 
-        	
-        	
         if self.stop():
-        	self.robot.set_motor_dps(0,0)
-        	self.status = False
-        	return
-        #self.angle_parcouru += self.dps*dt
-        #turn.tourner(self,self.vitesse,self.dps,dt)
-        self.angle_parcouru += turn.dist_turn(self,self.vitesse,self.angle,dt)
-        turn.tourner2(self,(self.vitesse*0.1),self.angle,self.dps,dt)
+            self.robot.set_motor_dps(0,0)
+            self.Status = False
+            return
+        #self.robot.set_motor_dps(self.vitesse,self.vitesse)
+        angle = self.dps*dt
+        if (angle + self.angle_parcouru) > self.angle:
+            angle = self.angleInitial+self.angle - self.robot.getAngleEnDegre()
+            self.angle_parcouru = self.angle
+        else :
+            self.angle_parcouru += angle
+        self.robot.move_angle(angle)
         print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
-       
+      
 	
     def getStatus(self):
         """ Renvoie l'état de la commande """
@@ -142,10 +144,11 @@ class Tourner:
     def start(self):
         """ Lance la commande """
         self.angle_parcouru = 0
+        self.angleInitial = self.robot.getAngleEnDegre()
         self.status = True
 
     def stop(self):
         """ Arrête la commande en cours """
 
-        #return self.angle_parcouru >= (self.angle)
-        return self.angle_parcouru > abs((math.pi * self.rayon)/2)*1.12
+        return self.angle_parcouru >= (self.angle)
+        #return self.angle_parcouru > abs((math.pi * self.rayon)/2)*1.12
