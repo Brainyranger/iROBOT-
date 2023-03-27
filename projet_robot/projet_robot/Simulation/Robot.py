@@ -38,7 +38,15 @@ class Robot:
         """
         Fixe l'offset des moteurs (en degres) (permet par exemple de reinitialiser a 0 l'etat 
         """
-        port = offset
+        if port == "self.motor_left":
+            self.robot.motor_left = offset
+        elif port == "self.motor_right":
+            self.robot.motor_right = offset
+        elif port == "self.motor_right+self.motor_left":
+            self.robot.motor_left = offset
+            self.robot.motor_right = offset
+        else:
+            return 
             
     def set_led(self):
         """ alterner les deux leds """

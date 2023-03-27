@@ -50,7 +50,27 @@ class   Proxy_VraiRobot:
     def vitesse_rotation_droite(self,dps,angle):
         return dps*(1+(angle)/90)
 
-    def get_distance_parcourue(self,dps):
-        posr,posrl = self.robot.get_motor_position()
+    def get_distance_parcourue(self):
+        posl = 0
+        posr = 0
+        new_pos_motor = self.robot.get_motor_position()
+        distance_roue_gauche = (new_pos_motor[0]-posl)*math.pi*WHEEL_DIAMETER 
+        distance_roue_droite = (new_pos_motor[1]-posr)*math.pi*WHEEL_DIAMETER 
+        posl = new_pos_motor[0]
+        posr = new_pos_motor[1]
+        distance_parcouru = (distance_roue_gauche+distance_roue_droite)/2
+        return distance_parcouru
 
-        
+    def get_angle_parcouru(self):
+        previous_pos = (0,0)
+        curr_pos = self.robot.get_motor_position()
+        diff_pos = [curr_pos[i]-previous_pos[i] for i in range(2)]
+        angle_rotated = [WHEEL_CIRCUMFERENCE*(diff_pos[i]/360) for i in range(2)]
+        angle_parcouru = (angle_rotated[0]+angle_rotated[1])/2
+        return angle_parcouru
+
+    def reset(self):
+        self.robot.offset_motor_encode(self.MOTOR_LEFT,self.read_encoders()[0])
+        self.robot.offset_motor_encode(self.MOTOR_RIGHT,self.read_encoders()[1])
+
+    
