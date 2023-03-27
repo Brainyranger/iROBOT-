@@ -1,10 +1,7 @@
 from projet_robot.Controller.Proxy_IA import largeur_robot,diametre_roue
 import math
-<<<<<<< HEAD
-from projet_robot.Controller.Proxy_IA import largeur_robot,diametre_roue
 
-=======
->>>>>>> tmesolo
+
 
 class Robot:
     

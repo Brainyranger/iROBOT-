@@ -18,11 +18,6 @@ class Obstacle:
         list_obs[1] -= list_obs[4]*math.sin(list_obs[5])*dt
 
     
-class Gemme:
-    
-    def __init__(self,x,y,rayon):
-        self.x = x
-        self.y = y
-        self.rayon = rayon   
+
             
               

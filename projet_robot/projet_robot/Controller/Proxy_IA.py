@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-=======
-import time
->>>>>>> tmesolo
 import math
 
 largeur_robot = 60
@@ -70,8 +65,3 @@ class   Proxy_simulation:
 
     def vitesse_rotation_droite(self,vitesse,angle):
         return vitesse*(1+(angle)/90)
-<<<<<<< HEAD
-=======
-
- 
->>>>>>> tmesolo

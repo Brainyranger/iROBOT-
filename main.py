@@ -4,7 +4,7 @@ from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 import time
 
 
-#Test
+
 #initialisation de l'environnment
 bord_map_x = 500
 bord_map_y = 420
@@ -17,15 +17,8 @@ simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 #commandes pour aller tout droit suivant une vitesse et une distance donnée
 IA_avance = Avancer(0.03,7,simul.robot)
 #commandes pour tourner selon un angle donnée
-<<<<<<< HEAD
 IA_tourne_gauche = Tourner(90,30,simul.robot,"gauche")
 IA_tourne_droite = Tourner(90,30,simul.robot,"droite")
-=======
-IA_tourne_gauche = Tourner(90,30,simul.robot,"droite")
-#IA_tourne_droit  = Tourner(0.03,90,30,simul.robot,"droite")
-#IA_tourne_triangle = Tourner(0.03,90,30,simul.robot,"gauche")
-
->>>>>>> tmesolo
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécuter
@@ -33,35 +26,12 @@ IA_tourne_gauche = Tourner(90,30,simul.robot,"droite")
 
 #commandes pour tracer un carré
 #IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
-<<<<<<< HEAD
 
 #commandes pour une IA conditionnelle
 #IA = IA([IA_conditionnelle(IA_avance,IA_tourne_gauche,simul)])
 
 #commandes pour allumer alterner nos deux leds pendant que le robot avance
 #IA = IA_avance_led(0.03,simul.robot,10)
-=======
-#commandes pour tracer un triangle
-#IA = IA([IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle])
-#exo 2.1:
-#IA_avance_2cm =  Avancer(0.03,2,simul.robot)
-#IA_avance_5cm = Avancer(0.03,5,simul.robot)
-#IA_tourne_g45 = Tourner(0.03,45,30,simul.robot,"gauche")
-#IA_tourne_d45 = Tourner(0.03,45,30,simul.robot,"droite")
-#IA = IA([IA_avance_2cm,IA_tourne_g45,IA_avance_5cm,IA_tourne_droit,IA_avance_5cm,IA_tourne_g45,IA_avance_2cm])
-#exo 2.2:
-#IA_avance_7cm = Avancer(0.03,7,simul.robot)
-#IA_exo22 = IA([IA_avance_2cm,IA_tourne_gauche,IA_avance_5cm,IA_tourne_droit,IA_avance_7cm,IA_tourne_droit,IA_avance_5cm,IA_tourne_gauche,IA_avance_2cm])
-#exo 2.3:
-#demi_tour = Tourner(0.03,360,30,simul.robot,"gauche")
-#IA = IA([IA_conditionnelle(IA_avance,IA_tourne_gauche,simul)])
-IA = IA([IA_tourne_gauche])
-#exo 1.2
-#IA = IA_avance_led(0.03,simul.robot,10)
-
-
-
->>>>>>> tmesolo
 
 #initialisation du temps avant le début de la simulation
 temps = time.time()

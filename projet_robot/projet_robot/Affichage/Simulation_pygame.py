@@ -65,20 +65,3 @@ class Simulation_pygame(Thread):
         """ Affiche l'obstacle """
         obstacle = pygame.Rect(x,y,taille_x,taille_y)
         pygame.draw.rect(self.screen,self.colour,obstacle)
-<<<<<<< HEAD
-
-    def draw_led(self,robot,dim_led_x,dim_led_y,pos_x,pos_y_left,pos_y_right):
-        """dessine les deux leds du robot""" 
-           
-        led_left = pygame.Surface((dim_led_x,dim_led_y))
-        led_left.fill(robot.LED_LEFT_EYE)
-        led_right = pygame.Surface((dim_led_x,dim_led_y))
-        led_right.fill(robot.LED_RIGHT_EYE)
-        self.screen.blit(led_left,(pos_x+math.cos(robot.angle)*dim_led_x,dim_led_y*math.sin(robot.angle)+(robot.y-pos_y_left)))
-        self.screen.blit(led_right,(pos_x+math.cos(robot.angle)*dim_led_x,dim_led_y*math.sin(robot.angle)+(robot.y+pos_y_right)))
-=======
-        
-    
-    def draw_gemme(self,x,y,rayon,color):
-        pygame.draw.circle(self.screen,color,(x,y),rayon)
->>>>>>> tmesolo
