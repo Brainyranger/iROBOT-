@@ -1,5 +1,5 @@
 import math
-from projet_robot.Controller.Toolbox_IA import largeur_robot,diametre_roue
+from projet_robot.Controller.Proxy_IA import largeur_robot,diametre_roue
 
 
 class Robot:
