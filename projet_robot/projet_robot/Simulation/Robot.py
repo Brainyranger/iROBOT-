@@ -54,6 +54,7 @@ class Robot:
     def getmovey(self,dt):
         """ Simule le déplacement du robot en y selon un temps dt """
         pass
+        
     def set_led_left(self,colour):
         """change la couleur led gauche"""
         pass

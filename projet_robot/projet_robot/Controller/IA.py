@@ -130,7 +130,7 @@ class Tourner:
             self.status = False
             return
         
-        self.angle_parcouru += self.dps*dt
+        self.angle_parcouru += self.dps*dt/2*math.pi
         self.tourner(self.dps,dt,self.str)
         print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
        
@@ -151,16 +151,16 @@ class Tourner:
         return self.angle_parcouru > self.angle
     
     def tourner(self,dps,dt,str):
-        
-        self.robot.move_angle(self.dps*dt,str)
-        self.robot.set_motor_dps(self.dps,self.dps*dt)     
+        vg = proxy_simul.vitesse_rotation_gauche(self,dps,self.angle)
+        vd = proxy_simul.vitesse_rotation_droite(self,dps,self.angle)
+        self.robot.set_motor_dps(vg,-vd)     
     
 
 class IA_avance_led:
     
     def __init__(self,vitesse,robot,distance):
         self.vitesse = vitesse*3800
-        self.robot = forward(robot)
+        self.robot = proxy_simul(robot)
         self.status = True
         self.distance_parcouru = 0
         self.distance = distance
@@ -172,10 +172,10 @@ class IA_avance_led:
             self.status = False
         
         if self.distance_parcouru > self.distance/2:
-            forward.set_led(self)
+            self.robot.set_led()
         
-        forward.avancer(self,self.vitesse,dt)   
-        self.distance_parcouru += forward.get_distance_parcourue(self,dt)
+        self.avancer()   
+        self.distance_parcouru += proxy_simul.get_distance_parcourue(self,dt)
         
     
          	
@@ -194,7 +194,8 @@ class IA_avance_led:
         return self.distance_parcouru >= self.distance
     
   
-
+    def avancer(self):
+        self.robot.set_motor_dps(self.vitesse,self.vitesse)
 
 class IA_conditionnelle:
     
@@ -211,9 +212,9 @@ class IA_conditionnelle:
             return
             
         if not self.condition.detection_obstacle():
-            return self.cmd_1.update(dt)
+             self.cmd_1.update(dt)
         else:
-            return self.cmd_2.update(dt)
+             self.cmd_2.update(dt)
            
         
     def getStatus(self):

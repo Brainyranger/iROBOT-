@@ -67,3 +67,10 @@ class   Proxy_simulation:
         self.robot.set_led_right(tmp)
         time.sleep(0.1)
 
+    def vitesse_rotation_gauche(self,vitesse,angle):
+        return vitesse*(1-(angle)/90)
+
+    def vitesse_rotation_droite(self,vitesse,angle):
+        return vitesse*(1+(angle)/90)
+
+    

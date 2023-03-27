@@ -17,7 +17,7 @@ class Environnement(Thread):
         self.bord_map_x = bord_map_x
         self.bord_map_y = bord_map_y
         self.running = True
-        self.robot = Robot(30,300,0)
+        self.robot = Robot(90,300,0)
         self.senseur = Senseur(portee_senseur) 
         self.list_obs_mobiles = self.generer_obstacles(2,0.01)
         self.list_obs_immobiles = self.generer_obstacles(2,0)
@@ -32,7 +32,7 @@ class Environnement(Thread):
         #Détection des bords de map
         if self.robot.x >= self.bord_map_x or self.robot.x <= 0 or self.robot.y >= self.bord_map_y or self.robot.y <= 0 :
                 print("COLLISION MUR")
-                self.robot.move_angle(180,"gauche")
+                proxy_simul.move_angle(self.robot,180,"gauche")
                 return True
     
     def detection_collision_bord_map_obstacle(self):
