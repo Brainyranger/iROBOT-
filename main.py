@@ -17,8 +17,8 @@ simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 #commandes pour aller tout droit suivant une vitesse et une distance donnée
 IA_avance = Avancer(0.03,7,simul.robot)
 #commandes pour tourner selon un angle donnée
-IA_tourne_gauche = Tourner(90,30,simul.robot)
-
+IA_tourne_gauche = Tourner(90,30,simul.robot,"gauche")
+IA_tourne_droite = Tourner(90,30,simul.robot,"droite")
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécuter
@@ -32,6 +32,7 @@ IA_tourne_gauche = Tourner(90,30,simul.robot)
 
 #commandes pour allumer alterner nos deux leds pendant que le robot avance
 #IA = IA_avance_led(0.03,simul.robot,10)
+
 #initialisation du temps avant le début de la simulation
 temps = time.time()
 #lancer les thread 
