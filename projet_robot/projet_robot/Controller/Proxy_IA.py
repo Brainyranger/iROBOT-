@@ -65,3 +65,6 @@ class   Proxy_simulation:
 
     def vitesse_rotation_droite(self,vitesse,angle):
         return vitesse*(1+(angle)/90)
+
+    def reset(self):
+        self.robot.offset_motor_encoder("self.motor_right+self.motor_left",0)
