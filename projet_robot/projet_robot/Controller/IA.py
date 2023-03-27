@@ -100,8 +100,8 @@ class Avancer:
         return self.distance_parcouru >= self.distance
 
     def avancer(self,dt):
-        self.robot.set_motor_dps(self.vitesse,self.vitesse)
 
+        self.robot.set_motor_dps(self.vitesse,self.vitesse)
 
 class Tourner:
 
@@ -153,7 +153,11 @@ class Tourner:
     def tourner(self,dps,dt,str):
         vg = proxy_simul.vitesse_rotation_gauche(self,dps,self.angle)
         vd = proxy_simul.vitesse_rotation_droite(self,dps,self.angle)
-        self.robot.set_motor_dps(vg,-vd)     
+        
+        if self.str=="gauche":
+            self.robot.set_motor_dps(vg,-vd)
+        else:
+            self.robot.set_motor_dps(vg,vd)
     
 
 class IA_avance_led:

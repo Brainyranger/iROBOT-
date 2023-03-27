@@ -17,7 +17,7 @@ simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 #commandes pour aller tout droit suivant une vitesse et une distance donnée
 IA_avance = Avancer(0.03,7,simul.robot)
 #commandes pour tourner selon un angle donnée
-IA_tourne_gauche = Tourner(90,30,simul.robot,"gauche")
+IA_tourne_gauche = Tourner(90,30,simul.robot,"droite")
 #IA_tourne_droit  = Tourner(0.03,90,30,simul.robot,"droite")
 #IA_tourne_triangle = Tourner(0.03,90,30,simul.robot,"gauche")
 
@@ -42,9 +42,9 @@ IA_tourne_gauche = Tourner(90,30,simul.robot,"gauche")
 #exo 2.3:
 #demi_tour = Tourner(0.03,360,30,simul.robot,"gauche")
 #IA = IA([IA_conditionnelle(IA_avance,IA_tourne_gauche,simul)])
-#IA = IA([IA_tourne_gauche])
+IA = IA([IA_tourne_gauche])
 #exo 1.2
-IA = IA_avance_led(0.03,simul.robot,10)
+#IA = IA_avance_led(0.03,simul.robot,10)
 
 
 
