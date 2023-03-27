@@ -1,4 +1,4 @@
-Metadata-Version: 2.1
+Metadata-Version: 1.2
 Name: irobot-v2
 Version: 2.2023.0
 Summary: projet_robot
@@ -6,8 +6,6 @@ Home-page: UNKNOWN
 Author: iROBOT
 Author-email: 
 License: UNKNOWN
+Description: UNKNOWN
 Platform: UNKNOWN
 Requires-Python: >=3.6
-
-UNKNOWN
-
