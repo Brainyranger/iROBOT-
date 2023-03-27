@@ -1,6 +1,5 @@
-import math
 from projet_robot.Controller.Proxy_IA import largeur_robot,diametre_roue
-
+import math
 
 class Robot:
     
@@ -71,3 +70,4 @@ class Robot:
     def move(self,dt):
         """ Deplace le robot selon x et y et modifie son angle """
         pass
+

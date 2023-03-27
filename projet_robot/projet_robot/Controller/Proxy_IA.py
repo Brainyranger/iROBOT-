@@ -61,7 +61,6 @@ class   Proxy_simulation:
         
         self.LED_RIGHT_EYE = colour
            
-
     def vitesse_rotation_gauche(self,vitesse,angle):
         return vitesse*(1-(angle)/90)
 
@@ -69,3 +68,25 @@ class   Proxy_simulation:
         return vitesse*(1+(angle)/90)
 
     
+class   Proxy_VraiRobot:
+
+    def __init__(self,robot_reel):
+        self.robot = robot_reel
+
+
+    def set_led_left(self,led=LED_LEFT_EYE,red=0,green=0,blue=0):
+        self.robot.set_led(led=led,red=red,green=green,blue=blue)
+    
+    def set_led_right(self,led=LED_RIGHT_EYE,red=0,green=0,blue=0):
+        self.robot.set_led(led=led,red=red,green=green,blue=blue)
+
+    def vitesse_rotation_gauche(self,dps,angle):
+        return dps*(1-(angle)/90)
+
+    def vitesse_rotation_droite(self,dps,angle):
+        return dps*(1+(angle)/90)
+
+    def get_distance_parcourue(self,dps):
+        posr,posrl = self.robot.get_motor_position()
+
+        
