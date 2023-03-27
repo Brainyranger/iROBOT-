@@ -2,7 +2,7 @@ import time
 import math
 from threading import Thread
 from projet_robot.Simulation.Robot import Robot
-from projet_robot.Controller.Toolbox_IA import largeur_robot,Decorator,Avancer_Decorator as forward, Tourner_Decorator as turn
+from projet_robot.Controller.Proxy_IA import largeur_robot,Proxy_simulation as proxy_simul
 
 
 class IA(Thread):
@@ -106,7 +106,7 @@ class Avancer:
 
 class Tourner:
 
-    def __init__(self,angle,dps,robot,str):
+    def __init__(self,angle,dps,robot):
         """ Constructeur de notre classe Tourner 
         initialisation de la vitesse de nos roues
         initialisation de l'angle qu'on doit parcourir 
@@ -118,7 +118,6 @@ class Tourner:
         self.dps = dps
         self.angle_parcouru = 0
         self.status = True
-        self.str = str
 
         
     def update(self,dt):
@@ -154,7 +153,7 @@ class Tourner:
     def tourner(self,dps,dt,str):
         vg = proxy_simul.vitesse_rotation_gauche(self,dps,self.angle)
         vd = proxy_simul.vitesse_rotation_droite(self,dps,self.angle)
-        self.robot.set_motor_dps(vg,-vd)     
+        self.robot.set_motor_dps(vg,vd)     
     
 
 class IA_avance_led:
