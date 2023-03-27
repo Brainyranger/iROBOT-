@@ -61,11 +61,6 @@ class   Proxy_simulation:
         
         self.LED_RIGHT_EYE = colour
            
-    def set_led(self):
-        tmp = self.robot.LED_LEFT_EYE 
-        self.robot.set_led_left(self.robot.LED_RIGHT_EYE)
-        self.robot.set_led_right(tmp)
-        time.sleep(0.1)
 
     def vitesse_rotation_gauche(self,vitesse,angle):
         return vitesse*(1-(angle)/90)

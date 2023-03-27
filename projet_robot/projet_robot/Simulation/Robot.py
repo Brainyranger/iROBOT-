@@ -39,6 +39,11 @@ class Robot:
         """
         port = offset
             
+    def set_led(self):
+        """ alterner les deux leds """
+        tmp = self.LED_LEFT_EYE 
+        self.LED_LEFT_EYE = self.LED_RIGHT_EYE
+        self.LED_RIGHT_EYE = tmp 
 
     def move_angle(self, angle,direction):
         """ Tourne le robot a l'angle en parametre """
@@ -54,7 +59,7 @@ class Robot:
     def getmovey(self,dt):
         """ Simule le déplacement du robot en y selon un temps dt """
         pass
-        
+
     def set_led_left(self,colour):
         """change la couleur led gauche"""
         pass

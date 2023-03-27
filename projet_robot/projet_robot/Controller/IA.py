@@ -173,6 +173,7 @@ class IA_avance_led:
         
         if self.distance_parcouru > self.distance/2:
             self.robot.set_led()
+            time.sleep(0.1)
         
         self.avancer()   
         self.distance_parcouru += proxy_simul.get_distance_parcourue(self,dt)
