@@ -3,7 +3,7 @@ import math
 import random
 from threading import Thread
 from projet_robot.Controller.IA import IA
-from projet_robot.Controller.Toolbox_IA import largeur_robot,portee_senseur
+from projet_robot.Controller.Proxy_IA import largeur_robot,portee_senseur,Proxy_simulation as proxy_simul
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Obstacle import Obstacle,Gemme
 from projet_robot.Simulation.Senseur import Senseur,Senseur_gemme
@@ -118,10 +118,8 @@ class Environnement(Thread):
     def update(self,dt):
         """ fais la mise à jour de notre simulation """
         self.move_obstacles(dt)
-        self.robot.move(dt)
+        proxy_simul.move(self.robot,dt)
         self.detection_collision()
         self.detection_obstacle()
         self.detection_collision_bord_map_robot()
         self.detection_collision_bord_map_obstacle()
-        self.detection_gemme()
-        self.detection_collision_gemme()

@@ -2,7 +2,7 @@ import time
 import math
 from threading import Thread
 from projet_robot.Simulation.Robot import Robot
-from projet_robot.Controller.Toolbox_IA import largeur_robot,Decorator,Avancer_Decorator as forward, Tourner_Decorator as turn
+from projet_robot.Controller.Proxy_IA import largeur_robot,Proxy_simulation as proxy_simul
 
 
 class IA(Thread):
@@ -66,7 +66,7 @@ class Avancer:
         initialisation de la distance à parcourir
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = forward(robot)
+        self.robot = proxy_simul(robot)
         self.vitesse = vitesse*3800
         self.distance = distance
         self.distance_parcouru = 0
@@ -80,9 +80,9 @@ class Avancer:
             self.robot.set_motor_dps(0,0)
             self.status = False
             return
-        forward.avancer(self,self.vitesse,dt)
-        self.distance_parcouru += forward.get_distance_parcourue(self,dt)
-
+        self.avancer(dt)
+        self.distance_parcouru += proxy_simul.get_distance_parcourue(self,dt)
+        print(self.distance_parcouru)
          	
         	
     def getStatus(self):
@@ -99,18 +99,20 @@ class Avancer:
         """ Arret de la commande en cours"""
         return self.distance_parcouru >= self.distance
 
+    def avancer(self,dt):
+        self.robot.set_motor_dps(self.vitesse,self.vitesse)
+
 
 class Tourner:
 
-    def __init__(self,vitesse,angle,dps,robot,str):
+    def __init__(self,angle,dps,robot,str):
         """ Constructeur de notre classe Tourner 
         initialisation de la vitesse de nos roues
         initialisation de l'angle qu'on doit parcourir 
         initialisation de la distance à parcourir en degré/s pour parcourir l'angle
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = turn(robot)
-        self.vitesse = vitesse*3800 
+        self.robot = proxy_simul(robot)
         self.angle = angle
         self.dps = dps
         self.angle_parcouru = 0
@@ -127,8 +129,9 @@ class Tourner:
             self.robot.set_motor_dps(0,0)
             self.status = False
             return
+        
         self.angle_parcouru += self.dps*dt
-        turn.tourner(self,self.vitesse,self.dps,dt,self.str)
+        self.tourner(self.dps,dt,self.str)
         print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
        
 	
@@ -147,45 +150,10 @@ class Tourner:
 
         return self.angle_parcouru > self.angle
     
-class IA_conditionnelle:
-    
-    def __init__(self,command1,command2,condition):
-        self.cmd_1 = command1
-        self.cmd_2 = command2
-        self.condition = condition
-        self.condition_arret = False
-        self.status = True
+    def tourner(self,dps,dt,str):
         
-        
-    def update(self,dt):
-           
-        if self.stop():
-            return
-            
-        if not self.condition.detection_obstacle():
-            self.cmd_2.stop()
-            return self.cmd_1.update(dt)
-        else:
-            self.cmd_1.stop()
-            return self.cmd_2.update(dt)
-           
-        
-    def getStatus(self):
-        """ Renvoie l'état de la commande """
-
-        return self.status
-
-    def start(self):
-        """ Lance la commande """
-        self.status = True
-        self.cmd_1.start()
-        self.cmd_2.start()  
-        self.condition = self.condition.detection_obstacle()
-        
-    def stop(self):
-        """ Arrête la commande en cours """
-        
-        return self.condition.detection_collision() or self.condition.detection_collision_bord_map_robot()
+        self.robot.move_angle(self.dps*dt,str)
+        self.robot.set_motor_dps(self.dps,self.dps*dt)     
     
 
 class IA_avance_led:
@@ -266,42 +234,3 @@ class IA_conditionnelle:
         return self.condition.detection_collision() or self.condition.detection_collision_bord_map_robot()
     
 
-class IA_conditionnelle_List:
-    
-    def __init__(self,commands,command2,condition):
-        self.cmd_1 = commands
-        self.cmd_2 = command2
-        self.condition = condition
-        self.status = True
-        
-        
-    def update(self,dt):
-           
-        if self.stop():
-            return
-            
-        if not self.condition.detection_obstacle():
-            return self.cmd_1[0].update(dt)
-        else:
-            self.cmd_2.update(dt)
-            return self.cmd_1[1].update(dt)
-           
-        
-    def getStatus(self):
-        """ Renvoie l'état de la commande """
-
-        return self.status
-
-    def start(self):
-        """ Lance la commande """
-        self.status = True
-        self.cmd_1[0].start()
-        self.cmd_1[1].start()
-        self.cmd_2.start()  
-        self.condition = self.condition.detection_obstacle()
-        
-    def stop(self):
-        """ Arrête la commande en cours """
-        
-        return self.condition.detection_collision() or self.condition.detection_collision_bord_map_robot()
-    
