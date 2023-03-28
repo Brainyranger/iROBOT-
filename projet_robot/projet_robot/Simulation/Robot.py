@@ -54,21 +54,6 @@ class Robot:
         self.LED_LEFT_EYE = self.LED_RIGHT_EYE
         self.LED_RIGHT_EYE = tmp 
 
-    def move_angle(self, angle,direction):
-        """ Tourne le robot a l'angle en parametre """
-        pass
-
-    def getAngleEnDegre(self):
-        """ Renvoie l'angle dur robot en degré"""
-        pass
-
-    def getmovex(self,dt):
-        """ Simule le déplacement du robot en x selon un temps dt """
-        pass
-    def getmovey(self,dt):
-        """ Simule le déplacement du robot en y selon un temps dt """
-        pass
-
     def set_led_left(self,colour):
         """change la couleur led gauche"""
         pass
@@ -76,8 +61,5 @@ class Robot:
     def set_led_right(self,colour):
         """change la couleur led droite"""
         pass
-        
-    def move(self,dt):
-        """ Deplace le robot selon x et y et modifie son angle """
-        pass
+
 
