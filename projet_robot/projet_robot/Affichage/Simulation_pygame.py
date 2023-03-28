@@ -16,7 +16,7 @@ class Simulation_pygame(Thread):
         self.orange = (255,100,0)
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((bord_map_x,bord_map_y))
-        self.image_robot = pygame.image.load("images.jpg")
+        self.image_robot = pygame.image.load("projet_robot/Affichage/images.jpg")
         
 
         pygame.init()
