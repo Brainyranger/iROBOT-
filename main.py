@@ -1,7 +1,7 @@
 from projet_robot.Simulation.Environnement import Environnement
 from projet_robot.Controller.IA import IA,Avancer,Tourner,IA_avance_led
-from projet_robot.Simulation.Senseur import projet_robot.Simulation.Senseur
-from projet_robot.Simulation.Robot import projet_robot.Simulation.Robot
+from projet_robot.Simulation.Senseur import Senseur
+from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Proxy import Proxy,portee_senseur
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 import time
