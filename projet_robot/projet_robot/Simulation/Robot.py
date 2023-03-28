@@ -1,17 +1,12 @@
-from projet_robot.Controller.Proxy_IA import largeur_robot,diametre_roue
 import math
 
 
-
 class Robot:
-    
-  
+
 
     def __init__(self,x,y,angle) -> None: 
         """ Initialise le robot en une position (x,y) ,un angle ,et une vitesse (roue gauche et droite) """
-        self.x  = x
-        self.y  = y
-        self.angle  = angle*math.pi/180 #conversion degré par seconde en radian par seconde
+
         self.motor_left  = 0 
         self.motor_right = 0 
         self.LED_LEFT_EYE = (255,0,0)
