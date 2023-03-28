@@ -70,21 +70,7 @@ class Environnement(Thread):
             obs = Obstacle(x,y,taille_obs_x,taille_obs_y,speed)
             lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y,obs.vitesse,obs.angle])        
         return lr
-
-    def generer_obstacles(self,nb_obs,speed):
-        """place nb_obs obstacles dans l'environnemnt """
-        lr = [] 
-        for i in range(0,nb_obs):
-            taille_obs_x = random.uniform(20,25)
-            taille_obs_y = random.uniform(20,25)
-            x = random.uniform(taille_obs_x,self.bord_map_x-taille_obs_x)
-            y = random.uniform(taille_obs_y,self.bord_map_y-taille_obs_y)
-            obs = Obstacle(x,y,taille_obs_x,taille_obs_y,speed)
-            lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y,obs.vitesse,obs.angle])        
-        return lr
-
-
-    
+ 
     def move_obstacles(self,dt):
         """ Déplace les obstacles mobiles """
         for i in range (0,len(self.list_obs_mobiles)):
