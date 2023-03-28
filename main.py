@@ -32,7 +32,7 @@ IA_tourne_gauche = Tourner(90,30,robot_reel,simul.robot_virtuel)
 #IA = IA.select_commandes(2)
 
 #commandes pour tracer un carré
-#IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
+IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 #commandes pour tracer un triangle
 #IA = IA([IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle])
 #exo 2.1:
