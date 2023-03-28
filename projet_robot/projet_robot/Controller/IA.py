@@ -100,7 +100,6 @@ class Avancer:
 
     def avancer(self,dt):
         self.robot_reel.set_motor_dps(self.vitesse,self.vitesse)
-        self.robot_virtuel.move(dt)
 
 
 class Tourner:

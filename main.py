@@ -20,7 +20,7 @@ simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 #énumération des commandes de notre IA
 
 #commandes pour aller tout droit suivant une vitesse et une distance donnée
-IA_avance = Avancer(0.01,7,robot_reel,simul.robot_virtuel)
+IA_avance = Avancer(0.03,7,robot_reel,simul.robot_virtuel)
 #commandes pour tourner selon un angle donnée
 IA_tourne_gauche = Tourner(90,30,robot_reel,simul.robot_virtuel)
 #IA_tourne_droit  = Tourner(0.03,90,30,simul.robot,"droite")
