@@ -147,7 +147,7 @@ class Tourner:
     def stop(self):
         """ Arrête la commande en cours """
 
-        return self.robot_virtuel.angle_parcouru > self.angle
+        return self.robot_virtuel.angle_parcouru >  abs(self.angle)
     
     def tourner(self,dps,dt):
         vg = self.robot_virtuel.vitesse_rotation_gauche(dps,self.angle)
@@ -156,7 +156,7 @@ class Tourner:
         if self.angle > 0:
             self.robot_reel.set_motor_dps(vg,-vd)
         else:
-            self.robot_reel.set_motor_dps(vg,vd)    
+            self.robot_reel.set_motor_dps(-vg,vd)    
     
 
 class IA_avance_led:
