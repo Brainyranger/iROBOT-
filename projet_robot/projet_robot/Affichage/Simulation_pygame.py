@@ -4,7 +4,7 @@ from threading import Thread
 from  projet_robot.Simulation.Robot import Robot
 from  projet_robot.Simulation.Obstacle import Obstacle
 from  projet_robot.Simulation.Senseur import Senseur
-from projet_robot.Controller.Proxy_IA import largeur_robot,diametre_roue,portee_senseur
+from projet_robot.Controller.Proxy import largeur_robot,diametre_roue,portee_senseur
 
 class Simulation_pygame(Thread):
 
@@ -16,7 +16,7 @@ class Simulation_pygame(Thread):
         self.orange = (255,100,0)
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((bord_map_x,bord_map_y))
-        self.image_robot = pygame.image.load("images.jpg")
+        self.image_robot = pygame.image.load("projet_robot/projet_robot/Affichage/images.jpg")
         
 
         pygame.init()
@@ -30,8 +30,6 @@ class Simulation_pygame(Thread):
         self.screen.fill("White")
         self.draw_robot(simul.robot_virtuel)
         self.draw_led(robot_reel,simul.robot_virtuel,5,5,20,10)
-        #for k in range(0,len(simul.list_gemme)):
-        #    self.draw_gemme(simul.list_gemme[k][0],simul.list_gemme[k][1],simul.list_gemme[k][2],self.orange)
         self.draw_senseur(simul.robot_virtuel)
         for i in range(0,len(simul.list_obs)):	
             self.draw_obstacle(simul.list_obs[i][0],simul.list_obs[i][1],simul.list_obs[i][2],simul.list_obs[i][3])

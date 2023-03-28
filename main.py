@@ -1,8 +1,8 @@
 from projet_robot.Simulation.Environnement import Environnement
-from projet_robot.Controller.IA import IA,Avancer,Tourner,IA_avance_led
+from projet_robot.Controller.IA import IA,Avancer,Tourner,IA_avance_led,IA_conditionnelle
 from projet_robot.Simulation.Senseur import Senseur
 from projet_robot.Simulation.Robot import Robot
-from projet_robot.Simulation.Proxy import Proxy,portee_senseur
+from projet_robot.Controller.Proxy import Proxy,portee_senseur
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 import time
 
@@ -10,7 +10,7 @@ import time
 bord_map_x = 500
 bord_map_y = 420
 #Initialisation du robot réél et virtuel et du senseur
-robot_reel = Robot()
+robot_reel = Robot(0,0,0)
 robot_virtuel = Proxy(robot_reel)
 senseur = Senseur(portee_senseur)
 #initialisation de l'environnment
@@ -23,8 +23,7 @@ simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 IA_avance = Avancer(0.03,7,robot_reel,simul.robot_virtuel)
 #commandes pour tourner selon un angle donnée
 IA_tourne_gauche = Tourner(90,30,robot_reel,simul.robot_virtuel)
-#IA_tourne_droit  = Tourner(0.03,90,30,simul.robot,"droite")
-#IA_tourne_triangle = Tourner(0.03,90,30,simul.robot,"gauche")
+IA_tourne_droit  = Tourner(-90,30,robot_reel,simul.robot_virtuel)
 
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
@@ -32,24 +31,13 @@ IA_tourne_gauche = Tourner(90,30,robot_reel,simul.robot_virtuel)
 #IA = IA.select_commandes(2)
 
 #commandes pour tracer un carré
-IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
-#commandes pour tracer un triangle
-#IA = IA([IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle,IA_avance,IA_tourne_triangle])
-#exo 2.1:
-#IA_avance_2cm =  Avancer(0.03,2,simul.robot)
-#IA_avance_5cm = Avancer(0.03,5,simul.robot)
-#IA_tourne_g45 = Tourner(0.03,45,30,simul.robot,"gauche")
-#IA_tourne_d45 = Tourner(0.03,45,30,simul.robot,"droite")
-#IA = IA([IA_avance_2cm,IA_tourne_g45,IA_avance_5cm,IA_tourne_droit,IA_avance_5cm,IA_tourne_g45,IA_avance_2cm])
-#exo 2.2:
-#IA_avance_7cm = Avancer(0.03,7,simul.robot)
-#IA_exo22 = IA([IA_avance_2cm,IA_tourne_gauche,IA_avance_5cm,IA_tourne_droit,IA_avance_7cm,IA_tourne_droit,IA_avance_5cm,IA_tourne_gauche,IA_avance_2cm])
-#exo 2.3:
-#demi_tour = Tourner(0.03,360,30,simul.robot,"gauche")
-#IA = IA([IA_conditionnelle(IA_avance,IA_tourne_gauche,simul)])
-#IA = IA([IA_tourne_gauche])
-#exo 1.2
-#IA = IA_avance_led(0.03,simul.robot,10)
+#IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
+
+#pour avoir une IA conditionnelle
+#IA = IA([IA_conditionnelle(IA_tourne_gauche,IA_avance,simul)])
+
+#commande pour avancer avec des leds alternés
+IA = IA_avance_led(0.03,robot_reel,simul.robot_virtuel,10)
 
 
 

@@ -80,7 +80,7 @@ class Avancer:
             self.robot_reel.set_motor_dps(0,0)
             self.status = False
             return
-        self.avancer(dt)
+        self.avancer()
         print(self.robot_virtuel.distance_parcourue)
          	
         	
@@ -98,7 +98,7 @@ class Avancer:
         """ Arret de la commande en cours"""
         return self.robot_virtuel.distance_parcourue >= self.distance
 
-    def avancer(self,dt):
+    def avancer(self):
         self.robot_reel.set_motor_dps(self.vitesse,self.vitesse)
 
 
@@ -160,9 +160,10 @@ class Tourner:
 
 class IA_avance_led:
     
-    def __init__(self,vitesse,robot,distance):
+    def __init__(self,vitesse,robot_reel,robot_virtuel,distance):
         self.vitesse = vitesse*3800
-        self.robot = proxy_simul(robot)
+        self.robot_reel = robot_reel
+        self.robot_virtuel = robot_virtuel
         self.status = True
         self.distance_parcouru = 0
         self.distance = distance
@@ -173,12 +174,12 @@ class IA_avance_led:
             self.robot.set_motor_dps(0,0)
             self.status = False
         
-        if self.distance_parcouru > self.distance/2:
-            self.robot.set_led()
+        if self.robot_virtuel.distance_parcourue > self.distance/2:
+            self.robot_reel.set_led()
             time.sleep(0.1)
         
         self.avancer()   
-        self.distance_parcouru += proxy_simul.get_distance_parcourue(self,dt)
+        print(self.robot_virtuel.distance_parcourue)
         
     
          	
@@ -189,15 +190,51 @@ class IA_avance_led:
 
     def start(self):
         """ Lance la commande """
-        self.distance_parcouru = 0
+        self.robot_virtuel.reinitialiser_distance_parcourue()
         self.status = True
 
     def stop(self):
         """ Arret de la commande en cours"""
-        return self.distance_parcouru >= self.distance
-    
-  
-    def avancer(self):
-        self.robot.set_motor_dps(self.vitesse,self.vitesse)
-    
+        return self.robot_virtuel.distance_parcourue >= self.distance
 
+    def avancer(self):
+        self.robot_reel.set_motor_dps(self.vitesse,self.vitesse)
+
+
+class IA_conditionnelle:
+    
+    def __init__(self,command1,command2,condition):
+        self.cmd_1 = command1
+        self.cmd_2 = command2
+        self.condition = condition
+        self.status = True
+        
+        
+    def update(self,dt):
+           
+        if self.stop():
+            return
+            
+        if not self.condition.detection_obstacle():
+             self.cmd_1.update(dt)
+        else:
+             self.cmd_2.update(dt)
+           
+        
+    def getStatus(self):
+        """ Renvoie l'état de la commande """
+
+        return self.status
+
+    def start(self):
+        """ Lance la commande """
+        self.status = True
+        self.cmd_1.start()
+        self.cmd_2.start()  
+        self.condition = self.condition.detection_obstacle()
+        
+    def stop(self):
+        """ Arrête la commande en cours """
+        
+        return self.condition.detection_collision() or self.condition.detection_collision_bord_map_robot()
+    
