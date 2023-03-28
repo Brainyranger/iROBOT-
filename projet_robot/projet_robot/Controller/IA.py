@@ -2,7 +2,7 @@ import time
 import math
 from threading import Thread
 from projet_robot.Simulation.Robot import Robot
-from projet_robot.Controller.Proxy import largeur_robot
+from projet_robot.Simulation.Proxy import largeur_robot
 
 
 class IA(Thread):

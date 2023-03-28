@@ -1,9 +1,9 @@
 import time,math,random
 from threading import Thread
 from projet_robot.Controller.IA import IA
-from projet_robot.Controller.Proxy import largeur_robot,portee_senseur
-from projet_robot.Simulation.Obstacle import Obstacle,Gemme
-from projet_robot.Simulation.Senseur import Senseur,Senseur_gemme
+from projet_robot.Simulation.Proxy import largeur_robot,portee_senseur
+from projet_robot.Simulation.Obstacle import Obstacle #,Gemme
+from projet_robot.Simulation.Senseur import Senseur #,Senseur_gemme
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 
 class Environnement(Thread):

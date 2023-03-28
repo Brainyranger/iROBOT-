@@ -1,5 +1,5 @@
 import math,time
-from projet_robot.Simulation.Robot import projet_robot.Simulation.Robot
+from projet_robot.Simulation.Robot import Robot
 
 
 largeur_robot = 60

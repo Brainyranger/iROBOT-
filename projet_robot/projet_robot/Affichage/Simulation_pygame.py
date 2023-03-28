@@ -4,7 +4,7 @@ from threading import Thread
 from  projet_robot.Simulation.Robot import Robot
 from  projet_robot.Simulation.Obstacle import Obstacle
 from  projet_robot.Simulation.Senseur import Senseur
-from projet_robot.Controller.Proxy_IA import largeur_robot,diametre_roue,portee_senseur
+from  projet_robot.Simulation.Proxy import largeur_robot,diametre_roue,portee_senseur
 
 class Simulation_pygame(Thread):
 
