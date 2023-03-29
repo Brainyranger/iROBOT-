@@ -58,3 +58,43 @@ class Robot:
         pass
 
 
+
+class   Vision:
+
+    def __init(self,robot,nb_img,resolution,fps):
+        self.robot = robot
+        self.nb_img = nb_img
+        self.img_queue = None
+        self.resolution = resolution
+        self.fps = fps
+
+
+    def start_recording(self):
+        cv2.VideoCapture(0)
+
+    def stop_recording(self):
+        cv2.VideoCapture(0).realease()
+        cv2.destroyAllwindows()
+        
+    def get_image(self,img,indice):
+        cv2.imshow('image'+str(indice),img)
+
+    def get_images(self,imgs):
+        for i in range(0,len(imgs)):
+            self.get_image(imgs[i],i)
+
+    def read_image(self,img):
+        pass
+
+    def gray_image(self,img):
+        pass
+
+    def get_mask_image(self,img,mask):
+        pass
+    
+    def detection_contour(self,largeur,hauteur):
+        pass
+
+    def find_contour(self,contour):
+        pass
+

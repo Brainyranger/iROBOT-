@@ -37,7 +37,7 @@ IA_tourne_droit  = Tourner(-90,30,robot_reel,simul.robot_virtuel)
 #IA = IA([IA_conditionnelle(IA_tourne_gauche,IA_avance,simul)])
 
 #commande pour avancer avec des leds alternés
-#IA = IA_avance_led(0.03,robot_reel,simul.robot_virtuel,10)
+IA = IA_avance_led(0.03,robot_reel,simul.robot_virtuel,10)
 
 
 

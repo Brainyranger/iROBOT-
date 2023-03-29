@@ -171,7 +171,7 @@ class IA_avance_led:
     def update(self,dt):
         
         if self.stop():
-            self.robot.set_motor_dps(0,0)
+            self.robot_reel.set_motor_dps(0,0)
             self.status = False
         
         if self.robot_virtuel.distance_parcourue > self.distance/2:
