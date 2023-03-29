@@ -2,7 +2,7 @@ import time
 import math
 from threading import Thread
 from projet_robot.Simulation.Robot import Robot
-from projet_robot.Controller.Proxy import largeur_robot
+from projet_robot.Controller.Proxy import largeur_robot,Proxy_simulation as proxy_simul
 
 
 class IA(Thread):
@@ -60,16 +60,16 @@ class IA(Thread):
 
 class Avancer:
 
-    def __init__(self,vitesse,distance,robot_reel,robot_virtuel):
+    def __init__(self,vitesse,distance,robot):
         """ constructeur de notre classe Avancer
         initialisation de la vitesse de nos roues 
         initialisation de la distance à parcourir
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot_reel = robot_reel
-        self.robot_virtuel = robot_virtuel
+        self.robot = proxy_simul(robot)
         self.vitesse = vitesse*3800
         self.distance = distance
+        self.distance_parcouru = 0
         self.status = False
 
     def update(self,dt) :
@@ -77,11 +77,12 @@ class Avancer:
 	
         
         if self.stop():
-            self.robot_reel.set_motor_dps(0,0)
+            self.robot.set_motor_dps(0,0)
             self.status = False
             return
-        self.avancer()
-        print(self.robot_virtuel.distance_parcourue)
+        self.avancer(dt)
+        self.distance_parcouru += proxy_simul.get_distance_parcourue(self,dt)
+        print(self.distance_parcouru)
          	
         	
     def getStatus(self):
@@ -91,30 +92,30 @@ class Avancer:
 
     def start(self):
         """ Lance la commande """
-        self.robot_virtuel.reinitialiser_distance_parcourue()
+        self.distance_parcouru = 0
         self.status = True
 
     def stop(self):
         """ Arret de la commande en cours"""
-        return self.robot_virtuel.distance_parcourue >= self.distance
+        return self.distance_parcouru >= self.distance
 
-    def avancer(self):
-        self.robot_reel.set_motor_dps(self.vitesse,self.vitesse)
+    def avancer(self,dt):
+        self.robot.set_motor_dps(self.vitesse,self.vitesse)
 
 
 class Tourner:
 
-    def __init__(self,angle,dps,robot_reel,robot_virtuel):
+    def __init__(self,angle,vitesse,robot):
         """ Constructeur de notre classe Tourner 
         initialisation de la vitesse de nos roues
         initialisation de l'angle qu'on doit parcourir 
         initialisation de la distance à parcourir en degré/s pour parcourir l'angle
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot_virtuel = robot_virtuel
-        self.robot_reel = robot_reel
+        self.robot = proxy_simul(robot)
         self.angle = angle
-        self.dps = dps
+        self.vitesse = vitesse*3800
+        self.angle_parcouru = 0
         self.status = True
 
         
@@ -124,13 +125,13 @@ class Tourner:
         	
         	
         if self.stop():
-            self.robot_reel.set_motor_dps(0,0)
+            self.robot.set_motor_dps(0,0)
             self.status = False
             return
         
-        self.robot_virtuel.angle_parcouru += self.dps*dt/2*math.pi
-        self.tourner(self.dps,dt)
-        print("j'ai fini de parcourir "+str(self.robot_virtuel.angle_parcouru)+" degré")
+        self.angle_parcouru += self.vitesse*dt/2*math.pi
+        self.tourner(self.vitesse)
+        print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
        
 	
     def getStatus(self):
@@ -140,30 +141,27 @@ class Tourner:
 
     def start(self):
         """ Lance la commande """
-        self.robot_virtuel.reinitialiser_angle_parcouru()
+        self.angle_parcouru = 0
         self.status = True
 
     def stop(self):
         """ Arrête la commande en cours """
 
-        return self.robot_virtuel.angle_parcouru >  abs(self.angle)
+        return self.angle_parcouru > abs(self.angle)
     
-    def tourner(self,dps,dt):
-        vg = self.robot_virtuel.vitesse_rotation_gauche(dps,self.angle)
-        vd = self.robot_virtuel.vitesse_rotation_droite(dps,self.angle)
-        
+    def tourner(self,vitesse):
+  
         if self.angle > 0:
-            self.robot_reel.set_motor_dps(vg,-vd)
+            self.robot.set_motor_dps(vitesse,-vitesse)
         else:
-            self.robot_reel.set_motor_dps(-vg,vd)    
+            self.robot.set_motor_dps(-vitesse,vitesse)     
     
 
 class IA_avance_led:
     
-    def __init__(self,vitesse,robot_reel,robot_virtuel,distance):
+    def __init__(self,vitesse,robot,distance):
         self.vitesse = vitesse*3800
-        self.robot_reel = robot_reel
-        self.robot_virtuel = robot_virtuel
+        self.robot = proxy_simul(robot)
         self.status = True
         self.distance_parcouru = 0
         self.distance = distance
@@ -171,15 +169,15 @@ class IA_avance_led:
     def update(self,dt):
         
         if self.stop():
-            self.robot_reel.set_motor_dps(0,0)
+            self.robot.set_motor_dps(0,0)
             self.status = False
         
-        if self.robot_virtuel.distance_parcourue > self.distance/2:
-            self.robot_reel.set_led()
+        if self.distance_parcouru > self.distance/2:
+            self.robot.set_led()
             time.sleep(0.1)
         
         self.avancer()   
-        print(self.robot_virtuel.distance_parcourue)
+        self.distance_parcouru += proxy_simul.get_distance_parcourue(self,dt)
         
     
          	
@@ -190,16 +188,16 @@ class IA_avance_led:
 
     def start(self):
         """ Lance la commande """
-        self.robot_virtuel.reinitialiser_distance_parcourue()
+        self.distance_parcouru = 0
         self.status = True
 
     def stop(self):
         """ Arret de la commande en cours"""
-        return self.robot_virtuel.distance_parcourue >= self.distance
-
+        return self.distance_parcouru >= self.distance
+    
+  
     def avancer(self):
-        self.robot_reel.set_motor_dps(self.vitesse,self.vitesse)
-
+        self.robot.set_motor_dps(self.vitesse,self.vitesse)
 
 class IA_conditionnelle:
     
