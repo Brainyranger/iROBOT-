@@ -29,13 +29,13 @@ IA_tourne_droit  = Tourner(-90,0.005,robot)
 #IA = IA.select_commandes(1)
 
 #commandes pour tracer un carré
-IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
+#IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 
 #pour avoir une IA conditionnelle
 #IA = IA([IA_conditionnelle(IA_tourne_gauche,IA_avance,simul)])
 
 #commande pour avancer avec des leds alternés
-#IA = IA_avance_led(0.03,robot,10)
+IA = IA_avance_led(0.03,robot,10)
 
 
 
@@ -43,7 +43,7 @@ IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tour
 temps = time.time()
 #lancer les thread 
 simul.start()
-#simul_pygame.start()
+simul_pygame.start()
 IA.start()
 
 while simul.running :
