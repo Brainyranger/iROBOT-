@@ -43,7 +43,7 @@ IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tour
 temps = time.time()
 #lancer les thread 
 simul.start()
-#simul_pygame.start()
+simul_pygame.start()
 IA.start()
 
 while simul.running :
