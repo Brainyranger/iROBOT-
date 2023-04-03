@@ -38,9 +38,49 @@ cette ligne de code dessine les obstacles en orange
 
 
 1.4)
+dans le main
+on remplace la position du robot :
+ robot = Robot(30,300,0)
 IA_avance2 = Avancer(0.03,2,robot)
 IA_avance3 = Avancer(0.03,3,robot)
 IA_tourne_gauche45 = Tourner(45,0.008,robot)
 IA_tourne_droit45  = Tourner(-45,0.005,robot)
 IA = IA([IA_avance,IA_tourne_gauche45,IA_avance2,IA_tourne_gauche,IA_avance2,IA_tourne_gauche45,IA_avance3,IA_tourne_gauche45,IA_avance2,IA_tourne_gauche,IA_avance2,IA_tourne_gauche45])
 commande pour faire un hexagone dans le main à faire attention que tous les autres IA soit en commentaires
+
+Exo 2:
+
+2.1)
+dans le main
+on remplace la position du robot :
+robot =  Robot(bord_map_x/2,60,0)
+#commandes pour dessiner un 1:
+IA_avance7 = Avancer(0.03,7,robot)
+IA = IA([IA_tourne_droit,IA_avance7])
+
+2.2)
+dans le main
+commande pour dessiner un 0:
+on remplace la position du robot :
+ robot = Robot(100,350,0)
+#commandes pour faire un zero : 
+IA = IA([IA_avance3,IA_tourne_gauche,IA_avance7,IA_tourne_gauche,IA_avance3,IA_tourne_gauche,IA_avance7,IA_tourne_gauche])
+
+2.3)
+dans le main
+on remplace la position du robot :
+robot = Robot(100,350,0)
+#commandes pour dessiner un 1:
+IA_avance7 = Avancer(0.03,7,robot)
+IA_un  = IA([IA_tourne_gauche,IA_tourne_gauche,IA_avance7])
+
+#commandes pour faire un zero : 
+IA_zero = IA([IA_avance3,IA_tourne_gauche,IA_avance7,IA_tourne_gauche,IA_avance3,IA_tourne_gauche,IA_avance7,IA_tourne_gauche])
+
+commande pour faire le motif :
+IA = IA([IA_zero,IA_avance7,IA_un])
+
+2.4)
+modification dans 
+IA conditionnelle pas très au point:
+#IA = IA([IA_conditionnelle(IA_zeroetun,simul)])

@@ -201,9 +201,8 @@ class IA_avance_led:
 
 class IA_conditionnelle:
     
-    def __init__(self,command1,command2,condition):
+    def __init__(self,command1,condition):
         self.cmd_1 = command1
-        self.cmd_2 = command2
         self.condition = condition
         self.status = True
         
@@ -213,12 +212,13 @@ class IA_conditionnelle:
         if self.stop():
             return
             
-        if not self.condition.detection_obstacle():
+        if self.cmd_1.status:
              self.cmd_1.update(dt)
-        else:
-             self.cmd_2.update(dt)
+             if not self.cmd_1:
+                 self.cmd_1.update(dt)
            
-        
+      
+
     def getStatus(self):
         """ Renvoie l'état de la commande """
 
@@ -227,12 +227,11 @@ class IA_conditionnelle:
     def start(self):
         """ Lance la commande """
         self.status = True
-        self.cmd_1.start()
-        self.cmd_2.start()  
-        self.condition = self.condition.detection_obstacle()
+        self.cmd_1.start()  
+        self.condition = self.condition.detection_collision_bord_map_robot()
         
     def stop(self):
         """ Arrête la commande en cours """
         
-        return self.condition.detection_collision() or self.condition.detection_collision_bord_map_robot()
+        return self.condition.detection_collision_bord_map_robot()
     

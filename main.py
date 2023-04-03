@@ -10,7 +10,7 @@ import time
 bord_map_x = 500
 bord_map_y = 420
 #Initialisation du robot 
-robot = Robot(30,300,0)
+robot = Robot(100,350,0)
 senseur = Senseur(portee_senseur)
 #initialisation de l'environnment
 simul = Environnement(bord_map_x,bord_map_y,robot,senseur)
@@ -42,8 +42,19 @@ IA_avance2 = Avancer(0.03,2,robot)
 IA_avance3 = Avancer(0.03,3,robot)
 IA_tourne_gauche45 = Tourner(45,0.008,robot)
 IA_tourne_droit45  = Tourner(-45,0.005,robot)
-IA = IA([IA_avance,IA_tourne_gauche45,IA_avance2,IA_tourne_gauche,IA_avance2,IA_tourne_gauche45,IA_avance3,IA_tourne_gauche45,IA_avance2,IA_tourne_gauche,IA_avance2,IA_tourne_gauche45])
+#IA = IA([IA_avance,IA_tourne_gauche45,IA_avance2,IA_tourne_gauche,IA_avance2,IA_tourne_gauche45,IA_avance3,IA_tourne_gauche45,IA_avance2,IA_tourne_gauche,IA_avance2,IA_tourne_gauche45])
 
+
+#commandes pour dessiner un 1:
+IA_avance7 = Avancer(0.03,7,robot)
+IA_un  = IA([IA_tourne_gauche,IA_tourne_gauche,IA_avance7])
+
+#commandes pour faire un zero : 
+IA_zero = IA([IA_avance3,IA_tourne_gauche,IA_avance7,IA_tourne_gauche,IA_avance3,IA_tourne_gauche,IA_avance7,IA_tourne_gauche])
+
+IA_zeroetun = IA([IA_zero,IA_avance7,IA_un])
+
+#IA = IA([IA_conditionnelle(IA_zeroetun,simul)])
 
 #initialisation du temps avant le début de la simulation
 temps = time.time()
