@@ -19,10 +19,10 @@ simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 #énumération des commandes de notre IA
 
 #commandes pour aller tout droit suivant une vitesse et une distance donnée
-IA_avance = Avancer(0.03,5,robot)
+#IA_avance = Avancer(0.03,5,robot)
 #commandes pour tourner selon un angle donnée
-IA_tourne_gauche = Tourner(90,0.008,robot)
-IA_tourne_droit  = Tourner(-90,0.005,robot)
+#IA_tourne_gauche = Tourner(90,0.008,robot)
+#IA_tourne_droit  = Tourner(-90,0.005,robot)
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécuteIA = IA.select_commandes(1)
@@ -43,15 +43,15 @@ temps = time.time()
 #lancer les thread 
 simul.start()
 simul_pygame.start()
-IA.start()
+#IA.start()
 
 while simul.running :
         temps_reel = time.time() - temps
         temps = time.time()
-        IA.update(temps_reel)
+        #IA.update(temps_reel)
         simul.update(temps_reel)
         simul_pygame.event_update(simul)
-        simul.running = IA.getStatus()
+        #simul.running = IA.getStatus()
 
 
 

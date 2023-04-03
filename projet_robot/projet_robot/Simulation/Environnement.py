@@ -19,12 +19,21 @@ class Environnement(Thread):
         self.running = True
         self.robot = robot
         self.senseur = senseur 
-        self.list_obs_mobiles = self.generer_obstacles(2,0.01)
-        self.list_obs_immobiles = self.generer_obstacles(2,0)
+        self.list_obs_mobiles = []
+        self.list_obs_immobiles = self.obstacles_coin()
         self.list_obs = self.list_obs_mobiles + self.list_obs_immobiles
     
         
-        
+    def obstacles_coin(self):
+        lr = [] 
+        taille_x = random.uniform(20,25)
+        taille_y = random.uniform(20,25)
+        lr.append([0,0,taille_x,taille_y,0,0])
+        lr.append([0,self.bord_map_y-taille_y,taille_x,taille_y,0,0])
+        lr.append([self.bord_map_x-taille_x,0,taille_x,taille_y,0,0])
+        lr.append([self.bord_map_x-taille_x,self.bord_map_y-taille_y,taille_x,taille_y,0,0])     
+        return lr
+
 	
     def detection_collision_bord_map_robot(self):
         """détection des collisions"""
