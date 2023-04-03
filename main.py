@@ -10,7 +10,7 @@ import time
 bord_map_x = 500
 bord_map_y = 420
 #Initialisation du robot 
-robot = Robot(50,300,0)
+robot = Robot(150,120,0)
 senseur = Senseur(portee_senseur)
 #initialisation de l'environnment
 simul = Environnement(bord_map_x,bord_map_y,robot,senseur)
@@ -19,7 +19,8 @@ simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 #énumération des commandes de notre IA
 
 #commandes pour aller tout droit suivant une vitesse et une distance donnée
-IA_avance = Avancer(0.03,5,robot)
+IA_avance = Avancer(0.03,3,robot)
+IA_avance1 = Avancer(0.03,1,robot)
 #commandes pour tourner selon un angle donnée
 IA_tourne_gauche = Tourner(90,0.008,robot)
 IA_tourne_droit  = Tourner(-90,0.005,robot)
@@ -35,6 +36,10 @@ IA_tourne_droit  = Tourner(-90,0.005,robot)
 
 #commande pour avancer avec des leds alternés
 #IA = IA_avance_led(0.03,robot,10)
+#commendes pour faire un 0
+IA = IA([IA_avance1,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance1,IA_tourne_droit,IA_avance])   
+#commendes pour faire un 1
+IA = IA([IA_tourne_droit,IA_avance)]
 
 
 
