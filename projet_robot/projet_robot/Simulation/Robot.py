@@ -80,7 +80,9 @@ class Robot:
         """ Deplace le robot selon x et y et modifie son angle """
         pass
 
-
+    def dessine(self,b):
+        """trace le chemin du robot"""
+        pass
 class   Vision:
 
     def __init(self,robot,nb_img,resolution,fps):
