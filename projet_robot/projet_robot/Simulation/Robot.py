@@ -13,7 +13,11 @@ class Robot:
         self.motor_right = 0 
         self.LED_LEFT_EYE = (255,0,0)
         self.LED_RIGHT_EYE = (0,0,255)
-        
+        self.crayon = True
+
+    def dessin(self,b):
+        self.crayon = b
+
 
     def set_motor_dps(self, motor_left, motor_right):
         """ Fixe la vitesse d'un moteur """

@@ -19,6 +19,7 @@ class Simulation_pygame(Thread):
         self.image_robot = pygame.image.load("projet_robot/projet_robot/Affichage/images.jpg")
         self.image_robot2 = pygame.image.load("projet_robot/projet_robot/Affichage/nouveau_robot.jpg")
 
+        self.list_crayon = []
         pygame.init()
         pygame.display.set_caption("Ma simulation")
         
@@ -36,6 +37,7 @@ class Simulation_pygame(Thread):
             self.draw_obstacle(simul.list_obs[i][0],simul.list_obs[i][1],simul.list_obs[i][2],simul.list_obs[i][3])
         pygame.display.flip()
         self.clock.tick(50)
+        self.draw_crayon(simul.robot)
 
         
     def draw_robot(self,robot):
@@ -44,6 +46,13 @@ class Simulation_pygame(Thread):
         recto = rotated.get_rect(center=(robot.x,robot.y))
         self.screen.blit(rotated,recto)
     
+    def draw_crayon(self,robot):
+        self.list_crayon.append([robot.x,robot.y])
+        if robot.crayon == True:
+            for i in range(0,len(self.list_crayon)):
+                crayon = pygame.Rect(self.list_crayon[i][0],self.list_crayon[i][1],5,5)
+                pygame.draw.rect(self.screen,(255, 165, 0),crayon)
+
     def draw_led(self,robot,dim_led_x,dim_led_y,pos_x,pos_y_left,pos_y_right):
         """dessine les deux leds du robot""" 
            
