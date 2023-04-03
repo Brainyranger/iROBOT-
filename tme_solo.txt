@@ -1,0 +1,46 @@
+Exercice 1 :
+
+1)
+pour placer le robot au milieu de la map :
+ dans le main 
+robot = Robot(bord_map_x/2,bord_map_y/2,0)
+dans Simulation/Environnement
+def generer_obstacles(self,nb_obs,speed):
+        """place nb_obs obstacles dans l'environnemnt """
+        lr = []
+        coord1 = (self.bord_map_x-60,60)
+        coord2 = (self.bord_map_x-60,self.bord_map_y-60)
+        coord3 = (60,60)
+        coord4 = (60,self.bord_map_y-60)
+        tab = [coord1,coord2,coord3,coord4]
+        for i in range(0,nb_obs):
+            taille_obs_x = 25
+            taille_obs_y = 25
+            x = tab[i][0]
+            y = tab[i][1]
+            obs = Obstacle(x,y,taille_obs_x,taille_obs_y,speed)
+            lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y,obs.vitesse,obs.angle])        
+        return lr
+
+génère les obstacles au 4 coins de la map.
+
+2)
+Il faut regarder dans Affichage/Simulation_pygame
+on définit d'abord la couleur orange dans le construteur :
+self.orange = (255,100,0)
+cette ligne de code dessine les obstacles en orange
+    def draw_obstacle(self,x,y,taille_x,taille_y):
+        """ Affiche l'obstacle """
+        obstacle = pygame.Rect(x,y,taille_x,taille_y)
+        pygame.draw.rect(self.screen,self.orange,obstacle)
+
+
+
+
+1.4)
+IA_avance2 = Avancer(0.03,2,robot)
+IA_avance3 = Avancer(0.03,3,robot)
+IA_tourne_gauche45 = Tourner(45,0.008,robot)
+IA_tourne_droit45  = Tourner(-45,0.005,robot)
+IA = IA([IA_avance,IA_tourne_gauche45,IA_avance2,IA_tourne_gauche,IA_avance2,IA_tourne_gauche45,IA_avance3,IA_tourne_gauche45,IA_avance2,IA_tourne_gauche,IA_avance2,IA_tourne_gauche45])
+commande pour faire un hexagone dans le main à faire attention que tous les autres IA soit en commentaires

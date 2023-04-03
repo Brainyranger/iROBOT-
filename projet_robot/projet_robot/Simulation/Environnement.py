@@ -19,8 +19,8 @@ class Environnement(Thread):
         self.running = True
         self.robot = robot
         self.senseur = senseur 
-        self.list_obs_mobiles = self.generer_obstacles(2,0.01)
-        self.list_obs_immobiles = self.generer_obstacles(2,0)
+        self.list_obs_mobiles = self.generer_obstacles(0,0.01)
+        self.list_obs_immobiles = self.generer_obstacles(4,0)
         self.list_obs = self.list_obs_mobiles + self.list_obs_immobiles
     
         
@@ -64,12 +64,17 @@ class Environnement(Thread):
 
     def generer_obstacles(self,nb_obs,speed):
         """place nb_obs obstacles dans l'environnemnt """
-        lr = [] 
+        lr = []
+        coord1 = (self.bord_map_x-60,60)
+        coord2 = (self.bord_map_x-60,self.bord_map_y-60)
+        coord3 = (60,60)
+        coord4 = (60,self.bord_map_y-60)
+        tab = [coord1,coord2,coord3,coord4]
         for i in range(0,nb_obs):
-            taille_obs_x = random.uniform(20,25)
-            taille_obs_y = random.uniform(20,25)
-            x = random.uniform(taille_obs_x,self.bord_map_x-taille_obs_x)
-            y = random.uniform(taille_obs_y,self.bord_map_y-taille_obs_y)
+            taille_obs_x = 25
+            taille_obs_y = 25
+            x = tab[i][0]
+            y = tab[i][1]
             obs = Obstacle(x,y,taille_obs_x,taille_obs_y,speed)
             lr.append([obs.x,obs.y,obs.taille_x,obs.taille_y,obs.vitesse,obs.angle])        
         return lr

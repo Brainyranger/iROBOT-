@@ -10,7 +10,7 @@ import time
 bord_map_x = 500
 bord_map_y = 420
 #Initialisation du robot 
-robot = Robot(50,300,0)
+robot = Robot(30,300,0)
 senseur = Senseur(portee_senseur)
 #initialisation de l'environnment
 simul = Environnement(bord_map_x,bord_map_y,robot,senseur)
@@ -19,7 +19,7 @@ simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 #énumération des commandes de notre IA
 
 #commandes pour aller tout droit suivant une vitesse et une distance donnée
-IA_avance = Avancer(0.03,5,robot)
+IA_avance = Avancer(0.03,8,robot)
 #commandes pour tourner selon un angle donnée
 IA_tourne_gauche = Tourner(90,0.008,robot)
 IA_tourne_droit  = Tourner(-90,0.005,robot)
@@ -29,7 +29,7 @@ IA_tourne_droit  = Tourner(-90,0.005,robot)
 #IA = IA.select_commandes(1)
 
 #commandes pour tracer un carré
-IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
+#IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 
 #pour avoir une IA conditionnelle
 #IA = IA([IA_conditionnelle(IA_tourne_gauche,IA_avance,simul)])
@@ -37,6 +37,12 @@ IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tour
 #commande pour avancer avec des leds alternés
 #IA = IA_avance_led(0.03,robot,10)
 
+#commande pour faire un hexagone :
+IA_avance2 = Avancer(0.03,2,robot)
+IA_avance3 = Avancer(0.03,3,robot)
+IA_tourne_gauche45 = Tourner(45,0.008,robot)
+IA_tourne_droit45  = Tourner(-45,0.005,robot)
+IA = IA([IA_avance,IA_tourne_gauche45,IA_avance2,IA_tourne_gauche,IA_avance2,IA_tourne_gauche45,IA_avance3,IA_tourne_gauche45,IA_avance2,IA_tourne_gauche,IA_avance2,IA_tourne_gauche45])
 
 
 #initialisation du temps avant le début de la simulation
