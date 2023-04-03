@@ -42,3 +42,14 @@ IA = IA([IA_tourne_gauche,IA_avance])
 
 IA_avance_zero = Avancer (0.03,2,robot) #pour le côté le plus petit
 IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero])
+
+#Q 2.3
+#Modifications dans le main :
+IA_avance_zero = Avancer (0.03,2,robot)
+IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_tourne_droit,IA_avance,IA_tourne_gauche,IA_avance])
+
+if(IA.curr_command==7):
+        robot.dessin(False)
+if(IA.curr_command==11):
+        robot.dessin(True)    
+print(robot.crayon) #Permet de savoir si la valeur booléenne pour le dessin est la bonne
