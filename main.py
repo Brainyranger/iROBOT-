@@ -33,9 +33,13 @@ IA_tourne_droit_hexagone = Tourner(-45,0.005,robot)
 #IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero])
 
 #IA pour le dessin 0 et 1
-IA_avance_zero = Avancer (0.03,2,robot)
-IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_tourne_droit,IA_avance,IA_tourne_gauche,IA_avance])
+#IA_avance_zero = Avancer (0.03,2,robot)
+#IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_tourne_droit,IA_avance,IA_tourne_gauche,IA_avance])
 
+#IA pour le dessin 0 et 1 en boucle
+#IA pour le dessin 0 et 1
+IA_avance_zero = Avancer (0.03,2,robot)
+IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_tourne_droit,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécuteIA = IA.select_commandes(1)
@@ -61,6 +65,7 @@ IA.start()
 while simul.running :
         temps_reel = time.time() - temps
         temps = time.time()
+        #q 2.3
         #if(IA.curr_command==7):
         #        robot.dessin(False)
         #if(IA.curr_command==11):
@@ -69,6 +74,11 @@ while simul.running :
         IA.update(temps_reel)
         simul.update(temps_reel)
         simul_pygame.event_update(simul)
+        #q 2.4
+        #if(IA.curr_command == len(IA.ia_command)-1):
+        #        IA.curr_command == 0
+        #        IA.ia_command[IA.curr_command].start()
+        #        IA.status = True
         simul.running = IA.getStatus()
 
 

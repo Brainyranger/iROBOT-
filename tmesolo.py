@@ -53,3 +53,14 @@ if(IA.curr_command==7):
 if(IA.curr_command==11):
         robot.dessin(True)    
 print(robot.crayon) #Permet de savoir si la valeur booléenne pour le dessin est la bonne
+
+#Q 2.4
+#Modifications dans le main :
+IA_avance_zero = Avancer (0.03,2,robot)
+IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_tourne_droit,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
+
+if(IA.curr_command == len(IA.ia_command)-1):
+                IA.curr_command == 0
+                IA.ia_command[IA.curr_command].start()
+                IA.status = True
+
