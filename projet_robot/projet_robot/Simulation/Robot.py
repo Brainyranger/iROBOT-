@@ -82,7 +82,10 @@ class Robot:
 
     def dessine(self,b):
         """trace le chemin du robot"""
-        pass
+        if b == True:
+            return True
+        else:
+            return False
 class   Vision:
 
     def __init(self,robot,nb_img,resolution,fps):
