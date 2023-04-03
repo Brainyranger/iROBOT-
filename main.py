@@ -25,8 +25,7 @@ IA_tourne_gauche = Tourner(90,0.008,robot)
 IA_tourne_droit  = Tourner(-90,0.005,robot)
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
-#commandes pour sélectionner par indice quelle IA on veut éxécuter
-#IA = IA.select_commandes(1)
+#commandes pour sélectionner par indice quelle IA on veut éxécuteIA = IA.select_commandes(1)
 
 #commandes pour tracer un carré
 #IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
@@ -35,7 +34,7 @@ IA_tourne_droit  = Tourner(-90,0.005,robot)
 #IA = IA([IA_conditionnelle(IA_tourne_gauche,IA_avance,simul)])
 
 #commande pour avancer avec des leds alternés
-IA = IA_avance_led(0.03,robot,10)
+#IA = IA_avance_led(0.03,robot,10)
 
 
 
