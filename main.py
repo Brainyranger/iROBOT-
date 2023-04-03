@@ -39,7 +39,7 @@ IA_tourne_droit_hexagone = Tourner(-45,0.005,robot)
 #IA pour le dessin 0 et 1 en boucle
 #IA pour le dessin 0 et 1
 IA_avance_zero = Avancer (0.03,2,robot)
-IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_tourne_droit,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
+IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_tourne_droit,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_tourne_gauche,IA_avance])
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécuteIA = IA.select_commandes(1)
