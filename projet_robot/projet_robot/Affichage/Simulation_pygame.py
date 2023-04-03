@@ -43,7 +43,9 @@ class Simulation_pygame(Thread):
         rotated = pygame.transform.rotozoom(self.image_robot,math.degrees(robot.angle),1)
         recto = rotated.get_rect(center=(robot.x,robot.y))
         self.screen.blit(rotated,recto)
-    
+    def draw_chemin(self,robot,b):
+        """affiche le chemin du robot"""
+        if robot.    
     def draw_led(self,robot,dim_led_x,dim_led_y,pos_x,pos_y_left,pos_y_right):
         """dessine les deux leds du robot""" 
            
