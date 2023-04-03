@@ -17,15 +17,21 @@ simul = Environnement(bord_map_x,bord_map_y,robot,senseur)
 #initialisation de notre affichage
 simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 #énumération des commandes de notre IA
-
-#commandes pour aller tout droit suivant une vitesse et une distance donnée
-IA_avance = Avancer(0.03,3,robot)
-#commandes pour tourner selon un angle donnée
+IA_avance = Avancer(0.03,4,robot)
 IA_tourne_gauche = Tourner(90,0.008,robot)
 IA_tourne_droit  = Tourner(-90,0.005,robot)
 IA_tourne_gauche_hexagone = Tourner(45,0.005,robot)
 IA_tourne_droit_hexagone = Tourner(-45,0.005,robot)
-IA = IA([IA_tourne_gauche_hexagone,IA_avance,IA_tourne_droit_hexagone,IA_avance,IA_tourne_droit_hexagone,IA_avance,IA_tourne_droit,IA_avance,IA_tourne_droit_hexagone,IA_avance,IA_tourne_droit_hexagone,IA_avance])
+#IA pour l'hexagone
+#IA = IA([IA_tourne_gauche_hexagone,IA_avance,IA_tourne_droit_hexagone,IA_avance,IA_tourne_droit_hexagone,IA_avance,IA_tourne_droit,IA_avance,IA_tourne_droit_hexagone,IA_avance,IA_tourne_droit_hexagone,IA_avance])
+
+#IA pour le 1
+#IA = IA([IA_tourne_gauche,IA_avance])
+
+#IA pour le 0
+IA_avance_zero = Avancer (0.03,2,robot)
+IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero])
+
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécuteIA = IA.select_commandes(1)

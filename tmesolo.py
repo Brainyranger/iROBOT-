@@ -13,7 +13,7 @@ def obstacles_coin(self):
         return lr
 
 #Q 1.2
-#J'ai uniquement modifié le fichier Simulation_pygame.py
+#J'ai uniquement modifié le fichier Simulation_pygame.py et la couleur d'un obstacle
 
 def draw_obstacle(self,x,y,taille_x,taille_y):
         """ Affiche l'obstacle """
@@ -29,3 +29,14 @@ IA_tourne_droit  = Tourner(-90,0.005,robot)
 IA_tourne_gauche_hexagone = Tourner(45,0.005,robot)
 IA_tourne_droit_hexagone = Tourner(-45,0.005,robot)
 IA = IA([IA_tourne_gauche_hexagone,IA_avance,IA_tourne_droit_hexagone,IA_avance,IA_tourne_droit_hexagone,IA_avance,IA_tourne_droit,IA_avance,IA_tourne_droit_hexagone,IA_avance,IA_tourne_droit_hexagone,IA_avance])
+
+#Q 2.1
+#J'ai modifié le main pour créer une IA pour que le robot se déplace et forme un 1
+
+IA = IA([IA_tourne_gauche,IA_avance])
+
+#Q 2.2
+#J'ai modifié le main pour créer une IA pour que le robot se déplace et forme un 0
+
+IA_avance_zero = Avancer (0.03,2,robot) #pour le côté le plus petit
+IA = IA([IA_tourne_gauche,IA_avance,IA_tourne_droit,IA_avance_zero,IA_tourne_droit,IA_avance,IA_tourne_droit,IA_avance_zero])
