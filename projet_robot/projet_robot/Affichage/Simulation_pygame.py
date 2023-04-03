@@ -45,7 +45,8 @@ class Simulation_pygame(Thread):
         self.screen.blit(rotated,recto)
     def draw_chemin(self,robot,b):
         """affiche le chemin du robot"""
-        if robot.    
+        if robot.dessine(b) == True:
+            pygame.draw.line(self.screen,self.orange,(robot.x,robot.y))        
     def draw_led(self,robot,dim_led_x,dim_led_y,pos_x,pos_y_left,pos_y_right):
         """dessine les deux leds du robot""" 
            
