@@ -12,7 +12,7 @@ class Simulation_pygame(Thread):
         """ Initialise les éléments de notre simulation"""
         super(Simulation_pygame,self).__init__()
         self.green = (0,255,0)
-        self.colour = (0,0,255)
+        self.colour = (255,165,0)
         self.orange = (255,100,0)
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((bord_map_x,bord_map_y))
