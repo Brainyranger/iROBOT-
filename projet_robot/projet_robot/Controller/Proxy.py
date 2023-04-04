@@ -7,6 +7,8 @@ largeur_robot = 60
 diametre_roue = 7
 portee_senseur = 30
 circonference_robot = math.pi * diametre_roue
+distance_parcourue = 0
+angle_parcouru = 0
 
 class   Proxy_simulation:
 
@@ -15,13 +17,28 @@ class   Proxy_simulation:
         
     def	__getattr__(self,attr):
     	return  getattr(self.robot,attr)
-        
-    def get_distance_parcourue(self,dt):
+    
+    def reinitialiser_distance_parcourue(self):
+        self.distance_parcourue = 0
+    
+    def update_distance_parcourue(self,dt):
         posx1 = self.robot.x
         posy1 = self.robot.y
         posx2 = self.robot.getmovex(dt)
         posy2 = self.robot.getmovey(dt)
-        return math.sqrt((posx2-posx1)**2+(posy2-posy1)**2)*0.026
+        self.distance_parcourue += math.sqrt((posx2-posx1)**2+(posy2-posy1)**2)*0.026
+        
+    def get_distance_parcourue(self):
+        return self.distance_parcourue
+    
+    def reinitialiser_angle_parcouru(self):
+        self.angle_parcouru = 0
+    
+    def update_angle_parcouru(self,vitesse,dt):
+        self.angle_parcouru += vitesse*dt/2*math.pi
+        
+    def get_angle_parcouru(self):
+        return self.angle_parcouru
    
     def move(self,dt):
         """ Deplace le robot selon x et y et modifie son angle """
@@ -76,8 +93,8 @@ class   Proxy_VraiRobot:
         posl = 0
         posr = 0
         new_pos_motor = self.robot.get_motor_position()
-        distance_roue_gauche = (new_pos_motor[0]-posl)*math.pi*WHEEL_DIAMETER 
-        distance_roue_droite = (new_pos_motor[1]-posr)*math.pi*WHEEL_DIAMETER 
+        distance_roue_gauche = (new_pos_motor[0]-posl)*math.pi*diametre_roue 
+        distance_roue_droite = (new_pos_motor[1]-posr)*math.pi*diametre_roue
         posl = new_pos_motor[0]
         posr = new_pos_motor[1]
         distance_parcouru = (distance_roue_gauche+distance_roue_droite)/2

@@ -28,7 +28,7 @@ IA_tourne_droit  = Tourner(-90,0.005,robot)
 #commandes pour sélectionner par indice quelle IA on veut éxécuteIA = IA.select_commandes(1)
 
 #commandes pour tracer un carré
-#IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
+IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 
 #pour avoir une IA conditionnelle
 #IA = IA([IA_conditionnelle(IA_tourne_gauche,IA_avance,simul)])

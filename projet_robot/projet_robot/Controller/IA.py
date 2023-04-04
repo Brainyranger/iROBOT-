@@ -69,8 +69,8 @@ class Avancer:
         self.robot = proxy_simul(robot)
         self.vitesse = vitesse*3800
         self.distance = distance
-        self.distance_parcouru = 0
         self.status = False
+        self.distance_parcourue = 0
 
     def update(self,dt) :
         """ Fais la mise à jour de notre déplacement en ligne droite """
@@ -81,8 +81,8 @@ class Avancer:
             self.status = False
             return
         self.avancer(dt)
-        self.distance_parcouru += proxy_simul.get_distance_parcourue(self,dt)
-        print(self.distance_parcouru)
+        proxy_simul.update_distance_parcourue(self,dt)
+        print("Le robot a parcouru " + str(proxy_simul.get_distance_parcourue(self)))
          	
         	
     def getStatus(self):
@@ -92,12 +92,12 @@ class Avancer:
 
     def start(self):
         """ Lance la commande """
-        self.distance_parcouru = 0
+        proxy_simul.reinitialiser_distance_parcourue(self)
         self.status = True
 
     def stop(self):
         """ Arret de la commande en cours"""
-        return self.distance_parcouru >= self.distance
+        return proxy_simul.get_distance_parcourue(self) >= self.distance
 
     def avancer(self,dt):
         self.robot.set_motor_dps(self.vitesse,self.vitesse)
@@ -129,7 +129,7 @@ class Tourner:
             self.status = False
             return
         
-        self.angle_parcouru += self.vitesse*dt/2*math.pi
+        proxy_simul.update_angle_parcouru(self,self.vitesse,dt)
         self.tourner(self.vitesse)
         print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
        
@@ -141,13 +141,13 @@ class Tourner:
 
     def start(self):
         """ Lance la commande """
-        self.angle_parcouru = 0
+        proxy_simul.reinitialiser_angle_parcouru(self)
         self.status = True
 
     def stop(self):
         """ Arrête la commande en cours """
 
-        return self.angle_parcouru > abs(self.angle)
+        return proxy_simul.get_angle_parcouru(self) > abs(self.angle)
     
     def tourner(self,vitesse):
   
