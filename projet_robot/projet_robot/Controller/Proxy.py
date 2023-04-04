@@ -7,8 +7,6 @@ largeur_robot = 60
 diametre_roue = 7
 portee_senseur = 30
 circonference_robot = math.pi * diametre_roue
-distance_parcourue = 0
-angle_parcouru = 0
 
 class   Proxy_simulation:
 
