@@ -33,14 +33,14 @@ image_rect = Image.open("rect.png")
 #teint en gris
 
 image_r = image_r.convert("L")
-#image_triangle = image_triangle.convert("L")
-#image_rect = image_rect.convert("L")
+image_triangle = image_triangle.convert("L")
+image_rect = image_rect.convert("L")
 
 #filtre gaussien rend plus nette l'image
 
-#image_rect = image_rect.filter(ImageFilter.GaussianBlur(radius=0.1))
+image_rect = image_rect.filter(ImageFilter.GaussianBlur(radius=0.1))
 image_r = image_r.filter(ImageFilter.GaussianBlur(radius=0.1))
-#image_triangle = image_triangle.filter(ImageFilter.GaussianBlur(radius=0.1))
+image_triangle = image_triangle.filter(ImageFilter.GaussianBlur(radius=0.1))
 
 #affiche les contour de l'images
 #image_triangle = image_triangle.filter(ImageFilter.FIND_EDGES)
@@ -52,10 +52,6 @@ image_r.save("ribu_test.jpg")
 image_rect.save("rect_test.jpg")
 
 
-#conserver la partie la plus clair en cours
-#min,max = image_r.getextrema()
-#mask = image_r.point(lambda x: 255 if x==max else 0,mode = '1')
-#image_r = Image.composite(image_r,Image.new("RGB",image_r.size,"white"),mask)
 
 #utilisation du module histogram pour comparer la distrutivité
 #couleurs entre deux images
