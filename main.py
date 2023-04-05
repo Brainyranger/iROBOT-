@@ -1,5 +1,5 @@
 from projet_robot.Simulation.Environnement import Environnement
-from projet_robot.Controller.IA import IA,Avancer,Tourner,IA_avance_led,IA_conditionnelle
+from projet_robot.Controller.IA import IA,Avancer,Tourner
 from projet_robot.Simulation.Senseur import Senseur
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Controller.Proxy import portee_senseur
@@ -22,7 +22,7 @@ simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 IA_avance = Avancer(0.03,5,robot)
 #commandes pour tourner selon un angle donnée
 IA_tourne_gauche = Tourner(90,0.008,robot)
-IA_tourne_droit  = Tourner(-90,0.005,robot)
+IA_tourne_droit  = Tourner(-90,0.008,robot)
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécuteIA = IA.select_commandes(1)

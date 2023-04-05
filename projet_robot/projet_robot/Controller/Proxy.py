@@ -1,5 +1,4 @@
 import math,time
-from projet_robot.Simulation.Robot import Robot
 
 import math
 
@@ -37,37 +36,7 @@ class   Proxy_simulation:
         
     def get_angle_parcouru(self):
         return self.angle_parcouru
-   
-    def move(self,dt):
-        """ Deplace le robot selon x et y et modifie son angle """
-        self.x += ((self.motor_left + self.motor_right)/2) * math.cos(self.angle)*dt
-        self.y -= ((self.motor_left + self.motor_right)/2) * math.sin(self.angle)*dt
-        self.angle += ((self.motor_left - self.motor_right) / (largeur_robot + 2*diametre_roue))*dt
 
-    
-    def move_angle(self, angle,direction):
-        """ Tourne le robot a l'angle en parametre """
-        if direction == "gauche":
-            self.angle += angle*math.pi/180
-            if self.angle > 2*math.pi:
-                self.angle -= 2*math.pi
-        else:
-            self.angle -= angle*math.pi/180
-            self.angle += 2*math.pi
-          
-
-    def getAngleEnDegre(self):
-        """ Renvoie l'angle dur robot en degré"""
-        return self.angle*180/math.pi
-
-    def getmovex(self,dt):
-        """ Simule le déplacement du robot en x selon un temps dt """
-        return (self.x+((self.motor_left+self.motor_right)/2)*math.cos(self.angle)*dt) 
-
-    def getmovey(self,dt):
-        """ Simule le déplacement du robot en y selon un temps dt """
-        return (self.y-((self.motor_left+self.motor_right)/2)*math.sin(self.angle)*dt)
-    
     def set_led_left(self,colour):
         """change la couleur led gauche"""
         
@@ -78,14 +47,28 @@ class   Proxy_simulation:
         
         self.LED_RIGHT_EYE = colour
            
-
     def reset(self):
         self.robot.offset_motor_encode("self.motor_left+self.motor_right",0)
 
+    
+    def tourner(self,vitesse):
+  
+        if self.angle >= 0:
+            self.robot.set_motor_dps(vitesse,-vitesse)
+        else:
+            self.robot.set_motor_dps(-vitesse,vitesse)    
+
+    def avancer(self,vitesse,dt):
+        self.robot.set_motor_dps(vitesse,vitesse)
+
+ 
 class   Proxy_VraiRobot:
 
     def __init__(self,robot):
         self.robot = robot
+
+    def	__getattr__(self,attr):
+    	return  getattr(self.robot,attr)
 
     def get_distance_parcourue(self):
         posl = 0
