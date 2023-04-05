@@ -24,12 +24,38 @@ for x in range(pos_pixelx1,pos_pixelx2):
 new.save("test.jpg")
 
 #load image 
-image_triangle = Image.open("triangle.jpeg")
-image_triangle = image_triangle.convert("L")
-image_triangle = image_triangle.filter(ImageFilter.FIND_EDGES)
-image_triangle.save("triangle_test.jpg")
 
+image_triangle = Image.open("triangle.jpeg")
 image_r = Image.open("ribu.jpeg")
-image_r = image_r.convert("L")
-image_r = image_r.filter(ImageFilter.FIND_EDGES)
+
+#teint en gris
+
+#image_r = image_r.convert("L")
+#image_triangle = image_triangle.convert("L")
+
+#filtre gaussien rend plus nette l'image
+
+#image_r = image_r.filter(ImageFilter.GaussianBlur(radius=2))
+#image_triangle = image_triangle.filter(ImageFilter.GaussianBlur(radius=2))
+
+#affiche les contour de l'images
+#image_triangle = image_triangle.filter(ImageFilter.FIND_EDGES)
+#image_r = image_r.filter(ImageFilter.FIND_EDGES)
+
+#sauvegarde image
+image_triangle.save("triangle_test.jpg")
 image_r.save("ribu_test.jpg")
+
+
+
+
+#utilisation du module histogram pour comparer la distrutivité
+#couleurs entre deux images
+hist1 = image_triangle.histogram()
+hist2 = image_r.histogram()
+
+sum_min = sum(min(a,b) for a,b in zip(hist1,hist2))
+sum_hist1 = sum(hist1)
+sum_hist2 = sum(hist2)
+distance = 1-(sum_min/min(sum_hist1,sum_hist2))
+print(distance)
