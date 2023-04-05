@@ -2,7 +2,7 @@ import time
 import math
 from threading import Thread
 from projet_robot.Simulation.Robot import Robot
-from projet_robot.Controller.Proxy import largeur_robot,Proxy_simulation as proxy_simul
+from projet_robot.Controller.Proxy import largeur_robot,Proxy_simulation as proxy_simul,Proxy_reel
 
 
 class IA(Thread):
@@ -66,7 +66,7 @@ class Avancer:
         initialisation de la distance à parcourir
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = proxy_simul(robot)
+        self.robot = Proxy_reel(robot)
         self.vitesse = vitesse*3800
         self.distance = distance
         self.status = False
@@ -146,4 +146,41 @@ class Tourner:
 
         return self.robot.get_angle_parcouru() > abs(self.angle)
     
-    
+
+class   Avancer_reel:
+        
+    def __init__(self,vitesse,distance,robot) -> None:
+        self.robot = Proxy_reel(robot)
+        self.vitesse = vitesse*3800
+        self.distance = distance
+        self.status = False
+        self.distance_parcourue = 0
+
+
+    def update(self,dt) :
+        """ Fais la mise à jour de notre déplacement en ligne droite """
+	
+        
+        if self.stop():
+            self.robot.stop()
+            self.status = False
+            return
+        self.robot.avancer(self.vitesse,dt)
+        self.distance_parcourue += self.robot.update_distance_parcourue()*dt
+        print(self.distance_parcourue)
+         	
+        	
+    def getStatus(self):
+        """ Renvoie l'état de la commande """
+
+        return self.status
+
+    def start(self):
+        """ Lance la commande """
+        self.robot.reset()
+        self.status = True
+
+    def stop(self):
+        """ Arret de la commande en cours"""
+        return self.distance_parcourue >= self.distance
+

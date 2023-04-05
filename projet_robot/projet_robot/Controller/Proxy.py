@@ -1,11 +1,17 @@
-import math,time
-
+import time
 import math
 
+#partie simulation : 
 largeur_robot = 60
 diametre_roue = 7
 portee_senseur = 30
 circonference_robot = math.pi * diametre_roue
+#parti réelle : 
+WHEEL_BASE_WIDTH         = 117  # distance (mm) de la roue gauche a la roue droite.
+WHEEL_DIAMETER           = 66.5 #  diametre de la roue (mm)
+WHEEL_BASE_CIRCUMFERENCE = WHEEL_BASE_WIDTH * math.pi # perimetre du cercle de rotation (mm)
+WHEEL_CIRCUMFERENCE      = WHEEL_DIAMETER   * math.pi # perimetre de la roue (mm)
+    
 
 class   Proxy_simulation:
 
@@ -62,7 +68,7 @@ class   Proxy_simulation:
         self.robot.set_motor_dps(vitesse,vitesse)
 
  
-class   Proxy_VraiRobot:
+class   Proxy_reel:
 
     def __init__(self,robot):
         self.robot = robot
@@ -70,18 +76,18 @@ class   Proxy_VraiRobot:
     def	__getattr__(self,attr):
     	return  getattr(self.robot,attr)
 
-    def get_distance_parcourue(self):
+    def update_distance_parcourue(self):
         posl = 0
         posr = 0
         new_pos_motor = self.robot.get_motor_position()
-        distance_roue_gauche = (new_pos_motor[0]-posl)*math.pi*diametre_roue 
+        distance_roue_gauche = (new_pos_motor[0]-posl)*math.pi*diametre_roue
         distance_roue_droite = (new_pos_motor[1]-posr)*math.pi*diametre_roue
         posl = new_pos_motor[0]
         posr = new_pos_motor[1]
         distance_parcouru = (distance_roue_gauche+distance_roue_droite)/2
         return distance_parcouru
 
-    def get_angle_parcouru(self):
+    def update_angle_parcouru(self):
         previous_pos = (0,0)
         curr_pos = self.robot.get_motor_position()
         diff_pos = [curr_pos[i]-previous_pos[i] for i in range(2)]
@@ -92,3 +98,15 @@ class   Proxy_VraiRobot:
     def reset(self):
         self.robot.offset_motor_encode(self.MOTOR_LEFT,self.read_encoders()[0])
         self.robot.offset_motor_encode(self.MOTOR_RIGHT,self.read_encoders()[1])
+
+    def tourner(self,vitesse):
+        if self.angle >= 0:
+            self.robot.set_motor_dps(0,vitesse)
+            self.robot.set_motor_dps(1,-vitesse)
+        else:
+            self.robot.set_motor_dps(0,-vitesse)
+            self.robot.set_motor_dps(1,vitesse)    
+
+    def avancer(self,vitesse,dt):
+        self.robot.set_motor_dps(0+1,vitesse)
+
