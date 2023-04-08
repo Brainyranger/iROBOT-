@@ -1,9 +1,9 @@
 import pygame as pg
 import moderngl as mgl
+import glm
 import sys
 import numpy as np
 from camera import Camera
-import time
 
 
 class GraphicsEngine:
@@ -23,7 +23,7 @@ class GraphicsEngine:
         # self.ctx.front_face = 'cw'
         # create an object to help track time
         self.clock = pg.time.Clock()
-        self.temps = time.time()
+        self.time = 0
         self.camera = Camera(self)
         #scene
         self.scene = Cube(self)
@@ -43,9 +43,13 @@ class GraphicsEngine:
         # swap buffers
         pg.display.flip()
 
+    def get_time(self):
+        self.time = pg.time.get_ticks() * 0.001
+
+
     def run(self):
         while True:
-            self.temps = time.time() - self.temps
+            self.get_time()
             self.check_events()
             self.render()
             self.clock.tick(60)
@@ -84,13 +88,24 @@ class Cube:
         self.vbo = self.ctx.buffer(self.position_cube)
         self.program = self.get_program('default')
         self.vao = self.ctx.vertex_array(self.program, [(self.vbo, '3f', 'in_position')])
+        self.m_model = self.get_model_matrix()
         self.on_init()
+
+    def update(self):
+        m_model = glm.rotate(self.m_model, self.app.time, glm.vec3(0, 1, 0))
+        self.program['m_model'].write(m_model)
+
+    def get_model_matrix(self):
+        m_model = glm.mat4()
+        return m_model
 
     def on_init(self):
         self.program['m_proj'].write(self.app.camera.m_proj)
         self.program['m_view'].write(self.app.camera.m_view)
+        self.program['m_model'].write(self.m_model)
 
     def render(self):
+        self.update()
         self.vao.render()
 
     def destroy(self):
