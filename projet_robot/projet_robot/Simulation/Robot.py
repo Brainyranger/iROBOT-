@@ -11,8 +11,6 @@ class Robot:
         self.angle  = math.radians(angle) #conversion degré par seconde en radian par seconde
         self.motor_left  = 0 
         self.motor_right = 0 
-        self.distance_parcourue = 0
-        self.angle_parcouru = 0
         self.LED_LEFT_EYE = (255,0,0)
         self.LED_RIGHT_EYE = (0,0,255)
         
@@ -85,43 +83,4 @@ class Robot:
             self.angle -= 2*math.pi
 
 
-
-class   Vision:
-
-    def __init(self,robot,nb_img,resolution,fps):
-        self.robot = robot
-        self.nb_img = nb_img
-        self.img_queue = None
-        self.resolution = resolution
-        self.fps = fps
-
-
-    def start_recording(self):
-        cv2.VideoCapture(0)
-
-    def stop_recording(self):
-        cv2.VideoCapture(0).realease()
-        cv2.destroyAllwindows()
-        
-    def get_image(self,img,indice):
-        cv2.imshow('image'+str(indice),img)
-
-    def get_images(self,imgs):
-        for i in range(0,len(imgs)):
-            self.get_image(imgs[i],i)
-
-    def read_image(self,img):
-        pass
-
-    def gray_image(self,img):
-        pass
-
-    def get_mask_image(self,img,mask):
-        pass
-    
-    def detection_contour(self,largeur,hauteur):
-        pass
-
-    def find_contour(self,contour):
-        pass
 

@@ -1,13 +1,4 @@
-import time
 import math
-#from easygopigo3 import EasyGoPiGo3,Servo,DistanceSensor,MotionSensor
-#import picamera
-from io import BytesIO
-#from di_sensors import distance_sensor as ds_sensor
-#from di_sensors import  inertial_measurement_unit as imu
-import threading
-from collections import deque
-import numpy as np
 
 class Robot_Mockup:
     """ 
@@ -24,14 +15,11 @@ class Robot_Mockup:
     WHEEL_BASE_CIRCUMFERENCE = WHEEL_BASE_WIDTH * math.pi # perimetre du cercle de rotation (mm)
     WHEEL_CIRCUMFERENCE      = WHEEL_DIAMETER   * math.pi # perimetre de la roue (mm)
     
-    def __init__(self,robot):
+    def __init__(self):
         """ 
-            Initialise le robot
-            :resolution: resolution de la camera
+            Initialise le robot mockup
         """
 
-        self._gpg= robot
-        self.servo = None
         self.MOTOR_LEFT = 0
         self.MOTOR_RIGHT = 1
 
@@ -40,8 +28,7 @@ class Robot_Mockup:
 
     def stop(self):
         """ Arrete le robot """
-        self.set_motor_dps(self.MOTOR_LEFT+self.MOTOR_RIGHT,0)
-        self._gpg.set_led(self.LED_LEFT_BLINKER+self.LED_LEFT_EYE+self.LED_LEFT_BLINKER+self.LED_RIGHT_EYE+self.LED_WIFI,0,0,0)
+        pass
 
     def get_image(self):
         pass
@@ -55,15 +42,14 @@ class Robot_Mockup:
         :port: une constante moteur,  MOTOR_LEFT ou MOTOR_RIGHT (ou les deux MOTOR_LEFT+MOTOR_RIGHT).
         :dps: la vitesse cible en nombre de degres par seconde
         """
-        self._gpg.set_motor_dps(port,dps)
-        #self._gpg.set_motor_limits(port,dps)
+        pass
 
     def get_motor_position(self):
         """
         Lit les etats des moteurs en degre.
         :return: couple du  degre de rotation des moteurs
         """
-        return(0,0)
+        return(180,180)
    
     def offset_motor_encoder(self, port, offset):
         """
@@ -75,7 +61,7 @@ class Robot_Mockup:
 
         Zero the encoder by offsetting it by the current position
         """
-        self._gpg.offset_motor_encoder(port,offset)
+        pass
 
     def get_distance(self):
         """
@@ -84,14 +70,14 @@ class Robot_Mockup:
             1. L'intervalle est de **5-8,000** millimeters.
             2. Lorsque la valeur est en dehors de l'intervalle, le retour est **8190**.
         """
-        return self.distanceSensor.read_range_single(False)
+        return 300
 
     def servo_rotate(self,position):
         """
         Tourne le servo a l'angle en parametre.
         :param int position: Angle de rotation, de **0** a **180** degres, 90 pour le milieu.
         """
-        self.servo.rotate_servo(position)
+        pass
 
     def start_recording(self):
         pass
@@ -112,6 +98,6 @@ class Robot_Mockup:
             :green:  composante verte (0-255)
             :blue: composante bleu (0-255)
         """
-        return self._gpg.__getattribute__(attr)
+        pass
 
   

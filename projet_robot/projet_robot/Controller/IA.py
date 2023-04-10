@@ -66,23 +66,22 @@ class Avancer:
         initialisation de la distance à parcourir
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = Proxy_reel(robot)
-        self.vitesse = vitesse*3800
+        self.robot = Proxy_reel(robot,vitesse,0)
         self.distance = distance
         self.status = False
-        self.distance_parcourue = 0
-
+    
     def update(self,dt) :
         """ Fais la mise à jour de notre déplacement en ligne droite """
 	
         
+
         if self.stop():
-            self.robot.set_motor_dps(0,0)
+            self.robot.reset()
             self.status = False
             return
-        self.robot.avancer(self.vitesse,dt)
+        self.robot.avancer()
         self.robot.update_distance_parcourue(dt)
-        print("Le robot a parcouru " + str(self.robot.get_distance_parcourue()))
+        print("Le robot a parcouru " + str(self.robot.distance_parcourue))
          	
         	
     def getStatus(self):
@@ -97,21 +96,20 @@ class Avancer:
 
     def stop(self):
         """ Arret de la commande en cours"""
-        return self.robot.get_distance_parcourue() >= self.distance
+        return self.robot.get_distance_parcourue() >= self.distance 
 
 
 class Tourner:
 
-    def __init__(self,angle,vitesse,robot):
+    def __init__(self,vitesse,angle,robot):
         """ Constructeur de notre classe Tourner 
         initialisation de la vitesse de nos roues
         initialisation de l'angle qu'on doit parcourir 
         initialisation de la distance à parcourir en degré/s pour parcourir l'angle
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = proxy_simul(robot)
+        self.robot = Proxy_reel(robot,vitesse,angle)
         self.angle = angle
-        self.vitesse = vitesse*3800
         self.angle_parcouru = 0
         self.status = True
 
@@ -119,16 +117,14 @@ class Tourner:
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
 
-        	
-        	
         if self.stop():
-            self.robot.set_motor_dps(0,0)
+            self.robot.reset()
             self.status = False
             return
         
-        self.robot.update_angle_parcouru(self.vitesse,dt)
-        self.robot.tourner(self.vitesse)
-        print("j'ai fini de parcourir "+str(self.angle_parcouru)+" degré")
+        self.robot.update_angle_parcouru(dt)
+        self.robot.tourner()
+        print("j'ai fini de parcourir "+str(self.robot.angle_parcouru)+" degré")
        
 	
     def getStatus(self):
@@ -146,41 +142,4 @@ class Tourner:
 
         return self.robot.get_angle_parcouru() > abs(self.angle)
     
-
-class   Avancer_reel:
-        
-    def __init__(self,vitesse,distance,robot) -> None:
-        self.robot = Proxy_reel(robot)
-        self.vitesse = vitesse*3800
-        self.distance = distance
-        self.status = False
-        self.distance_parcourue = 0
-
-
-    def update(self,dt) :
-        """ Fais la mise à jour de notre déplacement en ligne droite """
-	
-        
-        if self.stop():
-            self.robot.stop()
-            self.status = False
-            return
-        self.robot.avancer(self.vitesse,dt)
-        self.distance_parcourue += self.robot.update_distance_parcourue()*dt
-        print(self.distance_parcourue)
-         	
-        	
-    def getStatus(self):
-        """ Renvoie l'état de la commande """
-
-        return self.status
-
-    def start(self):
-        """ Lance la commande """
-        self.robot.reset()
-        self.status = True
-
-    def stop(self):
-        """ Arret de la commande en cours"""
-        return self.distance_parcourue >= self.distance
 
