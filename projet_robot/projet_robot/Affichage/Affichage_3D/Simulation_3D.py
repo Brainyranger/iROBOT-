@@ -38,7 +38,7 @@ class Cube:
         self.position_cube = self.get_position_cube()
         self.vbo = self.ctx.buffer(self.position_cube)
         self.program = self.get_program('default')
-        self.vao = self.ctx.vertex_array(self.program, [(self.vbo, '3f', 'in_position')])
+        self.vao = self.ctx.vertex_array(self.program, [(self.vbo, '2f 3f', 'in_texcoord_0','in_position')])
         self.m_model = self.get_model_matrix()
         self.on_init()
 
@@ -67,9 +67,16 @@ class Cube:
     def get_position_cube(self):
         vertices = [(-1,-1,1),(1, -1, 1),(1, 1, 1),(-1, 1, 1),(-1, 1, -1),(-1, -1, -1),(1, -1, -1),(1, 1, -1)]
         indices = [(0,2,3), (0,1,2), (1,7,2), (1,6,7), (6,5,4), (4,7,6), (3,4,5), (3,5,0), (3,7,4), (3,2,7), (0,6,1), (0,5,6)]
-        data = [vertices[ind]for triangle in indices for ind in triangle]
-        vertex_data = np.array(data, dtype='f4')
+        vertex_data = self.get_data(vertices, indices)
+        tex_coord = [(0,0), (1,0) ,(1,1) ,(0,1)]
+        tex_coord_indices = [(0,2,3), (0,1,2), (0,2,3), (0,1,2), (0,1,2), (2,3,0), (2,3,0), (2,0,1), (0,2,3), (0,1,2), (3,1,2), (3,0,1)]
+        tex_coord_data = self.get_data(tex_coord, tex_coord_indices)
+        vertex_data = np.hstack([tex_coord_data, vertex_data])
         return vertex_data
+
+    def get_data(self, vertices, indices):
+        data = [vertices[ind] for triangle in indices for ind in triangle]
+        return np.array(data,dtype='f4')
 
     def get_program(self, shader_name):
         with open(f'{shader_name}.vert') as file:
