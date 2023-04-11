@@ -1,54 +1,9 @@
 import pygame as pg
 import moderngl as mgl
+import glm
 import sys
 import numpy as np
-from camera import Camera
-import time
 
-
-class GraphicsEngine:
-    def __init__(self, win_size=(540, 400)):
-        # init pygame modules
-        pg.init()
-        # window size
-        self.WIN_SIZE = win_size
-        # set opengl attr
-        pg.display.gl_set_attribute(pg.GL_CONTEXT_MAJOR_VERSION, 3)
-        pg.display.gl_set_attribute(pg.GL_CONTEXT_MINOR_VERSION, 3)
-        pg.display.gl_set_attribute(pg.GL_CONTEXT_PROFILE_MASK, pg.GL_CONTEXT_PROFILE_CORE)
-        # create opengl context
-        pg.display.set_mode(self.WIN_SIZE, flags=pg.OPENGL | pg.DOUBLEBUF)
-        # detect and use existing opengl context
-        self.ctx = mgl.create_context()
-        # self.ctx.front_face = 'cw'
-        # create an object to help track time
-        self.clock = pg.time.Clock()
-        self.temps = time.time()
-        self.camera = Camera(self)
-        #scene
-        self.scene = Cube(self)
-
-    def check_events(self):
-        for event in pg.event.get():
-            if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
-                self.scene.destroy()
-                pg.quit()
-                sys.exit()
-
-    def render(self):
-        # clear framebuffer
-        self.ctx.clear(color=(0.08, 0.16, 0.18))
-        #render scene
-        self.scene.render()
-        # swap buffers
-        pg.display.flip()
-
-    def run(self):
-        while True:
-            self.temps = time.time() - self.temps
-            self.check_events()
-            self.render()
-            self.clock.tick(60)
 
 class Triangle:
     def __init__(self,app) -> None:
@@ -84,13 +39,24 @@ class Cube:
         self.vbo = self.ctx.buffer(self.position_cube)
         self.program = self.get_program('default')
         self.vao = self.ctx.vertex_array(self.program, [(self.vbo, '3f', 'in_position')])
+        self.m_model = self.get_model_matrix()
         self.on_init()
+
+    def update(self):
+        m_model = glm.rotate(self.m_model, self.app.time, glm.vec3(0, 1, 0))
+        self.program['m_model'].write(m_model)
+
+    def get_model_matrix(self):
+        m_model = glm.mat4()
+        return m_model
 
     def on_init(self):
         self.program['m_proj'].write(self.app.camera.m_proj)
-        #self.program['m_view'].write(self.app.camera.m_view)
+        self.program['m_view'].write(self.app.camera.m_view)
+        self.program['m_model'].write(self.m_model)
 
     def render(self):
+        self.update()
         self.vao.render()
 
     def destroy(self):
@@ -112,8 +78,4 @@ class Cube:
             fragment_shader = file.read()
         program = self.ctx.program(vertex_shader=vertex_shader, fragment_shader=fragment_shader)
         return program
-
-if __name__ == '__main__':
-    app = GraphicsEngine()
-    app.run()
 
