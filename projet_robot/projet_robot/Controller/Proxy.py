@@ -128,9 +128,11 @@ class   Proxy_reel:
     def tourner(self):
   
         if self.angle >= 0:
-            self.robot.set_motor_dps(self.vitesse,-self.vitesse)
+            self.robot.set_motor_dps(self.robot.MOTOR_LEFT,self.vitesse)
+            self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,-self.vitesse)
         else:
-            self.robot.set_motor_dps(-self.vitesse,self.vitesse)    
+            self.robot.set_motor_dps(self.robot.MOTOR_LEFT,-self.vitesse)
+            self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,self.vitesse)
 
     def avancer(self):
-        self.robot.set_motor_dps(self.vitesse,self.vitesse)
+        self.robot.set_motor_dps(self.robot.MOTOR_LEFT+self.robot.MOTOR_RIGHT,self.vitesse)
