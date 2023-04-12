@@ -1,16 +1,14 @@
 import time
 import math
+from projet_robot.Controller.Robot_Mockup import WHEEL_BASE_CIRCUMFERENCE,WHEEL_BASE_WIDTH,WHEEL_DIAMETER
 
 #partie simulation : 
 largeur_robot = 60
 diametre_roue = 7
 portee_senseur = 30
 circonference_robot = math.pi * diametre_roue
-#parti réelle : 
-WHEEL_BASE_WIDTH         = 117/10  # distance (mm) de la roue gauche a la roue droite.
-WHEEL_DIAMETER           = 66.5/10 #  diametre de la roue (mm)
-WHEEL_BASE_CIRCUMFERENCE = WHEEL_BASE_WIDTH * math.pi # perimetre du cercle de rotation (mm)
-WHEEL_CIRCUMFERENCE      = WHEEL_DIAMETER   * math.pi # perimetre de la roue (mm)
+
+
     
 
 class   Proxy_simulation:
@@ -94,8 +92,8 @@ class   Proxy_reel:
 
     def update_distance_parcourue(self,dt):
         new_pos_motor = self.robot.get_motor_position()
-        distance_roue_gauche = (new_pos_motor[0]*math.pi*WHEEL_DIAMETER*dt)/360
-        distance_roue_droite = (new_pos_motor[1]*math.pi*WHEEL_DIAMETER*dt)/360
+        distance_roue_gauche = (new_pos_motor[0]*math.pi*(WHEEL_DIAMETER/10)*dt)/360
+        distance_roue_droite = (new_pos_motor[1]*math.pi*(WHEEL_DIAMETER/10)*dt)/360
         self.distance_parcourue += (distance_roue_gauche+distance_roue_droite)/2
         
 
@@ -103,7 +101,7 @@ class   Proxy_reel:
         previous_pos = (0,0)
         curr_pos = self.robot.get_motor_position()
         diff_pos = [curr_pos[i]-previous_pos[i] for i in range(2)]
-        angle_rotated = [WHEEL_CIRCUMFERENCE*dt*(diff_pos[i]/360) for i in range(2)]
+        angle_rotated = [(WHEEL_BASE_CIRCUMFERENCE/10)*dt*(diff_pos[i]/360) for i in range(2)]
         self.angle_parcouru += (angle_rotated[0]+angle_rotated[1])/2
 
 
