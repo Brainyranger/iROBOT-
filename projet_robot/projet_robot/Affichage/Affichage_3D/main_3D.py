@@ -25,14 +25,17 @@ class GraphicsEngine:
         # create an object to help track time
         self.clock = pg.time.Clock()
         self.time = 0
+        self.delta_time = 0
         self.camera = Camera(self)
         #scene
-        self.scene = Cube(self)
+        self.scene = Cube(self,(0,0,0),(1,1,1),(0,0,0))
+        self.scene2 = Cube(self,(3,0,0),(2,1,1),(0,0,0))
 
     def check_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 self.scene.destroy()
+                self.scene2.destroy
                 pg.quit()
                 sys.exit()
 
@@ -41,6 +44,7 @@ class GraphicsEngine:
         self.ctx.clear(color=(0.08, 0.16, 0.18))
         #render scene
         self.scene.render()
+        self.scene2.render()
         # swap buffers
         pg.display.flip()
 
@@ -52,8 +56,9 @@ class GraphicsEngine:
         while True:
             self.get_time()
             self.check_events()
+            self.camera.update()
             self.render()
-            self.clock.tick(60)
+            self.delta_time = self.clock.tick(60)
 
 
 if __name__ == '__main__':
