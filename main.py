@@ -5,6 +5,7 @@ from projet_robot.Simulation.Robot import Robot
 from projet_robot.Controller.Proxy import portee_senseur
 from projet_robot.Controller.Robot_Mockup import Robot_Mockup
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
+#from projet_robot.Controller.robot2IN013 import Robot2IN013
 import time
 
 
@@ -15,21 +16,23 @@ robot = Robot(50,300,0)
 senseur = Senseur(portee_senseur)
 #initialisation du robot mockup
 robot_mockup = Robot_Mockup()
+#intialisation du robot réel
+#robot_reel = Robot2IN013()
 #initialisation de l'environnment
 simul = Environnement(bord_map_x,bord_map_y,robot,senseur)
 #initialisation de notre affichage
-#simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
+simul_pygame = Simulation_pygame(simul.bord_map_x,simul.bord_map_y)
 #énumération des commandes de notre IA pour le robot virtuel
 
 #commandes pour aller tout droit suivant une vitesse et une distance donnée
-#IA_avance = Avancer(0.03,10,robot,simul)
+IA_avance = Avancer(0.03,10,robot)
 #commandes pour tourner selon un angle donnée
-#IA_tourne_gauche = Tourner(0.008,90,robot,simul)
-#IA_tourne_droit  = Tourner(0.008,-90,robot,simul)
+IA_tourne_gauche = Tourner(0.008,90,robot)
+IA_tourne_droit  = Tourner(0.008,-90,robot)
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécute
-#IA = IA.select_commandes(1)
+#IA = IA.select_commandes(0)
 #commandes pour tracer un carré
 #IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 
@@ -47,12 +50,24 @@ IA = IA.select_commandes(0)
 #IA = IA([IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup])
 
 
+#énumération des commandes de notre IA pour le robot mockup
+#IA_avance_reel = Avancer(3,100,robot_reel)
+#IA_tourne_droit_reel = Tourner(1,-90,robot_reel)
+#IA_tourne_gauche_reel = Tourner(1,180,robot_reel)
+#commandes générique pour le mockup
+#IA = IA([IA_avance_reel,IA_tourne_droit_reel,IA_tourne_gauche_reel])
+#commandes pour sélectionner par indice quelle IA on veut éxécute
+#IA = IA.select_commandes(1)
+#commandes pour tracer un carré avec le mockup
+#IA = IA([IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup])
+
+
 
 #initialisation du temps avant le début de la simulation
 temps = time.time()
 #lancer les thread 
 simul.start()
-#simul_pygame.start()
+simul_pygame.start()
 IA.start()
 
 while simul.running :
@@ -60,7 +75,7 @@ while simul.running :
         temps = time.time()
         IA.update(temps_reel)
         simul.update(temps_reel)
-        #simul_pygame.event_update(simul)
+        simul_pygame.event_update(simul)
         simul.running = IA.getStatus()
 
 

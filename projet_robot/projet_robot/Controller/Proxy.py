@@ -13,10 +13,9 @@ circonference_robot = math.pi * diametre_roue
 
 class   Proxy_simulation:
 
-    def __init__(self,robot,vitesse,angle,simul):
+    def __init__(self,robot,vitesse,angle):
         self.robot = robot
         self.angle = angle
-        self.simul = simul
         self.vitesse = vitesse*3800
         self.distance_parcourue = 0
         self.angle_parcouru = 0
@@ -32,8 +31,6 @@ class   Proxy_simulation:
         distance_roue_gauche = (self.vitesse*dt*2*math.pi*diametre_roue/2)/360
         distance_roue_droite = (self.vitesse*dt*2*math.pi*diametre_roue/2)/360
         self.distance_parcourue += (distance_roue_gauche+distance_roue_droite)/2
-        if self.simul.detection_collision() or self.simul.detection_collision_bord_map_robot():
-            self.simul.stop()
 
     
     def get_distance_parcourue(self):
@@ -43,8 +40,6 @@ class   Proxy_simulation:
         self.angle_parcouru = 0
     
     def update_angle_parcouru(self,dt):
-        if self.simul.detection_collision() or self.simul.detection_collision_bord_map_robot():
-            self.simul.stop()
 
         self.angle_parcouru += self.vitesse*dt/2*math.pi
         
@@ -122,8 +117,6 @@ class   Proxy_reel:
     def get_angle_parcouru(self):
         return self.angle_parcouru
 
-    def reset(self):
-        self.robot.offset_motor_encoder(0+1,0)
 
     def tourner(self):
   

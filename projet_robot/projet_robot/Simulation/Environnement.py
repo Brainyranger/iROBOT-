@@ -58,6 +58,7 @@ class Environnement(Thread):
             for j in range(0,largeur_robot):
                 if self.robot.x+(j-largeur_robot/2)*math.cos(self.robot.angle) >= self.list_obs[i][0] and self.robot.y+(j-largeur_robot/2)*math.sin(self.robot.angle) >= self.list_obs[i][1] and self.robot.x+(j-largeur_robot/2)*math.cos(self.robot.angle) <= (self.list_obs[i][0]+self.list_obs[i][2]) and self.robot.y+(j-largeur_robot/2)*math.sin(self.robot.angle) <= (self.list_obs[i][1]+self.list_obs[i][3]):
                     print("COLLISION")
+                    self.running = False
                     return True
             
         return False 
