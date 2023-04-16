@@ -7,6 +7,7 @@ from projet_robot.Controller.Robot_Mockup import Robot_Mockup
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 #from projet_robot.Controller.robot2IN013 import Robot2IN013
 import time
+import sys
 
 
 bord_map_x = 500
@@ -71,12 +72,16 @@ simul_pygame.start()
 IA.start()
 
 while simul.running :
-        temps_reel = time.time() - temps
-        temps = time.time()
-        IA.update(temps_reel)
-        simul.update(temps_reel)
-        simul_pygame.event_update(simul)
-        simul.running = IA.getStatus()
+        if sys.argv == 0:
+                robot_reel.set_motor_dps(motor,0)
+                simul.running = false
+        else:
+                temps_reel = time.time() - temps
+                temps = time.time()
+                IA.update(temps_reel)
+                simul.update(temps_reel)
+                simul_pygame.event_update(simul)
+                simul.running = IA.getStatus()
 
 
 
