@@ -129,3 +129,6 @@ class   Proxy_reel:
 
     def avancer(self):
         self.robot.set_motor_dps(self.robot.MOTOR_LEFT+self.robot.MOTOR_RIGHT,self.vitesse)
+
+    def stop(self):
+        self.robot.set_motor_dps(self.robot.MOTOR_LEFT+self.robot.MOTOR_RIGHT,0)

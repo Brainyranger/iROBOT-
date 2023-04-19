@@ -77,6 +77,7 @@ class Avancer:
 
         if self.stop():
             self.robot.reset()
+            self.robot.stop()
             self.status = False
             return
         self.robot.avancer()
@@ -119,6 +120,7 @@ class Tourner:
 
         if self.stop():
             self.robot.reset()
+            self.robot.stop()
             self.status = False
             return
         
