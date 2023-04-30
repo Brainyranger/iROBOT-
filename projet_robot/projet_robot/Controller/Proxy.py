@@ -85,10 +85,12 @@ class   Proxy_simulation(Proxy):
         """Renvoie la distance entre le robot et l'obstacle"""
         return self.robot.get_distance()
     
-    def update_acceleration(self):
-        """ Fais la mise à jour de l'accélaration du robot en fonction du mode(accélération/décéleration)"""
-        self.acc_left += self.robot.motor_left
-        self.acc_right += self.robot.motor_right
+    def update_acceleration(self,dt):
+        """ Fais la mise à jour de l'accélaration du robot"""
+        new_pos = self.robot.get_motor_position()
+        self.acc_left += (new_pos[0]*dt)*9.81
+        self.acc_right += (new_pos[1]*dt)*9.81
+        self.distance_parcourue = self.acc_left
 
     def avancer_accelerator(self):
         """Accélère notre robot"""
@@ -170,6 +172,7 @@ class   Proxy_reel(Proxy):
         new_pos = self.robot.get_motor_position()
         self.acc_left += (new_pos[0]*dt)*9.81
         self.acc_right += (new_pos[1]*dt)*9.81
+        self.distance_parcourue = self.acc_left
 
     def avancer_accelerator(self):
         """Accélère notre robot"""

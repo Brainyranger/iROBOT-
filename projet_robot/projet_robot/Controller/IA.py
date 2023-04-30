@@ -160,8 +160,8 @@ class Approche_mur:
             self.status = False
             return
         
-        self.robot.update_distance_parcourue(dt)
-        self.robot.avancer()
+        self.robot.update_acceleration(dt)
+        self.robot.avancer_accelerator()
         print("j'ai fini de parcourir "+str(self.robot.angle_parcouru)+" cm")
        
 	
