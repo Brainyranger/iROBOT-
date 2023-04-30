@@ -1,14 +1,6 @@
 import time
 import math
-from projet_robot.Controller.Robot_Mockup import WHEEL_BASE_CIRCUMFERENCE,WHEEL_BASE_WIDTH,WHEEL_DIAMETER
-
-#partie simulation : 
-largeur_robot = 60
-diametre_roue = 7
-portee_senseur = 30
-circonference_robot = math.pi * diametre_roue
-
-
+from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_BASE_WIDTH,WHEEL_DIAMETER
     
 
 class   Proxy_simulation:

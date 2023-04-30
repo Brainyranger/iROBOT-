@@ -1,14 +1,11 @@
-import time
 import math
 import random
 from threading import Thread
-from projet_robot.Controller.IA import IA
-from projet_robot.Controller.Proxy import largeur_robot,portee_senseur,Proxy_simulation as proxy_simul
+from projet_robot.Controller.Constante import largeur_robot
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Simulation.Obstacle import Obstacle
 from projet_robot.Simulation.Senseur import Senseur
-from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
-#Test
+
 class Environnement(Thread):
     
     def __init__(self,bord_map_x,bord_map_y,robot,senseur)-> None:

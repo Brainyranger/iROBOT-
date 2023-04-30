@@ -2,12 +2,11 @@ from projet_robot.Simulation.Environnement import Environnement
 from projet_robot.Controller.IA import IA,Avancer,Tourner
 from projet_robot.Simulation.Senseur import Senseur
 from projet_robot.Simulation.Robot import Robot
-from projet_robot.Controller.Proxy import portee_senseur
+from projet_robot.Controller.Constante import portee_senseur
 from projet_robot.Controller.Robot_Mockup import Robot_Mockup
 from projet_robot.Affichage.Simulation_pygame import Simulation_pygame
 #from projet_robot.Controller.robot2IN013 import Robot2IN013
 import time
-import sys
 
 
 bord_map_x = 500
@@ -51,7 +50,7 @@ IA = IA.select_commandes(0)
 #IA = IA([IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup])
 
 
-#énumération des commandes de notre IA pour le robot mockup
+#énumération des commandes de notre IA pour le robot réel
 #IA_avance_reel = Avancer(3,100,robot_reel)
 #IA_tourne_droit_reel = Tourner(1,-90,robot_reel)
 #IA_tourne_gauche_reel = Tourner(1,180,robot_reel)
@@ -59,8 +58,8 @@ IA = IA.select_commandes(0)
 #IA = IA([IA_avance_reel,IA_tourne_droit_reel,IA_tourne_gauche_reel])
 #commandes pour sélectionner par indice quelle IA on veut éxécute
 #IA = IA.select_commandes(1)
-#commandes pour tracer un carré avec le mockup
-#IA = IA([IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup])
+#commandes pour tracer un carré avec le réel
+#IA = IA([IA_avance_réel,IA_tourne_gauche_réel,IA_avance_réel,IA_tourne_gauche_réel,IA_avance_réel,IA_tourne_gauche_réel,IA_avance_réel,IA_tourne_gauche_réel])
 
 
 
@@ -72,16 +71,13 @@ simul_pygame.start()
 IA.start()
 
 while simul.running :
-        if sys.argv == 0:
-                robot_reel.set_motor_dps(robot_reel.MOTOR_LEFT+robot_reel.MOTOR_RIGHT,0)
-                simul.running = false
-        else:
-                temps_reel = time.time() - temps
-                temps = time.time()
-                IA.update(temps_reel)
-                simul.update(temps_reel)
-                simul_pygame.event_update(simul)
-                simul.running = IA.getStatus()
+        
+        temps_reel = time.time() - temps
+        temps = time.time()
+        IA.update(temps_reel)
+        simul.update(temps_reel)
+        simul_pygame.event_update(simul)
+        simul.running = IA.getStatus()
 
 
 
