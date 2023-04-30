@@ -19,43 +19,39 @@ class Robot:
         """ Fixe la vitesse d'un moteur """
         self.motor_left = motor_left
         self.motor_right = motor_right
-
-
-
         
     def offset_motor_encoder(self, port, offset):
         """
         Fixe l'offset des moteurs (en degres) (permet par exemple de reinitialiser a 0 l'etat 
         """
         if port == "self.motor_left":
-            self.robot.motor_left = offset
+            self.motor_left = offset
         elif port == "self.motor_right":
-            self.robot.motor_right = offset
+            self.motor_right = offset
         elif port == "self.motor_right+self.motor_left":
-            self.robot.motor_left = offset
-            self.robot.motor_right = offset
+            self.motor_left = offset
+            self.motor_right = offset
         else:
             return 
-
-
             
     def set_led(self):
-        """ alterner les deux leds """
+        """ Alterne les deux leds du robot """
         tmp = self.LED_LEFT_EYE 
         self.LED_LEFT_EYE = self.LED_RIGHT_EYE
         self.LED_RIGHT_EYE = tmp 
 
+    def move(self,dt):
+        """ Fais la mise à jour du déplacement du robot dans la simulaton"""
+        self.x += ((self.motor_left + self.motor_right)/2) * math.cos(self.angle)*dt
+        self.y -= ((self.motor_left + self.motor_right)/2) * math.sin(self.angle)*dt
+        self.angle += ((self.motor_left - self.motor_right) / (largeur_robot + 2*diametre_roue))*dt
 
-
-    def getmovex(self,dt):
-        """ Simule le déplacement du robot en x selon un temps dt """
-        return (self.x+((self.motor_left+self.motor_right)/2)*math.cos(self.angle)*dt) 
-
-    def getmovey(self,dt):
-        """ Simule le déplacement du robot en y selon un temps dt """
-        return (self.y-((self.motor_left+self.motor_right)/2)*math.sin(self.angle)*dt)
+    def move_angle(self,angle):
+        """ Tourne le robot en fonction de l'angle passé en parametre """
+        self.angle += angle*math.pi/180
+        if self.angle > 2*math.pi:
+            self.angle -= 2*math.pi
     
-
     def set_led_left(self,colour):
         """change la couleur led gauche"""
         pass
@@ -64,23 +60,12 @@ class Robot:
         """change la couleur led droite"""
         pass
         
-    def move(self,dt):
-        """ Deplace le robot selon x et y et modifie son angle """
-        self.x += ((self.motor_left + self.motor_right)/2) * math.cos(self.angle)*dt
-        self.y -= ((self.motor_left + self.motor_right)/2) * math.sin(self.angle)*dt
-        self.angle += ((self.motor_left - self.motor_right) / (largeur_robot + 2*diametre_roue))*dt
-
     def get_distance_parcourue(self):
         pass
     
     def get_angle_parcouru(self):
         pass
 
-    def move_angle(self,angle):
-        """ Tourne le robot a l'angle en parametre """
-        self.angle += angle*math.pi/180
-        if self.angle > 2*math.pi:
-            self.angle -= 2*math.pi
 
 
 
