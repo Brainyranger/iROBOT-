@@ -1,6 +1,6 @@
 from threading import Thread
 from projet_robot.Controller.Proxy import Proxy_simulation as Proxy_simul,Proxy_reel
-
+from projet_robot.Simulation.Environnement import Environnement as Simul
 
 class IA(Thread):
 
@@ -142,3 +142,39 @@ class Tourner:
         return self.robot.get_angle_parcouru() > abs(self.angle)
     
 
+class Approche_mur:
+    
+    def __init__(self,robot,vitesse):
+        """
+        initialisation de notre robot
+        initialisation de sa vitesse initiale
+        """
+        self.robot=Proxy_simul(robot,vitesse,0)
+
+    def update(self,dt):
+        """ Fais la mise à jour de notre commande """
+
+        if self.stop():
+            self.robot.reset()
+            self.robot.stop()
+            self.status = False
+            return
+        
+        self.robot.update_distance_parcourue(dt)
+        self.robot.avancer()
+        print("j'ai fini de parcourir "+str(self.robot.angle_parcouru)+" cm")
+       
+	
+    def getStatus(self):
+        """ Renvoie l'état de la commande """
+        return self.status
+
+    def start(self):
+        """ Lance la commande """
+        self.robot.reinitialiser_angle_parcouru()
+        self.status = True
+
+    def stop(self):
+        """ Arrête la commande en cours """
+        return self.robot.get_distance()< 1
+    

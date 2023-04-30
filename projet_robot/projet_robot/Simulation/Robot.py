@@ -66,6 +66,7 @@ class Robot:
     def get_angle_parcouru(self):
         pass
 
-
+    def get_distance(self):
+        pass
 
 

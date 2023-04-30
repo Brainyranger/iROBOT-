@@ -1,7 +1,6 @@
 import math
-from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot
-    
-
+from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot   
+from projet_robot.Simulation.Environnement import Environnement as Simul
 
 class Proxy:
     """initialisation de notre Proxy pour un robot"""
@@ -20,7 +19,10 @@ class   Proxy_simulation(Proxy):
         initilisation de sa vitesse """
         Proxy.__init__(self,robot)
         self.angle = angle
+        self.robot.get_distance = Simul.detection_obstacle()
         self.vitesse = vitesse*3800
+        self.acc_left = 0
+        self.acc_right = 0
         self.distance_parcourue = 0
         self.angle_parcouru = 0
         
@@ -79,6 +81,18 @@ class   Proxy_simulation(Proxy):
         """ Arrête le robot"""
         self.robot.set_motor_dps(0,0)
     
+    def get_distance(self):
+        """Renvoie la distance entre le robot et l'obstacle"""
+        return self.robot.get_distance()
+    
+    def update_acceleration(self):
+        """ Fais la mise à jour de l'accélaration du robot en fonction du mode(accélération/décéleration)"""
+        self.acc_left += self.robot.motor_left
+        self.acc_right += self.robot.motor_right
+
+    def avancer_accelerator(self):
+        """Accélère notre robot"""
+        self.robot.set_motor_dps(self.acc_left,self.acc_right)
 
 class   Proxy_reel(Proxy):
 
@@ -91,29 +105,28 @@ class   Proxy_reel(Proxy):
         self.angle = angle
         self.distance_parcourue = 0
         self.angle_parcouru = 0
+        self.acc_left = 0
+        self.acc_right = 0
     
 
     def update_distance_parcourue(self,dt):
         """Fais la mise à jour de la distance parcourue"""
         new_pos_motor = self.robot.get_motor_position()
-        distance_roue_gauche = (new_pos_motor[0]*math.pi*(WHEEL_DIAMETER/10)*dt)/360
-        distance_roue_droite = (new_pos_motor[1]*math.pi*(WHEEL_DIAMETER/10)*dt)/360
+        distance_roue_gauche = abs(new_pos_motor[0]*math.pi*(WHEEL_DIAMETER/10)*dt)/360
+        distance_roue_droite = abs(new_pos_motor[1]*math.pi*(WHEEL_DIAMETER/10)*dt)/360
         self.distance_parcourue += (distance_roue_gauche+distance_roue_droite)/2
-        
 
     def update_angle_parcouru(self,dt):
         """Fais la mise à jour de l'angle parcouru"""
-        previous_pos = (0,0)
-        curr_pos = self.robot.get_motor_position()
-        diff_pos = [curr_pos[i]-previous_pos[i] for i in range(2)]
-        angle_rotated = [(WHEEL_BASE_CIRCUMFERENCE/10)*dt*(diff_pos[i]/360) for i in range(2)]
-        self.angle_parcouru += (angle_rotated[0]+angle_rotated[1])/2
-
+        new_pos_motor = self.robot.get_motor_position()
+        distance_roue_gauche = abs(new_pos_motor[0]*math.pi*(WHEEL_DIAMETER/10)*dt)/360
+        distance_roue_droite = abs(new_pos_motor[1]*math.pi*(WHEEL_DIAMETER/10)*dt)/360
+        self.distance_parcourue += (distance_roue_gauche+distance_roue_droite)/2
 
     def reset(self):
         """Réinitialise la position des roues"""
-        self.robot.offset_motor_encoder(self.robot.MOTOR_LEFT,self.robot.get_motor_position()[0])
-        self.robot.offset_motor_encoder(self.robot.MOTOR_RIGHT,self.robot.get_motor_position()[1])
+        self.robot.offset_motor_encoder(1,self.robot.read_encoders()[0])
+        self.robot.offset_motor_encoder(2,self.robot.read_encoders()[1])
     
     def reinitialiser_distance_parcourue(self):
         """Réinitialise la distance parcourue par le robot"""
@@ -136,16 +149,28 @@ class   Proxy_reel(Proxy):
     def tourner(self):
         """Fais tourner le robot"""
         if self.angle >= 0:
-            self.robot.set_motor_dps(self.robot.MOTOR_LEFT,self.vitesse)
-            self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,-self.vitesse)
+            self.robot.set_motor_dps(2,self.vitesse)
+            self.robot.set_motor_dps(1,-self.vitesse)
         else:
-            self.robot.set_motor_dps(self.robot.MOTOR_LEFT,-self.vitesse)
-            self.robot.set_motor_dps(self.robot.MOTOR_RIGHT,self.vitesse)
-
+            self.robot.set_motor_dps(2,-self.vitesse)
+            self.robot.set_motor_dps(1,self.vitesse)
     def avancer(self):
         """Fais avancer le robot"""
-        self.robot.set_motor_dps(self.robot.MOTOR_LEFT+self.robot.MOTOR_RIGHT,self.vitesse)
+        self.robot.set_motor_dps(1+2,self.vitesse)
 
     def stop(self):
         """Arrête le robot"""
-        self.robot.set_motor_dps(self.robot.MOTOR_LEFT+self.robot.MOTOR_RIGHT,0)
+        self.robot.set_motor_dps(1+2,0)
+    
+    def get_distance(self):
+        return self.robot.get_distance()
+    
+    def update_acceleration(self,dt):
+        """ Fais la mise à jour de l'accélaration du robot"""
+        new_pos = self.robot.get_motor_position()
+        self.acc_left += (new_pos[0]*dt)*9.81
+        self.acc_right += (new_pos[1]*dt)*9.81
+
+    def avancer_accelerator(self):
+        """Accélère notre robot"""
+        self.robot.set_motor_dps(1+2,self.acc_left)
