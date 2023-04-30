@@ -30,9 +30,9 @@ IA_avance = Avancer(0.03,10,robot)
 IA_tourne_gauche = Tourner(0.008,90,robot)
 IA_tourne_droit  = Tourner(0.008,-90,robot)
 #commandes générique
-#IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
+IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
 #commandes pour sélectionner par indice quelle IA on veut éxécute
-#IA = IA.select_commandes(0)
+IA = IA.select_commandes(0)
 #commandes pour tracer un carré
 #IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 
@@ -43,17 +43,17 @@ IA_avance_mockup = Avancer(0.03,10,robot_mockup)
 IA_tourne_droit_mockup = Tourner(0.008,-90,robot_mockup)
 IA_tourne_gauche_mockup = Tourner(0.008,90,robot_mockup)
 #commandes générique pour le mockup
-IA = IA([IA_avance_mockup,IA_tourne_droit_mockup,IA_tourne_gauche_mockup])
+#IA = IA([IA_avance_mockup,IA_tourne_droit_mockup,IA_tourne_gauche_mockup])
 #commandes pour sélectionner par indice quelle IA on veut éxécute
-IA = IA.select_commandes(0)
+#IA = IA.select_commandes(0)
 #commandes pour tracer un carré avec le mockup
 #IA = IA([IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup,IA_avance_mockup,IA_tourne_gauche_mockup])
 
 
 #énumération des commandes de notre IA pour le robot réel
-#IA_avance_reel = Avancer(3,100,robot_reel)
+#IA_avance_reel = Avancer(2,30,robot_reel)
 #IA_tourne_droit_reel = Tourner(1,-90,robot_reel)
-#IA_tourne_gauche_reel = Tourner(1,180,robot_reel)
+#IA_tourne_gauche_reel = Tourner(1,90,robot_reel)
 #commandes générique pour le mockup
 #IA = IA([IA_avance_reel,IA_tourne_droit_reel,IA_tourne_gauche_reel])
 #commandes pour sélectionner par indice quelle IA on veut éxécute

@@ -79,9 +79,6 @@ class Environnement(Thread):
         for i in range (0,len(self.list_obs_mobiles)):
            Obstacle.move(self,self.list_obs_mobiles[i],dt)
     
-            
-        
-    
 
     def update(self,dt):
         """ fais la mise à jour de notre simulation """

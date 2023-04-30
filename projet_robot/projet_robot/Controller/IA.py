@@ -1,8 +1,5 @@
-import time
-import math
 from threading import Thread
-from projet_robot.Simulation.Robot import Robot
-from projet_robot.Controller.Proxy import largeur_robot,Proxy_simulation as proxy_simul,Proxy_reel
+from projet_robot.Controller.Proxy import Proxy_simulation as Proxy_simul,Proxy_reel
 
 
 class IA(Thread):
@@ -66,7 +63,7 @@ class Avancer:
         initialisation de la distance à parcourir
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = Proxy_reel(robot,vitesse,0)
+        self.robot = Proxy_simul(robot,vitesse,0)
         self.distance = distance
         self.status = False
     
@@ -109,7 +106,7 @@ class Tourner:
         initialisation de la distance à parcourir en degré/s pour parcourir l'angle
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = Proxy_reel(robot,vitesse,angle)
+        self.robot = Proxy_simul(robot,vitesse,angle)
         self.angle = angle
         self.angle_parcouru = 0
         self.status = True
