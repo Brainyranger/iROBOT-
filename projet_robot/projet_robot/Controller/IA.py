@@ -177,4 +177,42 @@ class Approche_mur:
     def stop(self):
         """ Arrête la commande en cours """
         return self.robot.get_distance()
+
+
+class Get_balise:
     
+    def __init__(self,robot,vitesse):
+        """
+        initialisation de notre robot
+        initialisation de sa vitesse initiale
+        """
+        self.robot=Proxy_simul(robot,vitesse,0)
+
+    def update(self,dt):
+        """ Fais la mise à jour de notre commande """
+
+        if self.stop():
+            self.robot.reset()
+            self.robot.stop()
+            self.robot.stop_recording()
+            self.status = False
+            return
+        
+        self.robot.update_recording()
+        self.robot.avancer()
+
+       
+	
+    def getStatus(self):
+        """ Renvoie l'état de la commande """
+        return self.status
+
+    def start(self):
+        """ Lance la commande """
+        self.robot.reinitialiser_angle_parcouru()
+        self.robot.start_recording()
+        self.status = True
+
+    def stop(self):
+        """ Arrête la commande en cours """
+        return False

@@ -1,5 +1,8 @@
 import math
-from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot,BORD_MAP_X,BORD_MAP_Y
+import time
+import threading
+from PIL import ImageGrab
+from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot,BORD_MAP_X,BORD_MAP_Y,chemin_images_simulation,chemin_images_reel,DT_IMAGE
 
 class Proxy:
     """initialisation de notre Proxy pour un robot"""
@@ -18,12 +21,13 @@ class   Proxy_simulation(Proxy):
         initilisation de sa vitesse """
         Proxy.__init__(self,robot)
         self.angle = angle
-        #self.robot_get_distance = Simul.detection_obstacle()
         self.vitesse = vitesse*3800
         self.acc_left = 0
         self.acc_right = 0
         self.distance_parcourue = 0
         self.angle_parcouru = 0
+        self.start_record = True
+        self._thread_image = None
         
     
     def reinitialiser_distance_parcourue(self):
@@ -91,9 +95,35 @@ class   Proxy_simulation(Proxy):
         self.acc_left += 9.81*(self.vitesse*dt*2*math.pi*diametre_roue/2)/360
         self.acc_right += 9.81*(self.vitesse*dt*2*math.pi*diametre_roue/2)/360
         self.distance_parcourue += (self.acc_left+self.acc_right)/2
+    
     def avancer_accelerator(self):
         """Accélère notre robot"""
         self.robot.set_motor_dps(self.acc_left,self.acc_right)
+
+    def get_image(self):
+        """ Renvoie une capture d'écran sous format JPEG """
+        image = ImageGrab.grab() 
+        image = image.resize(self.robot.size_im)
+        image.save(chemin_images_simulation+".jpeg","JPEG") 
+    
+    def update_recording(self):
+        """ met à jour l'enregistrement d'images"""
+        while(self.start_record):
+            self.robot.get_image(chemin_images_simulation)
+            self.robot.nb_im-=1
+            time.sleep(1/self.robot.fps)
+
+    def stop_recording(self):
+        """Arrête l'enregistrement d'images"""
+        self.start_record = False
+        self._thread_image.stop()
+
+    def start_recording(self):
+        """ lance l'enregistrement d'images"""
+        self._thread_image = threading.Thread(target=self.update_recording)
+        self._thread_image.start()    
+        
+  
 
 class   Proxy_reel(Proxy):
 

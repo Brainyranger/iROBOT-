@@ -4,10 +4,13 @@ class Robot:
     
   
 
-    def __init__(self,x,y,angle) -> None: 
+    def __init__(self,x,y,angle,fps,nb_im,resolution) -> None: 
         """ Initialise le robot en une position (x,y) ,un angle ,et une vitesse (roue gauche et droite) """
         self.x  = x
         self.y  = y
+        self.fps = fps
+        self.nb_im = nb_im
+        self.size_im = resolution
         self.angle  = math.radians(angle) #conversion degré par seconde en radian par seconde
         self.motor_left  = 0 
         self.motor_right = 0 
@@ -52,11 +55,11 @@ class Robot:
         if self.angle > 2*math.pi:
             self.angle -= 2*math.pi
     
-    def set_led_left(self,colour):
+    def set_led_left(self,color):
         """change la couleur led gauche"""
         pass
         
-    def set_led_right(self,colour):
+    def set_led_right(self,color):
         """change la couleur led droite"""
         pass
         
@@ -69,4 +72,11 @@ class Robot:
     def get_distance(self):
         pass
 
+    def get_image(self):
+        pass
 
+    def start_recording(self):
+        pass
+
+    def stop_recording(self):
+        pass

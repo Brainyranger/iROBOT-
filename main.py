@@ -1,5 +1,5 @@
 from projet_robot.Simulation.Environnement import Environnement
-from projet_robot.Controller.IA import IA,Avancer,Tourner,Approche_mur
+from projet_robot.Controller.IA import IA,Avancer,Tourner,Approche_mur,Get_balise
 from projet_robot.Simulation.Senseur import Senseur
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Controller.Constante import portee_senseur
@@ -12,7 +12,7 @@ import time
 bord_map_x = 500
 bord_map_y = 420
 #Initialisation du robot virtuel
-robot = Robot(50,300,0)
+robot = Robot(50,300,0,25,10,(50,50))
 senseur = Senseur(portee_senseur)
 #initialisation du robot mockup
 robot_mockup = Robot_Mockup()
@@ -31,10 +31,12 @@ IA_tourne_gauche = Tourner(0.008,90,robot)
 IA_tourne_droit  = Tourner(0.008,-90,robot)
 #commandes pour se rapprocher le plus rapidement possible près d'un mur
 IA_approcheMur = Approche_mur(robot,0.03)
+#commandes pour chercher une balise 
+IA_getBalise = Get_balise(robot,0.03)
 #commandes générique
-IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche,IA_approcheMur])
+IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche,IA_approcheMur,IA_getBalise])
 #commandes pour sélectionner par indice quelle IA on veut éxécute
-IA = IA.select_commandes(3)
+IA = IA.select_commandes(4)
 #commandes pour tracer un carré
 #IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 
