@@ -198,8 +198,8 @@ class Get_balise:
             self.status = False
             return
         
-        self.robot.update_recording()
-        self.robot.avancer()
+        self.robot.update_recording(dt)
+        #self.robot.avancer()
 
        
 	
@@ -209,7 +209,6 @@ class Get_balise:
 
     def start(self):
         """ Lance la commande """
-        self.robot.reinitialiser_angle_parcouru()
         self.robot.start_recording()
         self.status = True
 

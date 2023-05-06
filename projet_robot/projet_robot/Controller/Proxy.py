@@ -2,6 +2,7 @@ import math
 import time
 import threading
 from PIL import *
+import cv2
 import pyscreenshot as ImageGrab
 from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot,BORD_MAP_X,BORD_MAP_Y,chemin_images_simulation,chemin_images_reel
 
@@ -103,27 +104,29 @@ class   Proxy_simulation(Proxy):
 
     def get_image(self):
         """ Renvoie une capture d'écran sous format JPEG """
-        image = ImageGrab.grab() 
-        image = image.resize(self.robot.size_im)
-        image.save(chemin_images_simulation+".jpeg","JPEG") 
+        image = cv2.VideoCapture(1) 
+        #image = image.resize(self.robot.size_im)
+        _,im_capture= image.read()
+        cv2.imshow("captture",im_capture)
+        im_capture.save(chemin_images_simulation,"JPEG") 
     
-    def update_recording(self):
+    def update_recording(self,dt):
         """ met à jour l'enregistrement d'images"""
-        while(self.start_record):
-            self.robot.get_image()
-            self.robot.nb_im-=1
-            time.sleep(0.01)
+        #while(self.start_record):
+        self.robot.get_image()
+            #self.robot.nb_im-=1
+            #time.sleep(1/dt)
 
     def stop_recording(self):
         """Arrête l'enregistrement d'images"""
         self.start_record = False
-        self._thread_image.stop()
+        #self._thread_image.stop()
 
     def start_recording(self):
         """ lance l'enregistrement d'images"""
-        self._thread_image = threading.Thread(target=self.update_recording)
-        self._thread_image.start()    
-        
+        #self._thread_image = threading.Thread(target=self.update_recording)
+        #self._thread_image.start()    
+        self.start_record = True
   
 
 class   Proxy_reel(Proxy):
