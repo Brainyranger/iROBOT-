@@ -1,8 +1,9 @@
 import math
 import time
 import threading
-from PIL import ImageGrab
-from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot,BORD_MAP_X,BORD_MAP_Y,chemin_images_simulation,chemin_images_reel,DT_IMAGE
+from PIL import *
+import pyscreenshot as ImageGrab
+from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot,BORD_MAP_X,BORD_MAP_Y,chemin_images_simulation,chemin_images_reel
 
 class Proxy:
     """initialisation de notre Proxy pour un robot"""
@@ -109,9 +110,9 @@ class   Proxy_simulation(Proxy):
     def update_recording(self):
         """ met à jour l'enregistrement d'images"""
         while(self.start_record):
-            self.robot.get_image(chemin_images_simulation)
+            self.robot.get_image()
             self.robot.nb_im-=1
-            time.sleep(1/self.robot.fps)
+            time.sleep(0.01)
 
     def stop_recording(self):
         """Arrête l'enregistrement d'images"""
