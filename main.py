@@ -1,5 +1,5 @@
 from projet_robot.Simulation.Environnement import Environnement
-from projet_robot.Controller.IA import IA,Avancer,Tourner
+from projet_robot.Controller.IA import IA,Avancer,Tourner,Approche_mur
 from projet_robot.Simulation.Senseur import Senseur
 from projet_robot.Simulation.Robot import Robot
 from projet_robot.Controller.Constante import portee_senseur
@@ -29,10 +29,12 @@ IA_avance = Avancer(0.03,10,robot)
 #commandes pour tourner selon un angle donnée
 IA_tourne_gauche = Tourner(0.008,90,robot)
 IA_tourne_droit  = Tourner(0.008,-90,robot)
+#commandes pour se rapprocher le plus rapidement possible près d'un mur
+IA_approcheMur = Approche_mur(robot,0.03)
 #commandes générique
-IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche])
+IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche,IA_approcheMur])
 #commandes pour sélectionner par indice quelle IA on veut éxécute
-IA = IA.select_commandes(0)
+IA = IA.select_commandes(3)
 #commandes pour tracer un carré
 #IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 

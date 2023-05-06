@@ -1,6 +1,5 @@
 import math
-from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot   
-from projet_robot.Simulation.Environnement import Environnement as Simul
+from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot,BORD_MAP_X,BORD_MAP_Y
 
 class Proxy:
     """initialisation de notre Proxy pour un robot"""
@@ -19,7 +18,7 @@ class   Proxy_simulation(Proxy):
         initilisation de sa vitesse """
         Proxy.__init__(self,robot)
         self.angle = angle
-        self.robot.get_distance = Simul.detection_obstacle()
+        #self.robot_get_distance = Simul.detection_obstacle()
         self.vitesse = vitesse*3800
         self.acc_left = 0
         self.acc_right = 0
@@ -82,16 +81,16 @@ class   Proxy_simulation(Proxy):
         self.robot.set_motor_dps(0,0)
     
     def get_distance(self):
-        """Renvoie la distance entre le robot et l'obstacle"""
-        return self.robot.get_distance()
+        """Renvoie si le robot est proche d'un MUR ou non"""
+        if self.robot.x < diametre_roue/2 or self.robot.x >= (BORD_MAP_X-diametre_roue*5)  or self.robot.y >= (BORD_MAP_Y-diametre_roue*5) or self.robot.y < diametre_roue/2:
+            return True
+        return False
     
     def update_acceleration(self,dt):
         """ Fais la mise à jour de l'accélaration du robot"""
-        new_pos = self.robot.get_motor_position()
-        self.acc_left += (new_pos[0]*dt)*9.81
-        self.acc_right += (new_pos[1]*dt)*9.81
-        self.distance_parcourue = self.acc_left
-
+        self.acc_left += 9.81*(self.vitesse*dt*2*math.pi*diametre_roue/2)/360
+        self.acc_right += 9.81*(self.vitesse*dt*2*math.pi*diametre_roue/2)/360
+        self.distance_parcourue += (self.acc_left+self.acc_right)/2
     def avancer_accelerator(self):
         """Accélère notre robot"""
         self.robot.set_motor_dps(self.acc_left,self.acc_right)

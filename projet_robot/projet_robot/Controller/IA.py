@@ -162,7 +162,7 @@ class Approche_mur:
         
         self.robot.update_acceleration(dt)
         self.robot.avancer_accelerator()
-        print("j'ai fini de parcourir "+str(self.robot.angle_parcouru)+" cm")
+        print("j'ai fini de parcourir "+str(self.robot.distance_parcourue)+" cm")
        
 	
     def getStatus(self):
@@ -176,5 +176,5 @@ class Approche_mur:
 
     def stop(self):
         """ Arrête la commande en cours """
-        return self.robot.get_distance()< 1
+        return self.robot.get_distance()
     

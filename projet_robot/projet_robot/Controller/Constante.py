@@ -1,6 +1,8 @@
 import math
 
 #partie simulation : 
+BORD_MAP_X = 500
+BORD_MAP_Y = 420
 largeur_robot = 60
 diametre_roue = 7
 portee_senseur = 30

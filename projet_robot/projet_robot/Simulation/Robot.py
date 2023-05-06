@@ -1,5 +1,5 @@
 import math
-from projet_robot.Controller.Proxy import largeur_robot,diametre_roue
+from projet_robot.Controller.Constante import largeur_robot,diametre_roue
 class Robot:
     
   
