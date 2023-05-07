@@ -72,11 +72,14 @@ class Robot:
     def get_distance(self):
         pass
 
-    def get_image(self):
+    def get_image(self,cpt):
         pass
 
     def start_recording(self):
         pass
 
     def stop_recording(self):
+        pass
+
+    def update_recording(self):
         pass
