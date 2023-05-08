@@ -31,6 +31,7 @@ class   Proxy_simulation(Proxy):
         self.start_record = True
         self._thread_image = None
         self.cpt = 1
+        self.balise = False
         
     
     def reinitialiser_distance_parcourue(self):
@@ -108,14 +109,20 @@ class   Proxy_simulation(Proxy):
         """ enregistre une image sous format .jpeg dans un dossier  """
         image= Image.open(chemin_image_model)
         image.save(chemin_images_simulation+"/image_n°"+str(cpt)+".jpeg")
+        return cv2.imread(chemin_images_simulation+"/image_n°"+str(cpt)+".jpeg")
     
     def update_recording(self,dt):
         """ met à jour l'enregistrement d'images"""
-        while(self.start_record):
-            self.get_image(self.cpt)
+        while(self.robot.nb_im>0):
+            im = self.get_image(self.cpt)
+            image = Image.fromarray(im)
+            if self.robot.vision.get_balise(image):
+                self.balise = True
+                return True
             self.robot.nb_im-=1
             self.cpt+=1
-            time.sleep(1/25)
+            time.sleep(1/self.robot.fps)
+        return True
 
     def stop_recording(self):
         """Arrête l'enregistrement d'images"""

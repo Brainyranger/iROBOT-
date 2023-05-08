@@ -81,11 +81,11 @@ class Vision:
          
     
 
-    def vision(self,image):
+    def get_balise(self,image):
         """ Renvoie True si c'est notre balise et False sinon"""
 
         #j'adapte l'image à ma résolution 
-        image.resize(self.size)
+        #image.resize(self.size)
         width, height = self.size        
         #je découpe mon image en 4 régions nord-est,sud-est,sud-ouest,nord-ouest
         north_west_image= image.crop((0,0,width,height))

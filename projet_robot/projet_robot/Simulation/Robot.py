@@ -1,5 +1,6 @@
 import math
 from projet_robot.Controller.Constante import largeur_robot,diametre_roue
+from projet_robot.Simulation.Vision import Vision
 class Robot:
     
   
@@ -8,6 +9,7 @@ class Robot:
         """ Initialise le robot en une position (x,y) ,un angle ,et une vitesse (roue gauche et droite) """
         self.x  = x
         self.y  = y
+        self.vision = Vision(resolution)
         self.fps = fps
         self.nb_im = nb_im
         self.size_im = resolution
@@ -64,22 +66,29 @@ class Robot:
         pass
         
     def get_distance_parcourue(self):
+        """ Renvoie la distance parcourue"""
         pass
     
     def get_angle_parcouru(self):
+        """ Renvoie l'angle parcoure"""
         pass
 
     def get_distance(self):
+        """ Renvoie la distance qui le sépare d'un Mur"""
         pass
 
     def get_image(self,cpt):
+        """ Renvoie une image """
         pass
 
     def start_recording(self):
+        """ Lance l'nregistrement d'image"""
         pass
 
     def stop_recording(self):
+        """ Stop" l'enregistrement d'image"""
         pass
 
     def update_recording(self,dt):
+        """ Met à jour l'enregistrement d'images"""
         pass

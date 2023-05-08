@@ -187,11 +187,15 @@ class Get_balise:
         initialisation de sa vitesse initiale
         """
         self.robot=Proxy_simul(robot,vitesse,0)
+        self.fps = 1/25
 
-    def update(self,dt):
+    def update(self,dt=1/25):
         """ Fais la mise à jour de notre commande """
 
         if self.stop():
+            if self.robot.balise:
+                return "On a trouvé notre balise"
+            
             self.robot.reset()
             self.robot.stop()
             self.robot.stop_recording()
@@ -214,4 +218,4 @@ class Get_balise:
 
     def stop(self):
         """ Arrête la commande en cours """
-        return False
+        return self.robot.update_recording(self.fps)
