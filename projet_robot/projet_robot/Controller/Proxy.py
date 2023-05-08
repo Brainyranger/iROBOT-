@@ -1,11 +1,10 @@
 import math
-import os
 import time
 import threading
 from PIL import Image
 import cv2
 import pyscreenshot as ImageGrab
-from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot,BORD_MAP_X,BORD_MAP_Y,chemin_images_simulation,chemin_images_reel
+from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot,BORD_MAP_X,BORD_MAP_Y,chemin_images_simulation,chemin_images_reel,chemin_image_model
 
 class Proxy:
     """initialisation de notre Proxy pour un robot"""
@@ -105,29 +104,28 @@ class   Proxy_simulation(Proxy):
         self.robot.set_motor_dps(self.acc_left,self.acc_right)
 
 
-    def get_image(cpt):
-        """ Renvoie une image sous format .jpeg """
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        image= Image.open(os.path.join(script_dir,"triangle.jpeg"))
+    def get_image(self,cpt):
+        """ enregistre une image sous format .jpeg dans un dossier  """
+        image= Image.open(chemin_image_model)
         image.save(chemin_images_simulation+"/image_n°"+str(cpt)+".jpeg")
     
-    def update_recording(self):
+    def update_recording(self,dt):
         """ met à jour l'enregistrement d'images"""
         while(self.start_record):
-            self.robot.get_image(self.cpt)
+            self.get_image(self.cpt)
             self.robot.nb_im-=1
             self.cpt+=1
-            time.sleep(1/self.robot.fps)
+            time.sleep(1/25)
 
     def stop_recording(self):
         """Arrête l'enregistrement d'images"""
         self.start_record = False
-        self._thread_image.stop()
+        #self._thread_image.stop()
 
     def start_recording(self):
         """ lance l'enregistrement d'images"""
-        self._thread_image = threading.Thread(target=self.update_recording)
-        self._thread_image.start()    
+        #self._thread_image = threading.Thread(target=self.update_recording)
+        #self._thread_image.start()    
         self.start_record = True
   
 

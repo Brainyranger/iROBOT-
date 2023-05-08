@@ -1,19 +1,16 @@
 from PIL import Image
 import numpy as np
 import cv2
-import os.path
 from projet_robot.Controller.Constante import chemin_images_simulation,chemin_images_reel
 
 class Vision:
 
-    def __init__(self,nb,resolution):
+    def __init__(self,resolution):
         """Constructeur pour la vision d'un robot
          nb : nb images
          fps: nb images par seconde
          resolution : resolution de la caméra"""
-        self._thread_image = None
         self.size = resolution
-        self.nb_image = nb
         self.cpt = 0
 
     def mask(self,color_image):

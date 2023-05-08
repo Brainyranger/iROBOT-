@@ -81,5 +81,5 @@ class Robot:
     def stop_recording(self):
         pass
 
-    def update_recording(self):
+    def update_recording(self,dt):
         pass

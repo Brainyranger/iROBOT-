@@ -8,6 +8,7 @@ diametre_roue = 7
 portee_senseur = 30
 circonference_robot = math.pi * diametre_roue
 chemin_images_simulation = "/home/brainyranger/iROBOT-/projet_robot/projet_robot/Simulation/traitement_images_simulation"
+chemin_image_model = "/home/brainyranger/iROBOT-/projet_robot/projet_robot/Simulation/triangle.jpeg"
 #partie réelle : 
 WHEEL_BASE_WIDTH         = 117  # distance (mm) de la roue gauche a la roue droite.
 WHEEL_DIAMETER           = 66.5 #  diametre de la roue (mm)

@@ -198,7 +198,7 @@ class Get_balise:
             self.status = False
             return
         
-        self.robot.update_recording()
+        self.robot.update_recording(dt)
         #self.robot.avancer()
 
        
