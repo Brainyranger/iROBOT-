@@ -89,6 +89,3 @@ class Robot:
         """ Stop" l'enregistrement d'image"""
         pass
 
-    def update_recording(self,dt):
-        """ Met à jour l'enregistrement d'images"""
-        pass

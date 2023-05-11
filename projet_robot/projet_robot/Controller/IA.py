@@ -63,7 +63,7 @@ class Avancer:
         initialisation de la distance à parcourir
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = Proxy_simul(robot,vitesse,0)
+        self.robot = Proxy_reel(robot,vitesse,0)
         self.distance = distance
         self.status = False
     
@@ -73,7 +73,6 @@ class Avancer:
         
 
         if self.stop():
-            self.robot.reset()
             self.robot.stop()
             self.status = False
             return
@@ -90,6 +89,7 @@ class Avancer:
     def start(self):
         """ Lance la commande """
         self.robot.reinitialiser_distance_parcourue()
+        self.robot.reset()
         self.status = True
 
     def stop(self):
@@ -106,7 +106,7 @@ class Tourner:
         initialisation de la distance à parcourir en degré/s pour parcourir l'angle
         initialisation de notre robot pour lequel on applique la comande"""
 
-        self.robot = Proxy_simul(robot,vitesse,angle)
+        self.robot = Proxy_reel(robot,vitesse,angle)
         self.angle = angle
         self.angle_parcouru = 0
         self.status = True
@@ -116,7 +116,6 @@ class Tourner:
         """ Fais la mise à jour de notre commande """
 
         if self.stop():
-            self.robot.reset()
             self.robot.stop()
             self.status = False
             return
@@ -134,6 +133,7 @@ class Tourner:
     def start(self):
         """ Lance la commande """
         self.robot.reinitialiser_angle_parcouru()
+        self.robot.reset()
         self.status = True
 
     def stop(self):
@@ -144,25 +144,26 @@ class Tourner:
 
 class Approche_mur:
     
-    def __init__(self,robot,vitesse):
+    def __init__(self,robot,vitesse,distance):
         """
         initialisation de notre robot
         initialisation de sa vitesse initiale
         """
-        self.robot=Proxy_simul(robot,vitesse,0)
+        self.robot=Proxy_reel(robot,vitesse,distance)
+        self.distance = distance 
 
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
 
         if self.stop():
-            self.robot.reset()
             self.robot.stop()
             self.status = False
             return
         
-        self.robot.update_acceleration(dt)
-        self.robot.avancer_accelerator()
-        print("j'ai fini de parcourir "+str(self.robot.distance_parcourue)+" cm")
+        self.robot.update_acceleration()
+        self.robot.update_distance_parcourue(dt)
+        print("Le robot a parcouru " + str(self.robot.distance_parcourue))
+        self.robot.avancer()
        
 	
     def getStatus(self):
@@ -176,7 +177,7 @@ class Approche_mur:
 
     def stop(self):
         """ Arrête la commande en cours """
-        return self.robot.get_distance()
+        return self.robot.get_distance()< 80 or self.robot.get_distance_parcourue() >= self.distance 
 
 
 class Get_balise:
