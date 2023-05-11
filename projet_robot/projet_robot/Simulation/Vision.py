@@ -40,7 +40,10 @@ class Vision:
             cpt +=3
         if lower_red[0]<=r<=upper_red[0]:
             cpt +=2
-        #on teste pour g
+
+        # Pour savoir quelle couleur on a, il suffit de tester le premier élément du mask
+
+        """  #on teste pour g
         if lower_yellow[1]<=g<=upper_yellow[1]:
             cpt +=4
         if lower_blue[1]<=g<=upper_blue[1]:
@@ -57,25 +60,25 @@ class Vision:
         if lower_green[2]<=b<=upper_green[2]: 
             cpt +=3
         if lower_red[2]<=b<=upper_red[2]:
-            cpt += 2
+            cpt += 2  """
 
         #on a du jaune
-        if cpt == 12:
+        if cpt == 4:
             self.cpt += 4
             return True
         
         #on a du vert
-        if cpt == 9:
+        if cpt == 3:
             self.cpt += 3
             return True
         
         #on a du rouge
-        if cpt == 6:
+        if cpt == 2:
             self.cpt += 2
             return True 
 
         #on a du bleu 
-        if cpt == 3:
+        if cpt == 1:
             self.cpt += 1
             return True
          
@@ -101,9 +104,9 @@ class Vision:
         
         #je compare chaque région avec les mask du jaune,rouge,bleu et vert
         #si j'ai mes 4 régions qui contient au moins une couleur jaune,rouge,bleu et vert alors c'est ma balise
-        if self.mask(rgb_seast) == True and self.mask(rgb_swest) and self.mask(rgb_nwest) == True and self.mask(rgb_neast) == True:
+        if self.mask(rgb_seast) and self.mask(rgb_swest) and self.mask(rgb_nwest) and self.mask(rgb_neast):
             #pour reconnaitre exactement les 4 couleurs de la balise
-            return self.cpt == 10 
+            return self.cpt == 10
 
 
 
