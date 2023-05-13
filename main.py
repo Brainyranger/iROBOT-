@@ -30,13 +30,13 @@ IA_avance = Avancer(0.03,10,robot)
 IA_tourne_gauche = Tourner(0.008,90,robot)
 IA_tourne_droit  = Tourner(0.008,-90,robot)
 #commandes pour se rapprocher le plus rapidement possible près d'un mur
-IA_approcheMur = Approche_mur(robot,0.03,1000)
+IA_approcheMur = Approche_mur(robot,0.03)
 #commandes pour chercher une balise 
 IA_getBalise = Get_balise(robot,0.03)
 #commandes générique
 #IA = IA([IA_avance,IA_tourne_droit,IA_tourne_gauche,IA_approcheMur,IA_getBalise])
 #commandes pour sélectionner par indice quelle IA on veut éxécute
-#IA = IA.select_commandes(1)
+#IA = IA.select_commandes(4)
 #commandes pour tracer un carré
 #IA = IA([IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche,IA_avance,IA_tourne_gauche])
 
@@ -55,16 +55,17 @@ IA_tourne_gauche_mockup = Tourner(0.008,90,robot_mockup)
 
 
 #énumération des commandes de notre IA pour le robot réel
-IA_avance_reel = Avancer(2,30,robot_reel)
+IA_avance_reel = Avancer(2,80,robot_reel)
 IA_tourne_droit_reel = Tourner(1,-90,robot_reel)
 IA_tourne_gauche_reel = Tourner(1,90,robot_reel)
-IA_approcheMur_reel = Approche_mur(robot_reel,1,1000)
+IA_approcheMur_reel = Approche_mur(robot_reel,1)
+IA_getBalise_reel = Get_balise(robot_reel,0)
 #commandes générique pour le mockup
-#IA = IA([IA_avance_reel,IA_tourne_droit_reel,IA_tourne_gauche_reel,IA_approcheMur_reel])
+IA = IA([IA_avance_reel,IA_tourne_droit_reel,IA_tourne_gauche_reel,IA_approcheMur_reel,IA_getBalise_reel])
 #commandes pour sélectionner par indice quelle IA on veut éxécute
-#IA = IA.select_commandes(2)
+IA = IA.select_commandes(4)
 #commandes pour tracer un carré avec le réel
-IA = IA([IA_avance_reel,IA_tourne_gauche_reel,IA_avance_reel,IA_tourne_gauche_reel,IA_avance_reel,IA_tourne_gauche_reel,IA_avance_reel,IA_tourne_gauche_reel])
+#IA = IA([IA_avance_reel,IA_tourne_gauche_reel,IA_avance_reel,IA_tourne_gauche_reel,IA_avance_reel,IA_tourne_gauche_reel,IA_avance_reel,IA_tourne_gauche_reel])
 
 
 

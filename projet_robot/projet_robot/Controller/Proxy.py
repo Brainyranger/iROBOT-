@@ -117,9 +117,9 @@ class   Proxy_simulation(Proxy):
         while(self.robot.nb_im>0):
             im = self.get_image(self.cpt)
             image = Image.fromarray(im)
-            if self.robot.vision.get_balise(image):
-                self.balise = True
-                return True
+            #if self.robot.vision.get_balise(image):
+                #self.balise = True
+                #return True
             self.robot.nb_im-=1
             self.cpt+=1
             time.sleep(1/self.robot.fps)
@@ -204,8 +204,7 @@ class   Proxy_reel(Proxy):
 
     def stop(self):
         """Arrête le robot"""
-        self.robot.set_motor_dps(1,0)
-        self.robot.set_motor_dps(2,0)
+        self.robot.set_motor_dps(1+2,0)
     
     def get_distance(self):
         return self.robot.get_distance()
@@ -213,3 +212,20 @@ class   Proxy_reel(Proxy):
     def update_acceleration(self):
         """ Fais la mise à jour de l'accélaration du robot"""
         self.vitesse += 1
+
+    def get_image(self):
+        """ Retourne une image"""
+        image = self.robot.get_image()
+        image.save(chemin_images_reel)
+        return image
+    
+    def stop_recording(self):
+        """ Arrête l'enregistrement de la caméra du robot"""
+        return self.robot._stop_recording()
+    
+    def start_recording(self):
+        """ Lance l'enregistrement de la caméra du robot"""
+        return self.robot.start_recording()
+
+    def update_recording(self,dt):
+        return self.robot._start_recording()

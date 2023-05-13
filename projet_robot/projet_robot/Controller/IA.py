@@ -26,7 +26,7 @@ class IA(Thread):
             self.status = False
             return
 
-        if self.curr_command < len(self.ia_command) and self.ia_command[self.curr_command].stop():
+        if self.curr_command < len(self.ia_command) and not self.ia_command[self.curr_command].status:
             self.curr_command += 1
             self.ia_command[self.curr_command].start()
         
@@ -39,7 +39,7 @@ class IA(Thread):
         
     def stop(self):
         """ Arret de l'IA """
-        return self.curr_command == len(self.ia_command)-1 and self.ia_command[self.curr_command].stop()
+        return self.curr_command == len(self.ia_command)-1 and not self.ia_command[self.curr_command].status
         
         
     def getStatus(self):
@@ -144,13 +144,13 @@ class Tourner:
 
 class Approche_mur:
     
-    def __init__(self,robot,vitesse,distance):
+    def __init__(self,robot,vitesse):
         """
         initialisation de notre robot
         initialisation de sa vitesse initiale
         """
-        self.robot=Proxy_reel(robot,vitesse,distance)
-        self.distance = distance 
+        self.robot=Proxy_reel(robot,vitesse,0)
+   
 
     def update(self,dt):
         """ Fais la mise à jour de notre commande """
@@ -161,7 +161,6 @@ class Approche_mur:
             return
         
         self.robot.update_acceleration()
-        self.robot.update_distance_parcourue(dt)
         print("Le robot a parcouru " + str(self.robot.distance_parcourue))
         self.robot.avancer()
        
@@ -177,7 +176,7 @@ class Approche_mur:
 
     def stop(self):
         """ Arrête la commande en cours """
-        return self.robot.get_distance()< 80 or self.robot.get_distance_parcourue() >= self.distance 
+        return self.robot.get_distance()< 70 
 
 
 class Get_balise:
@@ -187,7 +186,7 @@ class Get_balise:
         initialisation de notre robot
         initialisation de sa vitesse initiale
         """
-        self.robot=Proxy_simul(robot,vitesse,0)
+        self.robot=Proxy_reel(robot,vitesse,0)
         self.fps = 1/25
 
     def update(self,dt=1/25):
@@ -204,8 +203,7 @@ class Get_balise:
             return
         
         self.robot.update_recording(dt)
-        #self.robot.avancer()
-
+        #self.robot.get_image()
        
 	
     def getStatus(self):
@@ -219,4 +217,6 @@ class Get_balise:
 
     def stop(self):
         """ Arrête la commande en cours """
-        return self.robot.update_recording(self.fps)
+        return False
+
+

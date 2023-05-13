@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image,ImageEnhance
 import numpy as np
 import cv2
 from projet_robot.Controller.Constante import chemin_images_simulation,chemin_images_reel
@@ -88,7 +88,6 @@ class Vision:
         """ Renvoie True si c'est notre balise et False sinon"""
 
         #j'adapte l'image à ma résolution 
-        #image.resize(self.size)
         width, height = self.size        
         #je découpe mon image en 4 régions nord-est,sud-est,sud-ouest,nord-ouest
         north_west_image= image.crop((0,0,width,height))
@@ -112,6 +111,11 @@ class Vision:
 
     def dominant_color(self,image):
         """Renvoie la couleur dominant en triplet rgb"""
+        contrast = ImageEnhance.Constrast(image)
+        img = contrast.enhance(2)
+        img = np.asarray(img)
+        r, g, b = cv2.split(img)
+        contrast = cv2.merge([b, g, r])
 
         rgb_img = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
 
