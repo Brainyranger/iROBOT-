@@ -3,7 +3,6 @@ import time
 import threading
 from PIL import Image
 import cv2
-#import pyscreenshot as ImageGrab
 from projet_robot.Controller.Constante import WHEEL_BASE_CIRCUMFERENCE,WHEEL_DIAMETER,diametre_roue,largeur_robot,BORD_MAP_X,BORD_MAP_Y,chemin_images_simulation,chemin_images_reel,chemin_image_model
 
 class Proxy:
@@ -138,6 +137,7 @@ class   Proxy_reel(Proxy):
         initilisation de sa vitesse """
         Proxy.__init__(self,robot)
         self.vitesse = vitesse*100
+        self.balise = True
         self.angle = angle
         self.distance_parcourue = 0
         self.angle_parcouru = 0
@@ -206,19 +206,19 @@ class   Proxy_reel(Proxy):
         """ Fais la mise à jour de l'accélaration du robot"""
         self.vitesse += 1
 
-    def get_image(self):
+    def get_imagev2(self):
         """ Retourne une image"""
         image = self.robot.get_image()
-        image.save(chemin_images_reel)
+        Image.fromarray(image).save(chemin_images_reel)
         return image
     
     def stop_recording(self):
         """ Arrête l'enregistrement de la caméra du robot"""
-        return self.robot._stop_recording()
+        self.robot._stop_recording()
     
     def start_recording(self):
         """ Lance l'enregistrement de la caméra du robot"""
-        return self.robot.start_recording()
+        self.robot.start_recording()
 
     def update_recording(self,dt):
-        return self.robot._start_recording()
+        self.robot._start_recording()

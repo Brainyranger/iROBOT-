@@ -186,7 +186,7 @@ class Get_balise:
         initialisation de notre robot
         initialisation de sa vitesse initiale
         """
-        self.robot=Proxy_simul(robot,vitesse,0)
+        self.robot=Proxy_reel(robot,vitesse,0)
         self.fps = 1/25
         self.dt = 0
 
@@ -204,9 +204,12 @@ class Get_balise:
             return
         
         self.robot.update_recording(dt)
+        self.robot.get_imagev2()
         self.dt += dt
         print(self.dt)
-        #self.robot.get_image()
+
+        if self.robot.balise:
+            self.robot.avancer()
        
 	
     def getStatus(self):
@@ -220,6 +223,6 @@ class Get_balise:
 
     def stop(self):
         """ Arrête la commande en cours """
-        return self.dt > 10
+        return self.dt > 10 or self.robot.get_distance()
 
 
