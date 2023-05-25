@@ -24,8 +24,6 @@ class   Proxy_simulation(Proxy):
         Proxy.__init__(self,robot)
         self.angle = angle
         self.vitesse = vitesse*3800
-        self.acc_left = 0
-        self.acc_right = 0
         self.distance_parcourue = 0
         self.angle_parcouru = 0
         self.start_record = True
@@ -97,13 +95,9 @@ class   Proxy_simulation(Proxy):
     
     def update_acceleration(self,dt):
         """ Fais la mise à jour de l'accélaration du robot"""
-        self.acc_left += 9.81*(self.vitesse*dt*2*math.pi*diametre_roue/2)/360
-        self.acc_right += 9.81*(self.vitesse*dt*2*math.pi*diametre_roue/2)/360
-        self.distance_parcourue += (self.acc_left+self.acc_right)/2
+        self.vitesse += 9.81*(self.vitesse*dt*2*math.pi*diametre_roue/2)/360
+        self.distance_parcourue += self.vitesse
     
-    def avancer_accelerator(self):
-        """Accélère notre robot"""
-        self.robot.set_motor_dps(self.acc_left,self.acc_right)
 
 
     def get_image(self,cpt):
@@ -117,9 +111,9 @@ class   Proxy_simulation(Proxy):
         while(self.robot.nb_im>0):
             im = self.get_image(self.cpt)
             image = Image.fromarray(im)
-            #if self.robot.vision.get_balise(image):
-                #self.balise = True
-                #return True
+            if self.robot.vision.get_balise(image):
+                self.balise = True
+                return True
             self.robot.nb_im-=1
             self.cpt+=1
             time.sleep(1/self.robot.fps)
@@ -128,12 +122,11 @@ class   Proxy_simulation(Proxy):
     def stop_recording(self):
         """Arrête l'enregistrement d'images"""
         self.start_record = False
-        #self._thread_image.stop()
 
     def start_recording(self):
         """ lance l'enregistrement d'images"""
-        #self._thread_image = threading.Thread(target=self.update_recording)
-        #self._thread_image.start()    
+        self._thread_image = threading.Thread(target=self.update_recording)
+        self._thread_image.start()    
         self.start_record = True
   
 

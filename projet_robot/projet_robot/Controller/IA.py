@@ -160,7 +160,7 @@ class Approche_mur:
             self.status = False
             return
         
-        self.robot.update_acceleration()
+        self.robot.update_acceleration(dt)
         print("Le robot a parcouru " + str(self.robot.distance_parcourue))
         self.robot.avancer()
        
@@ -176,7 +176,7 @@ class Approche_mur:
 
     def stop(self):
         """ Arrête la commande en cours """
-        return self.robot.get_distance()< 70 
+        return self.robot.get_distance()<70
 
 
 class Get_balise:
@@ -186,8 +186,9 @@ class Get_balise:
         initialisation de notre robot
         initialisation de sa vitesse initiale
         """
-        self.robot=Proxy_reel(robot,vitesse,0)
+        self.robot=Proxy_simul(robot,vitesse,0)
         self.fps = 1/25
+        self.dt = 0
 
     def update(self,dt=1/25):
         """ Fais la mise à jour de notre commande """
@@ -203,6 +204,8 @@ class Get_balise:
             return
         
         self.robot.update_recording(dt)
+        self.dt += dt
+        print(self.dt)
         #self.robot.get_image()
        
 	
@@ -217,6 +220,6 @@ class Get_balise:
 
     def stop(self):
         """ Arrête la commande en cours """
-        return False
+        return self.dt > 10
 
 

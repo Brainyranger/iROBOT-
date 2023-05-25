@@ -111,13 +111,13 @@ class Vision:
 
     def dominant_color(self,image):
         """Renvoie la couleur dominant en triplet rgb"""
-        contrast = ImageEnhance.Constrast(image)
+        contrast = ImageEnhance.Contrast(image)
         img = contrast.enhance(2)
         img = np.asarray(img)
         r, g, b = cv2.split(img)
         contrast = cv2.merge([b, g, r])
 
-        rgb_img = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+        rgb_img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
 
         hist_r = cv2.calcHist([rgb_img],[0],None,[255],[0,255])
         hist_g = cv2.calcHist([rgb_img],[1],None,[255],[0,255])
