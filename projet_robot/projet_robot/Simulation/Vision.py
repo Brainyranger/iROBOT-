@@ -33,54 +33,21 @@ class Vision:
         cpt = 0
         #on teste pour r
         if lower_yellow[0]<=r<=upper_yellow[0]:
-            cpt +=4
+            if lower_yellow[1]<=g<=upper_yellow[1]:
+                if lower_yellow[2]<=b<=upper_yellow[2]:
+                        return True
         if lower_blue[0]<=r<=upper_blue[0]:
-            cpt +=1
-        if lower_green[0]<=r<=upper_green[0]:
-            cpt +=3
+            if lower_blue[1]<=g<=upper_blue[1]:
+                if lower_blue[2]<=b<=upper_blue[2]:
+                        return True
         if lower_red[0]<=r<=upper_red[0]:
-            cpt +=2
-
-        # Pour savoir quelle couleur on a, il suffit de tester le premier élément du mask
-
-        """  #on teste pour g
-        if lower_yellow[1]<=g<=upper_yellow[1]:
-            cpt +=4
-        if lower_blue[1]<=g<=upper_blue[1]:
-            cpt +=1
-        if lower_green[1]<=g<=upper_green[1]:
-            cpt +=3
-        if lower_red[1]<=g<=upper_red[1]:
-            cpt +=2
-        #on teste pour b
-        if lower_yellow[2]<=b<=upper_yellow[2]:
-            cpt +=4
-        if lower_blue[2]<=b<=upper_blue[2]:
-            cpt +=1
-        if lower_green[2]<=b<=upper_green[2]: 
-            cpt +=3
-        if lower_red[2]<=b<=upper_red[2]:
-            cpt += 2  """
-
-        #on a du jaune
-        if cpt == 4:
-            self.cpt += 4
-            return True
-        
-        #on a du vert
-        if cpt == 3:
-            self.cpt += 3
-            return True
-        
-        #on a du rouge
-        if cpt == 2:
-            self.cpt += 2
-            return True 
-
-        #on a du bleu 
-        if cpt == 1:
-            self.cpt += 1
-            return True
+            if lower_red[1]<=g<=upper_red[1]:
+                if lower_red[2]<=b<=upper_red[2]:
+                        return True
+        if lower_green[0]<=r<=upper_green[0]:
+            if lower_green[1]<=g<=upper_green[1]:
+                if lower_green[2]<=b<=upper_green[2]:
+                        return True
          
     
 
